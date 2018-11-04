@@ -33,8 +33,9 @@ public class FrontControllerServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		configLocation = config.getInitParameter("configLocation");
+		String realConfigLocation = config.getServletContext().getRealPath(configLocation);
 		try {
-			controllerFactory = new XMLObjectFactory(configLocation);
+			controllerFactory = new XMLObjectFactory(realConfigLocation);
 		} catch (Exception e) {
 			throw new ServletException("XMLObjectFactory Exception", e);
 		}
