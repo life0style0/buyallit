@@ -20,58 +20,21 @@
 		<link href="resources/css/template/owl.carousel.css" rel="stylesheet">
 		<link href="resources/css/template/owl.theme.default.min.css"  rel="stylesheet">
 		<link href="resources/css/template/style.css" rel="stylesheet">
+		<script type="text/javascript" src="resources/js/common/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
+
 	</head>
 	<body id="page-top">
 		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header page-scroll">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand page-scroll" href="#page-top"><img src="resources/images/template/logo.png" alt="Sanza theme logo"></a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="hidden">
-							<a href="#page-top"></a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#page-top">메인</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#search">호텔검색</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#recommendation">추천리스트</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#faq">FAQ</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#contact">Contact</a>
-						</li>
-						<li>
-							<a class="page-scroll" id="myPage">MyPage</a>
-						</li>
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
-		</nav>
+		<!-- top 네비게이션 -->
+		<jsp:include page="/WEB-INF/view/main/main_top.jsp"></jsp:include>
 		<!-- Header -->
 		<header style="background-image:'resources/images/template/demo/portfolio-7.jpg';">
 			<div class="container">
 				<div class="slider-container">
 					<div class="intro-text">
 						<div class="intro-lead-in">Java에 어서오세요!</div>
-						<div class="intro-heading">YOUR FAVORITE SOURCE OF FREE BOOTSTRAP THEMES</div>
+						<div class="intro-heading">당신에게 포근함을 느낄 수 있는 휴식을 제공합니다.</div>
 						<a href="#main" class="page-scroll btn btn-xl">Tell Me More</a>
 					</div>
 				</div>
@@ -179,7 +142,7 @@
 						<figure class="effect-bubba">
 							<img src="resources/images/template/demo/portfolio-1.jpg" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Dean & Letter</h2>
+								<h2>메이필드호텔</h2>
 								<p>Branding, Design</p>
 								<a href="#" data-toggle="modal" data-target="#Modal-1">View more</a>
 							</figcaption>
@@ -461,11 +424,7 @@
 		<p id="back-top">
 			<a href="#top"><i class="fa fa-angle-up"></i></a>
 		</p>
-		<footer>
-			<div class="container text-center">
-				<p>Designed by <a href="http://moozthemes.com"><span>MOOZ</span>Themes.com</a></p>
-			</div>
-		</footer>
+		<jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
 
 		<!-- Modal for portfolio item 1 -->
 		<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">

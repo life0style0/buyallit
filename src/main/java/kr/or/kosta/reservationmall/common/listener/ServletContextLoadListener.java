@@ -20,10 +20,10 @@ public class ServletContextLoadListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event)  {
 		ServletContext servletContext = event.getServletContext();
 		String configLocation = servletContext.getInitParameter("configLocation");
-		String realConfigLocation = servletContext.getRealPath(configLocation);
+		
 		XMLObjectFactory objectFactory = null;
 		try {
-			objectFactory = new XMLObjectFactory(realConfigLocation);
+			objectFactory = new XMLObjectFactory(servletContext.getRealPath(configLocation));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
