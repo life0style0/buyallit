@@ -1,5 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="utf-8">
 
@@ -23,6 +22,7 @@
   <link href="resources/css/template/style.css" rel="stylesheet">
   <script type="text/javascript" src="resources/js/common/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
+  <link rel="stylesheet" href="resources/css/jjw/common.css">
 
 </head>
 
@@ -52,95 +52,91 @@
           </div>
         </div>
       </div>
-      <form>
-        <div class="row">
-          <div class="col-md-6">
+      <div class="col-md-6">
+        <form>
+          <div class="col-md-12">
             <div class="form-group">
               <label>지역</label>
               <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색">
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-6">
             <div class="form-group form-inline">
               <label>입실 날짜</label>
               <div class='input-group date' id='datetimepicker6'>
                 <input type='text' class="form-control input-lg" />
                 <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
+                  <span class="fa fa-calendar"></span>
                 </span>
               </div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <div class="form-group form-inline">
               <label>퇴실 날짜</label>
               <div class='input-group date' id='datetimepicker7'>
                 <input type='text' class="form-control input-lg" />
                 <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
+                  <span class="fa fa-calendar"></span>
                 </span>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-12">
+              <div class="form-group">
+                <label>객실 수</label>
+                <select class="form-control input-lg">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                  </select>
+              </div>
+            </div>
+          <div class="col-md-6">
             <div class="form-group">
               <label>어른 수</label>
               <select class="form-control input-lg">
-                <option name="">0</option>
-                <option name="">1</option>
-                <option name="">2</option>
-                <option name="">3</option>
-                <option name="">4</option>
-                <option name="">5</option>
-                <option name="">6</option>
-                <option name="">7</option>
-                <option name="">8</option>
-                <option name="">9</option>
+                <option>0</option>
+                <option>1</option>
+                <option selected>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
               </select>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <div class="form-group">
               <label>아이 수</label>
               <select class="form-control input-lg">
-                <option name="">0</option>
-                <option name="">1</option>
-                <option name="">2</option>
-                <option name="">3</option>
-                <option name="">4</option>
-                <option name="">5</option>
-                <option name="">6</option>
-                <option name="">7</option>
-                <option name="">8</option>
-                <option name="">9</option>
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
               </select>
             </div>
           </div>
-        </div>
-      </form>
-      <!-- about module -->
-      <div class="col-md-3 text-center">
-        <div class="mz-module-about">
-          <i class="fa fa-camera-retro ot-circle"></i>
-          <h3>Photography</h3>
-          <p>Accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-        </div>
+          <div class="col-md-12">
+            <input type="submit" value="검색" class="form-control input-lg">
+          </div>
+        </form>
       </div>
-      <!-- end about module -->
-      <!-- about module -->
-      <div class="col-md-3 text-center">
-        <div class="mz-module-about">
-          <i class="fa fa-cube ot-circle"></i>
-          <h3>UI/UX Design</h3>
-          <p> Itaque earum rerum hic tenetur a sapiente, ut aut reiciendis maiores</p>
-        </div>
+      <div class="col-md-6">
+        사진 넣자!
       </div>
-      <!-- end about module -->
-    </div>
     </div>
     <!-- /.container -->
   </section>
@@ -611,12 +607,21 @@
     $(function () {
       $('#datetimepicker6').datetimepicker({
         locale: 'ko',
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        icons: {
+          next: "fa fa-chevron-right",
+          previous: "fa fa-chevron-left",
+          }
       });
+      
       $('#datetimepicker7').datetimepicker({
         useCurrent: false, //Important! See issue #1075
         locale: 'ko',
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        icons: {
+          next: "fa fa-chevron-right",
+          previous: "fa fa-chevron-left",
+        }
       });
       $("#datetimepicker6").on("dp.change", function (e) {
         $('#datetimepicker7').data("DateTimePicker").minDate(e.date);

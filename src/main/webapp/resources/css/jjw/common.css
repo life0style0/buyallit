@@ -1,0 +1,7 @@
+.accordion-toggle {
+  display: none;
+}
+
+.list-unstyled li::before {
+  display: none;
+}
