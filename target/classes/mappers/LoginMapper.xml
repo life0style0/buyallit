@@ -15,7 +15,7 @@
 		FROM   users 
 	</select>
 	
-	<select id="checkLoginHjh" parameterType="String" resultType="int">
+	<select id="checkLoginHjh" parameterType="string" resultType="string">
 		SELECT user_pw
 		FROM users
 		WHERE user_id=#{user_id}

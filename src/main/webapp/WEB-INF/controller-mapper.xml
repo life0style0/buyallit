@@ -23,7 +23,7 @@
 	<!-- 이혜림 끝 -->
 	
 	<!-- 허재혁 시작 -->
-	<bean type="controller" name="/login/checkLogin" class="kr.or.kosta.reservationmall.login.controller.LoginController" />
+	<bean type="controller" name="/login/controller" class="kr.or.kosta.reservationmall.login.controller.LoginController" />
 	<!-- 허재혁 끝 -->
 	
 	

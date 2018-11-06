@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-	<!-- DataSource 설정 -->
-	<bean type="component" name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521"/>
-		<property name="username" value="hr"/>
-		<property name="password" value="hr"/>
-		<property name="initialSize" value="2"/>
-		<property name="maxTotal" value="10"/>
-		<property name="maxIdle" value="5"/>
-	</bean>
 	
 	<!-- Mybatis SqlSessionFactory 설정-->
 	<bean type="component" name="sqlSessionFactory" class="kr.or.kosta.reservationmall.common.factory.SqlSessionFactoryCreator">

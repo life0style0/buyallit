@@ -57,14 +57,14 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>지역</label>
-              <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색">
+              <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색" name="searchLocation">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label>입실 날짜</label>
               <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control input-lg" />
+                <input type='text' class="form-control input-lg" name="searchStartDay" />
                 <span class="input-group-addon">
                   <span class="fa fa-calendar"></span>
                 </span>
@@ -75,7 +75,7 @@
             <div class="form-group">
               <label>퇴실 날짜</label>
               <div class='input-group date' id='datetimepicker2'>
-                <input type='text' class="form-control input-lg" />
+                <input type='text' class="form-control input-lg" name="searchEndDay" />
                 <span class="input-group-addon">
                   <span class="fa fa-calendar"></span>
                 </span>
@@ -170,206 +170,71 @@
               <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="호텔 최소 별점을 입력해주세요">
             </div>
           </div>
+          <div class="col-md-6 collapse extraSearch">
+            <div class="form-group">
+              <label>최소 비용</label>
+              <input type="text" class="form-control input-lg" name="searchMinMoney" placeholder="최소 비용을 입력해주세요">
+            </div>
+          </div>
+          <div class="col-md-6 collapse extraSearch">
+            <div class="form-group">
+              <label>최대 비용</label>
+              <input type="text" class="form-control input-lg" name="searchMaxMoney" placeholder="최대 비용을 입력해주세요">
+            </div>
+          </div>
           <div class="col-md-12">
             <input type="submit" value="검색" class="form-control input-lg">
           </div>
         </form>
       </div>
-      <div class="col-md-4">
-        사진 넣자!
-      </div>
-    </div>
-    <div class="container-fulid">
-      <div class="col-md-12">
-        <div class="owl-portfolio owl-carousel">
-          <div class="item">
-            <div class="owl-portfolio-item">
-              <div class="col-md-1">
-              </div>
-              <div class="col-md-10">
-                <div class="row">
-                  <div class="col-lg-12 text-center">
-                    <div class="section-title">
-                      <h2>호텔 검색</h2>
-                      <p>서울 시내의 호텔들을 다양한 조건을 통해 검색해 보세요!</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-8">
-                  <form>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>지역</label>
-                        <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>입실 날짜</label>
-                        <div class='input-group date' id='datetimepicker1'>
-                          <input type='text' class="form-control input-lg" />
-                          <span class="input-group-addon">
-                            <span class="fa fa-calendar"></span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>퇴실 날짜</label>
-                        <div class='input-group date' id='datetimepicker2'>
-                          <input type='text' class="form-control input-lg" />
-                          <span class="input-group-addon">
-                            <span class="fa fa-calendar"></span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>일정</label>
-                        <div class='input-group date'>
-                          <p class="lead" id="betweenDay"><strong>1박 2일</strong></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>객실 수</label>
-                        <select class="form-control input-lg" id="roomNumber">
-                          <option selected>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>어른 수</label>
-                        <select class="form-control input-lg" name="adultNumber1">
-                          <option>1</option>
-                          <option selected>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4" id="roomNumberAnchor">
-                      <div class="form-group">
-                        <label>아이 수</label>
-                        <select class="form-control input-lg" name="childNumber1">
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target=".extraSearch"
-                          aria-expanded="false" aria-controls="collapseExample">
-                          추가 검색 옵션
-                        </button>
-                      </div>
-                    </div>
-                    <div class="col-md-8" style="visibility: hidden;">
-                      <div class="form-group">
-                        <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target=".extraSearch"
-                          aria-expanded="false" aria-controls="collapseExample">
-                          Hidden button
-                        </button>
-                      </div>
-                    </div>
-                    <div class="col-md-5 collapse extraSearch">
-                      <div class="form-group">
-                        <label>평점 검색</label>
-                        <select class="form-control input-lg">
-                          <option>전체 별점 평균</option>
-                          <option>청결도 별점 평균</option>
-                          <option>서비스 별점 평균</option>
-                          <option>음식 별점 평균</option>
-                          <option>위치 별점 평균</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-7 collapse extraSearch">
-                      <div class="form-group">
-                        <label style="visibility: hidden;">hidden</label>
-                        <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="호텔 최소 별점을 입력해주세요">
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <input type="submit" value="검색" class="form-control input-lg">
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="col-md-1">
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="owl-portfolio-item"><img src="resources/images/template/demo/portfolio-8.jpg" class="img-responsive"
-                alt="portfolio"></div>
-          </div>
-          <div class="item">
-            <div class="owl-portfolio-item"><img src="resources/images/template/demo/portfolio-9.jpg" class="img-responsive"
-                alt="portfolio"></div>
-          </div>
-        </div>
-      </div>
+
     </div>
     <!-- /.container -->
   </section>
   <section class="light-bg">
     <div class="container">
       <div class="row">
-        <div class="col-md-7">
-          <div class="section-text">
-            <h3>WE`RE CREATIVE</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-              rem
-              aperiam, eaque ipsa quae ab illo inventore</p>
-            <ul>
-              <li>Responsive Bootstrap Template</li>
-              <li>Developer Friendly Code</li>
-              <li>Creative Freedom Experience</li>
-              <li>MOOZThemes.com Do Things With Love</li>
-            </ul>
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>검색 리스트</h2>
+            <p>호텔 추천 리스트입니다.</p>
           </div>
         </div>
-        <div class="col-md-5">
-          <div class="owl-portfolio owl-carousel">
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="resources/images/template/demo/portfolio-7.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="resources/images/template/demo/portfolio-8.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="resources/images/template/demo/portfolio-9.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
+      </div>
+      <div class="row" id="searchHotelList">
+        <div class="row hotel-list">
+          <div class="col-md-5">
+            <img src="resources/images/template/demo/author-2.jpg" class="img-responsive center-block" style="height:200px;">
           </div>
-
+          <div class="col-md-7">
+            <h2>호텔 이름</h3>
+              <label class="lead">호텔 가격</label>
+              <p class="lead">호텔 설명 호텔 설명 호텔 설명호텔 설명호텔 설명호텔 설명 호텔 설명 호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명</p>
+          </div>
         </div>
+        <div class="row hotel-list">
+          <div class="col-md-5">
+            <img src="resources/images/template/demo/author-2.jpg" class="img-responsive center-block" style="height:200px;">
+          </div>
+          <div class="col-md-7">
+            <h2>호텔 이름</h3>
+              <label class="lead">호텔 가격</label>
+              <p class="lead">호텔 설명 호텔 설명 호텔 설명호텔 설명호텔 설명호텔 설명 호텔 설명 호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명</p>
+          </div>
+        </div>
+        <div class="row hotel-list">
+          <div class="col-md-5">
+            <img src="resources/images/template/demo/author-2.jpg" class="img-responsive center-block" style="height:200px;">
+          </div>
+          <div class="col-md-7">
+            <h2>호텔 이름</h3>
+              <label class="lead">호텔 가격</label>
+              <p class="lead">호텔 설명 호텔 설명 호텔 설명호텔 설명호텔 설명호텔 설명 호텔 설명 호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명호텔 설명</p>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <button class="btn btn-success">더보기</button>
       </div>
     </div>
   </section>

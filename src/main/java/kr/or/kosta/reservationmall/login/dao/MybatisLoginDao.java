@@ -26,13 +26,13 @@ public class MybatisLoginDao implements LoginDao {
 	}
 	@Override
 	public boolean checkLogin_hjh(String id, String passwd) throws Exception {
-		int user_pw= 0;
+		String user_pw = null;
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		user_pw = sqlSession.selectOne(NAMESPACE+"checkLoginHjh",id);
 		System.out.println(user_pw);
 		sqlSession.close();
-		return (user_pw==Integer.parseInt(passwd))?true:false;
+		return (user_pw.equals(passwd))?true:false;
 	}
 	
 
