@@ -5,3 +5,8 @@
 .list-unstyled li::before {
   display: none;
 }
+
+#betweenDay {
+  position: relative;
+  top: 6px;
+}

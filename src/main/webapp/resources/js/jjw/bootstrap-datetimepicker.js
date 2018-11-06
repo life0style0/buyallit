@@ -1634,14 +1634,14 @@
             if (options.minDate && parsedDate.isBefore(options.minDate)) {
                 throw new TypeError('maxDate() date parameter is before options.minDate: ' + parsedDate.format(actualFormat));
             }
-            options.maxDate = parsedDate;
+            let temp2 = parsedDate;
+            temp2._d.setDate(temp2._d.getDate() - 1);
+            options.maxDate = temp2;
             if (options.useCurrent && !options.keepInvalid && date.isAfter(maxDate)) {
                 setValue(options.maxDate);
             }
             if (viewDate.isAfter(parsedDate)) {
-                let temp = parsedDate;
-                temp._d.setDate(temp._d.getDate()-1)
-                viewDate = temp.clone().subtract(options.stepping, 'm');
+                viewDate = temp2.clone().subtract(options.stepping, 'm');
             }
             update();
             return picker;
@@ -1672,14 +1672,14 @@
             if (options.maxDate && parsedDate.isAfter(options.maxDate)) {
                 throw new TypeError('minDate() date parameter is after options.maxDate: ' + parsedDate.format(actualFormat));
             }
-            options.minDate = parsedDate;
+            let temp3 = parsedDate;
+            temp3._d.setDate(temp3._d.getDate() + 1)
+            options.minDate = temp3;
             if (options.useCurrent && !options.keepInvalid && date.isBefore(minDate)) {
                 setValue(options.minDate);
             }
             if (viewDate.isBefore(parsedDate)) {
-                let temp = parsedDate;
-                temp._d.setDate(temp._d.getDate()+1)
-                viewDate = temp.clone().add(options.stepping, 'm');
+                viewDate = temp3.clone().add(options.stepping, 'm');
             }
             update();
             return picker;
@@ -1705,6 +1705,9 @@
             if (typeof defaultDate === 'string') {
                 if (defaultDate === 'now' || defaultDate === 'moment') {
                     defaultDate = moment();
+                } else if (defaultDate === 'tomorrow' || defaultDate === 'moment') {
+                    let temp1 = moment;
+                    defaultDate = temp1().date(temp1().date() + 1);
                 }
             }
 
