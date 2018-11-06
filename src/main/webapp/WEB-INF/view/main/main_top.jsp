@@ -36,7 +36,7 @@ loginCheck = request.getParameter("loginCheck");
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand page-scroll" href="#page-top"><img src="resources/images/template/logo.png" alt="Sanza theme logo"></a>
+			<a class="navbar-brand page-scroll" href="#page-top"><img src="/reservationmall/resources/images/template/logo.png" alt="Sanza theme logo"></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,9 +68,21 @@ loginCheck = request.getParameter("loginCheck");
 		          <%
 		          }else{
 		          %>
+		          	<%
+		          	if(loginId.equals("admin")){
+		          	%>
+		          	<li>
+					<a class="page-scroll" id="myPage" href="/reservationmall/admin/main_board.mall">관리자기능</a>
+					</li>
+		          	<%	
+		          	}else{
+		          	%>
 		           <li>
 					<a class="page-scroll" id="myPage">MyPage</a>
-				</li>
+					</li>
+					<%
+		          	}
+					%>
 		          <li><a class="page"><%=loginId %> 님</a></li>
 		          <li><button type="button" class="btn btn-danger" id="logoutBtn">로그아웃</button></li>
 		        
@@ -96,7 +108,7 @@ loginCheck = request.getParameter("loginCheck");
 					<h4 class="modal-title" id="exampleModalLabel">로그인</h4>
 					<span class="hiddenAlert" id='loginAlert' style="display:none; color:red"><u>로그인에 실패했습니다.</u></span>
 				</div>
-				<form action="/reservationmall/login/checkLogin.mall" name="loginform" method="post">
+				<form action="/reservationmall/login/controller.mall" name="loginform" method="post">
 				<div class="modal-body">
 						<div class="form-group">
 							<label for="message-text" class="control-label">아이디 :</label>

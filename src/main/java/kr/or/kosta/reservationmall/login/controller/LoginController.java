@@ -65,6 +65,7 @@ public class LoginController implements Controller {
 				
 				mav.setView("redirect:/reservationmall/index.jsp");
 			    return mav;
+	
 		default:
 				return null;
 		}

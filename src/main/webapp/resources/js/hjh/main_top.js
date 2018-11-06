@@ -5,6 +5,9 @@ window.onload = function(){
 			location.replace('index.jsp');
 		}
 	}
+	document.getElementById("registerBtn").onclick = function(){
+		location.href = "/reservationmall/login/regist_form.mall";
+	}
 }
 
 function setCookie(cname,cvalue) {

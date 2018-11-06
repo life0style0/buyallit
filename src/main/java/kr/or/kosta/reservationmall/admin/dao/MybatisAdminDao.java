@@ -1,4 +1,4 @@
-package kr.or.kosta.reservationmall.login.dao;
+package kr.or.kosta.reservationmall.admin.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +9,11 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import kr.or.kosta.reservationmall.admin.dto.Hotel;
+import kr.or.kosta.reservationmall.admin.dto.Rooms;
 import kr.or.kosta.reservationmall.common.web.Params;
 
-public class MybatisLoginDao implements LoginDao {
+public class MybatisAdminDao implements AdminDao {
 	
 	private static final String NAMESPACE = "kr.or.kosta.reservationmall.login.";
 	
@@ -24,20 +26,18 @@ public class MybatisLoginDao implements LoginDao {
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
+
 	@Override
-	public boolean checkLogin_hjh(String id, String passwd) throws Exception {
-		int user_pw= 0;
-
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		user_pw = sqlSession.selectOne(NAMESPACE+"checkLoginHjh",id);
-		System.out.println(user_pw);
-		sqlSession.close();
-		return (user_pw==Integer.parseInt(passwd))?true:false;
+	public boolean create_hotel_info(Hotel hotel) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
-	
 
-	
-	
+	@Override
+	public boolean create_rooms_info(Rooms rooms) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
 
