@@ -49,7 +49,6 @@ public class LoginCheckFilter implements Filter {
 				throw new ServletException("LoginCheckFilter에 loginPage가 설정되어 있지 않습니다.");
 			}
 			request.setAttribute("uri", ((HttpServletRequest)request).getRequestURI());
-//			((HttpServletRequest)request).getSr
 			request.getServletContext().getRequestDispatcher(loginPage).forward(request, response);
 		}
 	}

@@ -1,10 +1,11 @@
-package kr.or.kosta.reservationmall.hotel.domain;
+package kr.or.kosta.reservationmall.hotel.dto;
 
 public class Hotel {
 
 	private String id;
 	private String name;
 	private String address;
+	private String phonenum;
 	private String rate;
 	private String info;
 	private String detail;
@@ -13,11 +14,13 @@ public class Hotel {
 	public Hotel() {
 	}
 
-	public Hotel(String id, String name, String address, String rate, String info, String detail, String locationName) {
+	public Hotel(String id, String name, String address, String phonenum, String rate, String info, String detail,
+			String locationName) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
+		this.phonenum = phonenum;
 		this.rate = rate;
 		this.info = info;
 		this.detail = detail;
@@ -46,6 +49,14 @@ public class Hotel {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getPhonenum() {
+		return phonenum;
+	}
+
+	public void setPhonenum(String phonenum) {
+		this.phonenum = phonenum;
 	}
 
 	public String getRate() {
@@ -82,8 +93,8 @@ public class Hotel {
 
 	@Override
 	public String toString() {
-		return "Hotel [id=" + id + ", name=" + name + ", address=" + address + ", rate=" + rate + ", info=" + info
-				+ ", detail=" + detail + ", locationName=" + locationName + "]";
+		return "Hotel [id=" + id + ", name=" + name + ", address=" + address + ", phonenum=" + phonenum + ", rate="
+				+ rate + ", info=" + info + ", detail=" + detail + ", locationName=" + locationName + "]";
 	}
-
+	
 }
