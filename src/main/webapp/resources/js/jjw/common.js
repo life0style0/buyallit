@@ -73,6 +73,35 @@ $(function () {
         }
     })
 
+    $('#datetimepicker1').datetimepicker({
+        locale: 'ko',
+        format: 'YYYY-MM-DD',
+        icons: {
+          next: "fa fa-chevron-right",
+          previous: "fa fa-chevron-left",
+        },
+        defaultDate: 'now'
+      });
+
+      $('#datetimepicker2').datetimepicker({
+        useCurrent: false, //Important! See issue #1075
+        locale: 'ko',
+        format: 'YYYY-MM-DD',
+        icons: {
+          next: "fa fa-chevron-right",
+          previous: "fa fa-chevron-left",
+        },
+        defaultDate: 'tomorrow'
+      });
+      $("#datetimepicker1").on("dp.change", function (e) {
+        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+        calculateDayJjw();
+      });
+      $("#datetimepicker2").on("dp.change", function (e) {
+        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+        calculateDayJjw();
+      });
+
     $('.owl-jjw').owlCarousel({
         autoplay: false,
         loop: false,
@@ -93,5 +122,21 @@ $(function () {
                 items: 1
             }
         }
+    });
+
+    $('#searchForm').submit(function (event) {
+        const data = $(this).serialize();
+        $.ajax({
+            url: '/reservationmall/hotel/searchhotel.mall',
+            data: data,
+            dataType: 'json',
+            success : function(data) {
+				$("#messageBox").html(data);
+			},
+			error : function(xhr, statusText){
+		    	alert("("+xhr.status+", "+statusText+")");
+		    }
+        });
+        return false;
     });
 })

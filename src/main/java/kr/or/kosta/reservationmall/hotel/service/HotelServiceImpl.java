@@ -1,31 +1,25 @@
 package kr.or.kosta.reservationmall.hotel.service;
 
+import java.util.List;
+import java.util.Map;
 
+import kr.or.kosta.reservationmall.hotel.dao.HotelDao;
+import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 
-import kr.or.kosta.reservationmall.login.dao.LoginDao;
+public class HotelServiceImpl implements HotelService {
 
+	private HotelDao hotelDao;
 
-public class HotelServiceImpl implements LoginService {
-
-	private LoginDao loginDao;
-	
-	public LoginDao getloginDao() {
-		return loginDao;
+	public HotelDao getHotelDao() {
+		return hotelDao;
 	}
 
-	public void setLoginDao(LoginDao loginDao) {
-		this.loginDao = loginDao;
+	public void setHotelDao(HotelDao hotelDao) {
+		this.hotelDao = hotelDao;
 	}
-	
+
 	@Override
-	public Boolean checkLogin_hjh(String id, String pw) throws Exception {
-		return loginDao.checkLogin_hjh(id, pw);
+	public List<Map<String, String>> searchHotelLists(HotelSearchParam hotelSearchParam) throws Exception {
+		return hotelDao.searchHotelLists(hotelSearchParam);
 	}
-
-
 }
-
-
-
-
-

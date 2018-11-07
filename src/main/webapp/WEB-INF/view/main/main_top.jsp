@@ -53,6 +53,9 @@ loginCheck = request.getParameter("loginCheck");
 				<li>
 					<a class="page-scroll" href="#recommendation">추천리스트</a>
 				</li>
+                <li>
+                <a class="page-scroll" data-toggle="modal" data-target="#notice" id="board">공지사항</a>
+                </li>
 				<li>
 					<a class="page-scroll" href="#faq">FAQ</a>
 				</li>
@@ -97,6 +100,96 @@ loginCheck = request.getParameter("loginCheck");
 	</div>
 	<!-- /.container-fluid -->
 </nav>
+
+<style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    cursor: pointer;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;
+cursor: pointer;
+text-align: center;
+}
+
+#customers tr:hover {background-color: #ddd;
+cursor: pointer;
+text-align: center;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:  #0085A1;
+    color: white;
+    text-align: center;
+}
+
+#padding {
+  padding-top: 20px;
+    padding-bottom: 12px;
+  
+}
+
+* {
+    box-sizing: border-box;
+}
+</style>
+<!-- 혜림 모달 -->
+ <div class="modal fade" id="notice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">YOGIZOA Notice</h4>
+          
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel" >공지사항</h4>
+        </div>
+ 
+     
+     <table id="customers">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
+          </tr>
+        </thead>
+        <tbody id="abcd">
+
+                
+        </tbody>
+      </table>
+
+ 
+     
+
+    
+       <div class="modal-footer" style="padding: 4px;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    
+  </div>
+      </div>
+    </div>
+    
+ </div>
+  <!-- 모달 for 공지사항 혜림 수정 끝  -->
 
 
  <!-- Modal -->

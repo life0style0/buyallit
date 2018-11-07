@@ -31,6 +31,8 @@ public class RegistController implements Controller {
 		loginService = (LoginService)factory.getBean(LoginServiceImpl.class);
 		
 		mav.setView("/WEB-INF/view/login/regist_form.jsp");
+
+		mav.addObject("registResult", "trying");
 		return mav;
 	}
 	

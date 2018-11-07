@@ -22,8 +22,10 @@
   <link href="resources/css/template/style.css" rel="stylesheet">
   <script type="text/javascript" src="resources/js/common/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
+  
+  <!-- JJW css file List -->
   <link rel="stylesheet" href="resources/css/jjw/common.css">
-
+  <!-- JJW css file List -->
 </head>
 
 <body id="page-top">
@@ -53,7 +55,7 @@
         </div>
       </div>
       <div class="col-md-8">
-        <form>
+        <form action="" method="POST" id="searchForm">
           <div class="col-md-12">
             <div class="form-group">
               <label>지역</label>
@@ -156,11 +158,11 @@
             <div class="form-group">
               <label>평점 검색</label>
               <select class="form-control input-lg">
-                <option>전체 별점 평균</option>
-                <option>청결도 별점 평균</option>
-                <option>서비스 별점 평균</option>
-                <option>음식 별점 평균</option>
-                <option>위치 별점 평균</option>
+                <option value="searchAllRate">전체 별점 평균</option>
+                <option value="searchCleanRate">청결도 별점 평균</option>
+                <option value="searchServiceRate">서비스 별점 평균</option>
+                <option value="searchFoodRate">음식 별점 평균</option>
+                <option value="searchLocationRate">위치 별점 평균</option>
               </select>
             </div>
           </div>
@@ -659,44 +661,12 @@
   <script src="resources/js/template/SmoothScroll.min.js"></script>
   <script src="resources/js/template/mooz.themes.scripts.js"></script>
 
-  <!-- jiwon -->
+  <!--======== JJW javascript file List =========-->
   <link rel="stylesheet" href="resources/css/jjw/bootstrap-datetimepicker.css">
   <script type='text/javascript' src="resources/js/jjw/moment-with-locales.min.js"></script>
   <script type='text/javascript' src="resources/js/jjw/bootstrap-datetimepicker.js"></script>
   <script src="resources/js/jjw/common.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      $('#datetimepicker1').datetimepicker({
-        locale: 'ko',
-        format: 'YYYY-MM-DD',
-        icons: {
-          next: "fa fa-chevron-right",
-          previous: "fa fa-chevron-left",
-        },
-        defaultDate: 'now'
-      });
-
-      $('#datetimepicker2').datetimepicker({
-        useCurrent: false, //Important! See issue #1075
-        locale: 'ko',
-        format: 'YYYY-MM-DD',
-        icons: {
-          next: "fa fa-chevron-right",
-          previous: "fa fa-chevron-left",
-        },
-        defaultDate: 'tomorrow'
-      });
-      $("#datetimepicker1").on("dp.change", function (e) {
-        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-        calculateDayJjw();
-      });
-      $("#datetimepicker2").on("dp.change", function (e) {
-        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
-        calculateDayJjw();
-      });
-    });
-  </script>
-  <!-- jiwon -->
+  <!--======== JJW javascript file List =========-->
 </body>
 
 </html>

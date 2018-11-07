@@ -3,6 +3,9 @@ package kr.or.kosta.reservationmall.hotel.service;
 
 
 import java.util.List;
+import java.util.Map;
+
+import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 
 
 /**
@@ -12,9 +15,7 @@ import java.util.List;
  */
 public interface HotelService {
 	
-	/**회워 로그인**/
-	public Boolean checkLogin_hjh(String id, String pw) throws Exception;
-	
 
+	public List<Map<String, String>> searchHotelLists(HotelSearchParam hotelSearchParam) throws Exception;
 
 }

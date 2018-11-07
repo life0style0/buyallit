@@ -13,6 +13,8 @@
 		<typeAlias type="kr.or.kosta.reservationmall.login.dto.User" alias="User"/>
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Hotel" alias="Hotel"/>
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Rooms" alias="Rooms"/>
+		<typeAlias type="kr.or.kosta.reservationmall.board.dto.Article" alias="Article"/>
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam" alias="HotelSearchParam"/>
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->
@@ -49,10 +51,19 @@
 	<!-- SQL XML Mapper 파일 경로 설정 -->
 	<mappers>
 		<!-- 클래스패스에 위치한 XML 매퍼 파일 지정 -->
-		
+		<!-- 재혁 -->
 		<mapper resource="mappers/LoginMapper.xml"  />
 		<mapper resource="mappers/AdminMapper.xml"  />
+		
+		<!-- 혜림 -->
+		<mapper resource="mappers/ArticleMapper.xml"  />
 				
+		<!-- 주현  -->
+		<mapper resource="mappers/IndividualMapper.xml"  />
+		
+		<!-- 지원 -->
+		<mapper resource="mappers/HotelSearchMapper.xml"  />
+		
 		<!-- URL을 사용한 XML 매퍼 파일 지정 -->
 		<!-- <mapper url="file:///c:/someProject/mapper/SomeMapper.xml" />	 -->
 		
