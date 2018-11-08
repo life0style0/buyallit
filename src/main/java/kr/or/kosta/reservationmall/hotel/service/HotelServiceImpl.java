@@ -19,7 +19,12 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<Map<String, String>> searchHotelLists(HotelSearchParam hotelSearchParam) throws Exception {
-		return hotelDao.searchHotelLists(hotelSearchParam);
+	public List<Map<String, String>> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception {
+		return hotelDao.searchHotelListsByLocation(hotelSearchParam);
+	}
+	
+	@Override
+	public List<Map<String, String>> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception {
+		return hotelDao.searchHotelListsByHotel(hotelSearchParam);
 	}
 }

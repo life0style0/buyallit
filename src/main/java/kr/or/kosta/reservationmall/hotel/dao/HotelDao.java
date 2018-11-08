@@ -21,6 +21,8 @@ public interface HotelDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Map<String, String>> searchHotelLists(HotelSearchParam hotelSearchParam) throws Exception;
+	public List<Map<String, String>> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception;
+
+	public List<Map<String, String>> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
 
 }

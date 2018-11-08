@@ -32,13 +32,13 @@ import kr.or.kosta.reservationmall.login.service.LoginService;
 public class SearchHotelController implements Controller {
 	private HotelService hotelService;
 	Logger logger = Logger.getLogger(Controller.class);
-	
+
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
-		
-		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
-		hotelService = (HotelService)factory.getBean(HotelServiceImpl.class);
+
+		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
+		hotelService = (HotelService) factory.getBean(HotelServiceImpl.class);
 		Map<String, Object> paramMap = new HashMap<>();
 		Map<String, String[]> parameterMap = request.getParameterMap();
 		String type = "search";
@@ -54,22 +54,27 @@ public class SearchHotelController implements Controller {
 				}
 			}
 		}
-		List<HotelSearchParam> hotelSearchParams = new ArrayList<>();
+		List hotelSearchResult = new ArrayList<>();
 		HotelSearchParam hotelSearchParam = null;
 		System.out.println(paramMap);
 		for (int i = 1; i <= Integer.parseInt((String) paramMap.get("RoomNumber")); i++) {
 			hotelSearchParam = new HotelSearchParam();
 			addParameterValue(hotelSearchParam, paramMap, i);
-			hotelSearchParams.add(hotelSearchParam);
-		}
-		System.out.println(hotelSearchParams.size());
-		for (HotelSearchParam hotelSearchParamT : hotelSearchParams) {
-			try {
-				hotelService.searchHotelLists(hotelSearchParamT);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (hotelSearchParam.getValueType().equals("searchLocation")) {
+				try {
+					hotelSearchResult.add(hotelService.searchHotelListsByLocation(hotelSearchParam));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (hotelSearchParam.getValueType().equals("searchHotel")) {
+				try {
+					hotelSearchResult.add(hotelService.searchHotelListsByHotel(hotelSearchParam));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		System.out.println(hotelSearchResult);
 
 		response.setContentType("text/plain; charset=utf-8");
 		PrintWriter out = null;

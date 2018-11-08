@@ -5,10 +5,10 @@
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.reservationmall.hotel">
 	
-	<!-- 전체회원 조회 -->
-	<select id="searchHotelLists" parameterType="HotelSearchParam" resultType="map">
+	<!-- 호텔 지역으로 조회 -->
+	<select id="searchHotelListsByLocation" parameterType="HotelSearchParam" resultType="map">
 SELECT hotel_id "hotelId",
-       "rate"."avg_rate" "avgRate",
+       "rate"."price_rate" "priceRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
 	   room_name "roomName",
 	   listagg(room_id, ',') within group(order by room_id) "roomIds"
 FROM   (SELECT hotel_id,
@@ -20,7 +20,7 @@ FROM   (SELECT hotel_id,
                            GROUP  BY hotel_id 
                            HAVING hotel_id IN (SELECT hotel_id 
                                                FROM   hotels join locations using(location_id)
-                                               WHERE  location_name = #{location}) 
+                                               WHERE  location_name = #{value}) 
 <choose>
 	<when test="hotelRate != null and hotelRate != ''">
 		<choose>
@@ -70,7 +70,7 @@ FROM   (SELECT hotel_id,
 </if>
                AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
-               join (select hotel_id, avg(review_service_rate) "avg_rate"
+               join (select hotel_id, avg(review_price_rate) "price_rate", avg(review_service_rate) "service_rate", avg(review_clean_rate) "clean_rate", avg(review_location_rate) "location_rate"
                       from reviews
                       group by hotel_id) "rate"
                using(hotel_id)
@@ -80,7 +80,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                         from rooms
                                         where hotel_id in(SELECT hotel_id 
                                                FROM   hotels join locations using(location_id)
-                                               WHERE  location_name = #{location})
+                                               WHERE  location_name = #{value})
                                         AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
@@ -101,11 +101,12 @@ WHERE  room_id NOT IN(SELECT room_id
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
                                              #{startDay} ) ))
-GROUP  BY hotel_id, "avg_rate", room_name
+group by hotel_id, "rate"."price_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
 	</select>
 
-<select id="searchHotelListsTemp" parameterType="HotelSearchParam" resultType="map">
+	<select id="searchHotelListsByHotel" parameterType="HotelSearchParam" resultType="map">
 SELECT hotel_id "hotelId",
+	   "rate"."price_rate" "priceRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
 	   room_name "roomName",
 	   listagg(room_id, ',') within group(order by room_id) "roomIds"
 FROM   (SELECT hotel_id,
@@ -116,37 +117,89 @@ FROM   (SELECT hotel_id,
                            FROM   reviews 
                            GROUP  BY hotel_id 
                            HAVING hotel_id IN (SELECT hotel_id 
-                                               FROM   hotels 
-                                               WHERE  location_id = 23) 
-                                  AND Avg( review_service_rate)
-                                            <![CDATA[ < ]]> 
-                                            3.5) 
-               AND room_standard_person_number <![CDATA[ >= ]]> 1 
-               AND room_child_max_number <![CDATA[ >= ]]> 0
-               AND r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) <![CDATA[ > ]]> 200000
-               AND r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) <![CDATA[ < ]]> 400000) 
+                                               FROM   hotels join locations using(location_id)
+                                               WHERE  hotel_name like '%'||#{value}||'%') 
+<choose>
+	<when test="hotelRate != null and hotelRate != ''">
+		<choose>
+			<when test="rateType == 'searchAllRate'">
+	                                  AND Avg(( review_price_rate +
+	                                  			review_service_rate + 
+	                                            review_food_rate 
+	                                            + review_clean_rate + 
+	                                            review_location_rate ) / 5)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+			<when test="rateType == 'searchPriceRate'">
+	                                  AND Avg(review_price_rate)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+			<when test="rateType == 'searchCleanRate'">
+	                                  AND Avg(review_clean_rate)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+			<when test="rateType == 'searchServiceRate'">
+	                                  AND Avg(review_service_rate)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+			<when test="rateType == 'searchFoodRate'">
+	                                  AND Avg(review_food_rate)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+			<when test="rateType == 'searchLocationRate'">
+	                                  AND Avg(review_location_rate)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+		</choose>
+	</when>
+	<otherwise>)</otherwise>
+</choose>
+<if test="minMoney != null and minMoney != ''">
+               AND r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) <![CDATA[ > ]]> #{minMoney}
+</if>
+<if test="maxMoney != null and maxMoney != ''">
+               AND r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) <![CDATA[ < ]]> #{maxMoney} 
+</if>
+               AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
+               AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
+               join (select hotel_id, avg(review_price_rate) "price_rate", avg(review_service_rate) "service_rate", avg(review_clean_rate) "clean_rate", avg(review_location_rate) "location_rate"
+                      from reviews
+                      group by hotel_id) "rate"
+               using(hotel_id)
 WHERE  room_id NOT IN(SELECT room_id 
                       FROM   reservations 
-                      WHERE  room_id = 1 
+                      WHERE  room_id in(select room_id
+                                        from rooms
+                                        where hotel_id in(SELECT hotel_id 
+                                               FROM   hotels join locations using(location_id)
+                                               WHERE  hotel_name like '%'||#{value}||'%')
+                                        AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
+               							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
                                      <![CDATA[ > ]]> 
-                                     '2018-11-08' 
+                                     #{startDay} 
                                      AND To_char(reservation_start_day, 
                                          'YYYY-MM-DD') 
-                                         <![CDATA[ <= ]]> '2018-11-08' ) 
+                                         <![CDATA[ <= ]]> #{startDay} ) 
                                     OR ( To_char(reservation_end_day, 
                                          'YYYY-MM-DD') <![CDATA[ >= ]]> 
-                                         '2018-11-11' 
+                                         #{endDay} 
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ < ]]> 
-                                             '2018-11-11' ) 
+                                             #{endDay}  ) 
                                     OR ( To_char(reservation_end_day, 
                                          'YYYY-MM-DD') <![CDATA[ >= ]]> 
-                                         '2018-11-11' 
+                                         #{endDay}  
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
-                                             '2018-11-08' ) ))
-GROUP  BY hotel_id, room_name
+                                             #{startDay} ) ))
+group by hotel_id, "rate"."price_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
 	</select>
-
+	
 </mapper>

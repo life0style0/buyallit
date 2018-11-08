@@ -23,9 +23,17 @@ public class MybatisHotelDao implements HotelDao {
 	}
 
 	@Override
-	public List<Map<String, String>> searchHotelLists(HotelSearchParam hotelSearchParam) throws Exception {
+	public List<Map<String, String>> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<Map<String, String>> result = sqlSession.selectList(NAMESPACE + "searchHotelLists", hotelSearchParam);
+		List<Map<String, String>> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByLocation", hotelSearchParam);
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public List<Map<String, String>> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Map<String, String>> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByHotel", hotelSearchParam);
 		sqlSession.close();
 		return result;
 	}

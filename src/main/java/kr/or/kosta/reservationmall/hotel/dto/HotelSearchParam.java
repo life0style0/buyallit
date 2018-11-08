@@ -1,7 +1,8 @@
 package kr.or.kosta.reservationmall.hotel.dto;
 
 public class HotelSearchParam {
-	private String location;
+	private String valueType;
+	private String value;
 	private String startDay;
 	private String endDay;
 	private String adultNumber;
@@ -14,10 +15,11 @@ public class HotelSearchParam {
 	public HotelSearchParam() {
 	}
 
-	public HotelSearchParam(String location, String startDay, String endDay, String adultNumber, String childNumber,
-			String minMoney, String maxMoney, String rateType, String hotelRate) {
+	public HotelSearchParam(String valueType, String value, String startDay, String endDay, String adultNumber,
+			String childNumber, String minMoney, String maxMoney, String rateType, String hotelRate) {
 		super();
-		this.location = location;
+		this.valueType = valueType;
+		this.value = value;
 		this.startDay = startDay;
 		this.endDay = endDay;
 		this.adultNumber = adultNumber;
@@ -28,12 +30,20 @@ public class HotelSearchParam {
 		this.hotelRate = hotelRate;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getValueType() {
+		return valueType;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public String getStartDay() {
@@ -102,8 +112,8 @@ public class HotelSearchParam {
 
 	@Override
 	public String toString() {
-		return "HotelSearchParam [location=" + location + ", startDay=" + startDay + ", endDay=" + endDay
-				+ ", adultNumber=" + adultNumber + ", childNumber=" + childNumber + ", minMoney=" + minMoney
+		return "HotelSearchParam [valueType=" + valueType + ", value=" + value + ", startDay=" + startDay + ", endDay="
+				+ endDay + ", adultNumber=" + adultNumber + ", childNumber=" + childNumber + ", minMoney=" + minMoney
 				+ ", maxMoney=" + maxMoney + ", rateType=" + rateType + ", hotelRate=" + hotelRate + "]";
 	}
 

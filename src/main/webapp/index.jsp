@@ -59,24 +59,18 @@
           <div class="col-md-5">
             <div class="form-group">
               <label>검색 타입</label>
-              <select class="form-control input-lg" name="searchRateType">
-                <option value="searchAllRate">지역</option>
-                <option value="searchPriceRate">호텔 이름</option>
-                <option value="searchCleanRate">호텔 타입</option>
+              <select class="form-control input-lg" name="searchValueType" id="searchValueType">
+                <option value="searchLocation">지역</option>
+                <option value="searchHotel">호텔 이름</option>
+                <option value="searchHotelType">호텔 타입</option>
               </select>
             </div>
           </div>
           <div class="col-md-7">
             <div class="form-group">
               <label>검색 내용</label>
-              <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="검색하고 싶은 내용을 입력하세요">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label>지역</label>
-              <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색" id="searchLocation">
-              <input type="hidden" name="searchLocation" id="searchLocationHidden">
+              <input type="search" class="form-control input-lg" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput">
+              <input type="hidden" name="searchValue" id="searchValueInputHidden">
             </div>
           </div>
           <div class="col-md-4">

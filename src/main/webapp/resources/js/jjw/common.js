@@ -99,7 +99,7 @@ var ps = new daum.maps.services.Places();
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
-  var keyword = $('#searchLocation').val();
+  var keyword = $('#searchValueInput').val();
 
   if (!keyword.replace(/^\s+|\s+$/g, '')) {
     alert('키워드를 입력해주세요!');
@@ -115,9 +115,9 @@ function placesSearchCB(data, status, pagination) {
     if (status === daum.maps.services.Status.OK) {
         const address = data[0].address_name.split(' ');
         if (address[0] === '서울') {
-            $('#searchLocationHidden').val(address[1]);
+            $('#searchValueInputHidden').val(address[1]);
         } else {
-            // 서울이 아`닐때
+            // 서울이 아닐때
             alert('서울이 아닌데?');
             return;
         }
@@ -190,11 +190,16 @@ $(function () {
     // });
 
     $('#searchHotelButton').on('click', function () {
-        searchPlaces();
+        if ($('#searchValueType').val() === 'searchLocation') {
+            searchPlaces();
+        } else {
+            $('#searchValueInputHidden').val($('#searchValueInput').val());
+        }
+        
         setTimeout(() => {
             $('#searchForm').submit();
-        }, 100);
-        $('#searchHotelA').click();
+            $('#searchHotelA').click();
+        }, 500);
     })
 
     $('#searchExtra').on('click', function () {
