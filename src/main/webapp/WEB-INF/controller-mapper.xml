@@ -14,7 +14,7 @@
 	<!-- 송주현 끝 -->
 	
 	<!-- 정지원 시작 -->
-	
+	<bean type="controller" name="/hotel/searchhotel" class="kr.or.kosta.reservationmall.hotel.controller.SearchHotelController" />
 	
 	<!-- 정지원 끝 -->
 	

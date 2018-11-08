@@ -24,8 +24,15 @@ public class TestHotelDao {
 	public void test() throws Exception {
 		HotelSearchParam param = new HotelSearchParam("강남구", "2018-11-09", "2018-11-11", "1", "0", "100000", "200000", "searchServiceRate", "1");
 		System.out.println(dao.searchHotelLists(param));
-		HotelSearchParam param2 = new HotelSearchParam("강남구", "2018-11-09", "2018-11-11", "1", "0", null, null, null, null);
+		HotelSearchParam param2 = new HotelSearchParam("강남구", "2018-11-09", "2018-11-11", "1", "0", "", null, null, "");
 		System.out.println(dao.searchHotelLists(param2));
 	}
 	
+	//@Test
+	public void test2() {
+		String a = "searchMinMoney";
+		System.out.println(a.startsWith("search"));
+		System.out.println(a.substring("search".length()));
+		System.out.println("1".equals(String.valueOf(1)));
+	}
 }

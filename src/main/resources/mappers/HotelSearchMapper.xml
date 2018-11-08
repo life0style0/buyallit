@@ -21,7 +21,7 @@ FROM   (SELECT hotel_id,
                                                FROM   hotels join locations using(location_id)
                                                WHERE  location_name = #{location}) 
 <choose>
-	<when test="rateType != null">
+	<when test="hotelRate != null and hotelRate != ''">
 		<choose>
 			<when test="rateType == 'searchAllRate'">
 	                                  AND Avg(( review_service_rate + 
@@ -29,40 +29,40 @@ FROM   (SELECT hotel_id,
 	                                            + review_clean_rate + 
 	                                            review_location_rate ) / 4)
 	                                            <![CDATA[ > ]]> 
-	                                            #{rate}) 
+	                                            #{hotelRate}) 
 			</when>
 			<when test="rateType == 'searchCleanRate'">
 	                                  AND Avg(review_clean_rate)
 	                                            <![CDATA[ > ]]> 
-	                                            #{rate}) 
+	                                            #{hotelRate}) 
 			</when>
 			<when test="rateType == 'searchServiceRate'">
 	                                  AND Avg(review_service_rate)
 	                                            <![CDATA[ > ]]> 
-	                                            #{rate}) 
+	                                            #{hotelRate}) 
 			</when>
 			<when test="rateType == 'searchFoodRate'">
 	                                  AND Avg(review_food_rate)
 	                                            <![CDATA[ > ]]> 
-	                                            #{rate}) 
+	                                            #{hotelRate}) 
 			</when>
 			<when test="rateType == 'searchLocationRate'">
 	                                  AND Avg(review_location_rate)
 	                                            <![CDATA[ > ]]> 
-	                                            #{rate}) 
+	                                            #{hotelRate}) 
 			</when>
 		</choose>
 	</when>
 	<otherwise>)</otherwise>
 </choose>
-<if test="minMoney != null">
+<if test="minMoney != null and minMoney != ''">
                AND r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) <![CDATA[ > ]]> #{minMoney}
 </if>
-<if test="maxMoney != null">
+<if test="maxMoney != null and maxMoney != ''">
                AND r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) <![CDATA[ < ]]> #{maxMoney} 
 </if>
-               AND room_standard_person_number <![CDATA[ >= ]]> #{standardPersonNumber} 
-               AND room_child_max_number <![CDATA[ >= ]]> #{childMaxNumber})
+               AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
+               AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
 WHERE  room_id NOT IN(SELECT room_id 
                       FROM   reservations 
                       WHERE  room_id in(select room_id
@@ -70,8 +70,8 @@ WHERE  room_id NOT IN(SELECT room_id
                                         where hotel_id in(SELECT hotel_id 
                                                FROM   hotels join locations using(location_id)
                                                WHERE  location_name = #{location})
-                                        AND room_standard_person_number <![CDATA[ >= ]]> #{standardPersonNumber} 
-               							AND room_child_max_number <![CDATA[ >= ]]> #{childMaxNumber})
+                                        AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
+               							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
                                      <![CDATA[ > ]]> 
                                      #{startDay} 

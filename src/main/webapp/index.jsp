@@ -59,7 +59,8 @@
           <div class="col-md-12">
             <div class="form-group">
               <label>지역</label>
-              <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색" name="searchLocation">
+              <input type="search" class="form-control input-lg" placeholder="서울시 구 단위로 검색" id="searchLocation">
+              <input type="hidden" name="searchLocation" id="searchLocationHidden">
             </div>
           </div>
           <div class="col-md-4">
@@ -95,7 +96,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>객실 수</label>
-              <select class="form-control input-lg" id="roomNumber">
+              <select class="form-control input-lg" id="roomNumber" name="searchRoomNumber">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -108,7 +109,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>어른 수</label>
-              <select class="form-control input-lg" name="adultNumber1">
+              <select class="form-control input-lg" name="searchAdultNumber1">
                 <option>1</option>
                 <option selected>2</option>
                 <option>3</option>
@@ -124,7 +125,7 @@
           <div class="col-md-4" id="roomNumberAnchor">
             <div class="form-group">
               <label>아이 수</label>
-              <select class="form-control input-lg" name="childNumber1">
+              <select class="form-control input-lg" name="searchChildNumber1">
                 <option>0</option>
                 <option>1</option>
                 <option>2</option>
@@ -141,7 +142,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target=".extraSearch"
-                aria-expanded="false" aria-controls="collapseExample">
+                aria-expanded="false" aria-controls="collapseExample" id="searchExtra">
                 추가 검색 옵션
               </button>
             </div>
@@ -157,7 +158,7 @@
           <div class="col-md-5 collapse extraSearch">
             <div class="form-group">
               <label>평점 검색</label>
-              <select class="form-control input-lg">
+              <select class="form-control input-lg" name="searchRateType">
                 <option value="searchAllRate">전체 별점 평균</option>
                 <option value="searchCleanRate">청결도 별점 평균</option>
                 <option value="searchServiceRate">서비스 별점 평균</option>
@@ -185,7 +186,10 @@
             </div>
           </div>
           <div class="col-md-12">
-            <input type="submit" value="검색" class="form-control input-lg">
+            <input type="button" value="검색" class="form-control input-lg" id="searchHotelButton">
+          </div>
+          <div class="hidden">
+              <a class="page-scroll" href="#hotelList" id="searchHotelA"></a>
           </div>
         </form>
       </div>
@@ -193,7 +197,7 @@
     </div>
     <!-- /.container -->
   </section>
-  <section class="light-bg">
+  <section class="light-bg" id="hotelList">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -665,6 +669,7 @@
   <link rel="stylesheet" href="resources/css/jjw/bootstrap-datetimepicker.css">
   <script type='text/javascript' src="resources/js/jjw/moment-with-locales.min.js"></script>
   <script type='text/javascript' src="resources/js/jjw/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
   <script src="resources/js/jjw/common.js"></script>
   <!--======== JJW javascript file List =========-->
 </body>

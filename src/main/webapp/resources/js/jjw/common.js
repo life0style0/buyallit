@@ -10,97 +10,148 @@ function calculateDayJjw() {
     }
 }
 
+function setDatetimepickerSetting() {
+    $('#datetimepicker1').datetimepicker({
+        locale: 'ko',
+        format: 'YYYY-MM-DD',
+        icons: {
+            next: "fa fa-chevron-right",
+            previous: "fa fa-chevron-left",
+        },
+        defaultDate: 'now'
+    });
+
+    $('#datetimepicker2').datetimepicker({
+        useCurrent: false, //Important! See issue #1075
+        locale: 'ko',
+        format: 'YYYY-MM-DD',
+        icons: {
+            next: "fa fa-chevron-right",
+            previous: "fa fa-chevron-left",
+        },
+        defaultDate: 'tomorrow'
+    });
+    $("#datetimepicker1").on("dp.change", function (e) {
+        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+        calculateDayJjw();
+    });
+    $("#datetimepicker2").on("dp.change", function (e) {
+        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+        calculateDayJjw();
+    });
+}
+
+function changeRoomNumberJjw() {
+    const peopleNum = function (number) {
+        const peopleHtml = `<div class="col-md-4" style="visibility: hidden;">
+        <div class="form-group">
+          <label>hidden</label>
+          <input type="text">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>어른 수</label>
+          <select class="form-control input-lg" name="searchAdultNumber${number}">
+            <option>1</option>
+            <option selected>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>아이 수</label>
+          <select class="form-control input-lg" name="searchChildNumber${number}">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
+        </div>
+      </div>`;
+        return peopleHtml;
+    }
+    const thisValue = parseInt(this.value);
+    if (beforeValue < thisValue) {
+        for (let i = beforeValue + 1; i <= thisValue; i += 1) {
+            $('#roomNumberAnchor').after(peopleNum(i));
+        }
+    } else if (beforeValue > thisValue) {
+        for (let i = beforeValue; i > thisValue; i -= 1) {
+            for (let j = 0; j < 3; j += 1) {
+                $('#roomNumberAnchor').next().remove();
+            }
+        }
+    }
+}
+
+// 장소 검색 객체를 생성합니다
+var ps = new daum.maps.services.Places();
+var ttt;
+// 키워드 검색을 요청하는 함수입니다
+function searchPlaces() {
+
+  var keyword = $('#searchLocation').val();
+
+  if (!keyword.replace(/^\s+|\s+$/g, '')) {
+    alert('키워드를 입력해주세요!');
+    return false;
+  }
+
+  // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+  ps.keywordSearch(keyword, placesSearchCB);
+}
+
+// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+function placesSearchCB(data, status, pagination) {
+    if (status === daum.maps.services.Status.OK) {
+        const address = data[0].address_name.split(' ');
+        if (address[0] === '서울') {
+            ttt = data;
+            console.log('data[0].website :', data[0].website);
+            $('#searchLocationHidden').val(address[1]);
+        } else {
+            // 서울이 아닐때
+            alert('서울이 아닌데?');
+            return;
+        }
+
+  } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+
+    alert('검색 결과가 존재하지 않습니다.');
+    return;
+
+  } else if (status === daum.maps.services.Status.ERROR) {
+
+    alert('검색 결과 중 오류가 발생했습니다.');
+    return;
+
+  }
+}
+var beforeValue;
 $(function () {
-    var beforeValue;
     $('#roomNumber').on('click', function () {
         beforeValue = parseInt(this.value);
     })
 
     $('#roomNumber').on('change', function () {
-        const peopleNum = function (number) {
-            const peopleHtml = `<div class="col-md-4" style="visibility: hidden;">
-            <div class="form-group">
-              <label>hidden</label>
-              <input type="text">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>어른 수</label>
-              <select class="form-control input-lg" name="adultNumber${number}">
-                <option>1</option>
-                <option selected>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>아이 수</label>
-              <select class="form-control input-lg" name="childNumber${number}">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-              </select>
-            </div>
-          </div>`;
-            return peopleHtml;
-        }
-        const thisValue = parseInt(this.value);
-        if (beforeValue < thisValue) {
-            for (let i = beforeValue + 1; i <= thisValue; i += 1) {
-                $('#roomNumberAnchor').after(peopleNum(i));
-            }
-        } else if (beforeValue > thisValue) {
-            for (let i = beforeValue; i > thisValue; i -= 1) {
-                for (let j = 0; j < 3; j += 1) {
-                    $('#roomNumberAnchor').next().remove();
-                }
-            }
-        }
+        changeRoomNumberJjw();
     })
 
-    $('#datetimepicker1').datetimepicker({
-        locale: 'ko',
-        format: 'YYYY-MM-DD',
-        icons: {
-          next: "fa fa-chevron-right",
-          previous: "fa fa-chevron-left",
-        },
-        defaultDate: 'now'
-      });
-
-      $('#datetimepicker2').datetimepicker({
-        useCurrent: false, //Important! See issue #1075
-        locale: 'ko',
-        format: 'YYYY-MM-DD',
-        icons: {
-          next: "fa fa-chevron-right",
-          previous: "fa fa-chevron-left",
-        },
-        defaultDate: 'tomorrow'
-      });
-      $("#datetimepicker1").on("dp.change", function (e) {
-        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-        calculateDayJjw();
-      });
-      $("#datetimepicker2").on("dp.change", function (e) {
-        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
-        calculateDayJjw();
-      });
+    setDatetimepickerSetting();
 
     $('.owl-jjw').owlCarousel({
         autoplay: false,
@@ -130,13 +181,31 @@ $(function () {
             url: '/reservationmall/hotel/searchhotel.mall',
             data: data,
             dataType: 'json',
-            success : function(data) {
-				$("#messageBox").html(data);
-			},
-			error : function(xhr, statusText){
-		    	alert("("+xhr.status+", "+statusText+")");
-		    }
+            success: function (data) {
+                $("#messageBox").html(data);
+            },
+            error: function (xhr, statusText) {
+                alert("(" + xhr.status + ", " + statusText + ")");
+            }
         });
         return false;
     });
+
+    // $('#searchLocation').on('change', function () {
+    //     searchPlaces();
+    // });
+
+    $('#searchHotelButton').on('click', function () {
+        searchPlaces();
+        setTimeout(() => {
+            $('#searchForm').submit();
+        }, 100);
+        $('#searchHotelA').click();
+    })
+
+    $('#searchExtra').on('click', function () {
+        $('.extraSearch').find('input:text').each(function () {
+            $(this).val('');
+        })
+    })
 })

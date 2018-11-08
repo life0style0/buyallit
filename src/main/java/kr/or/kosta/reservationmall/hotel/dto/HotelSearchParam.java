@@ -4,28 +4,28 @@ public class HotelSearchParam {
 	private String location;
 	private String startDay;
 	private String endDay;
-	private String standardPersonNumber;
-	private String childMaxNumber;
+	private String adultNumber;
+	private String childNumber;
 	private String minMoney;
 	private String maxMoney;
 	private String rateType;
-	private String rate;
+	private String hotelRate;
 	
 	public HotelSearchParam() {
 	}
 
-	public HotelSearchParam(String location, String startDay, String endDay, String standardPersonNumber,
-			String childMaxNumber, String minMoney, String maxMoney, String rateType, String rate) {
+	public HotelSearchParam(String location, String startDay, String endDay, String adultNumber, String childNumber,
+			String minMoney, String maxMoney, String rateType, String hotelRate) {
 		super();
 		this.location = location;
 		this.startDay = startDay;
 		this.endDay = endDay;
-		this.standardPersonNumber = standardPersonNumber;
-		this.childMaxNumber = childMaxNumber;
+		this.adultNumber = adultNumber;
+		this.childNumber = childNumber;
 		this.minMoney = minMoney;
 		this.maxMoney = maxMoney;
 		this.rateType = rateType;
-		this.rate = rate;
+		this.hotelRate = hotelRate;
 	}
 
 	public String getLocation() {
@@ -52,20 +52,20 @@ public class HotelSearchParam {
 		this.endDay = endDay;
 	}
 
-	public String getStandardPersonNumber() {
-		return standardPersonNumber;
+	public String getAdultNumber() {
+		return adultNumber;
 	}
 
-	public void setStandardPersonNumber(String standardPersonNumber) {
-		this.standardPersonNumber = standardPersonNumber;
+	public void setAdultNumber(String adultNumber) {
+		this.adultNumber = adultNumber;
 	}
 
-	public String getChildMaxNumber() {
-		return childMaxNumber;
+	public String getChildNumber() {
+		return childNumber;
 	}
 
-	public void setChildMaxNumber(String childMaxNumber) {
-		this.childMaxNumber = childMaxNumber;
+	public void setChildNumber(String childNumber) {
+		this.childNumber = childNumber;
 	}
 
 	public String getMinMoney() {
@@ -92,20 +92,19 @@ public class HotelSearchParam {
 		this.rateType = rateType;
 	}
 
-	public String getRate() {
-		return rate;
+	public String getHotelRate() {
+		return hotelRate;
 	}
 
-	public void setRate(String rate) {
-		this.rate = rate;
+	public void setHotelRate(String hotelRate) {
+		this.hotelRate = hotelRate;
 	}
 
 	@Override
 	public String toString() {
 		return "HotelSearchParam [location=" + location + ", startDay=" + startDay + ", endDay=" + endDay
-				+ ", standardPersonNumber=" + standardPersonNumber + ", childMaxNumber=" + childMaxNumber
-				+ ", minMoney=" + minMoney + ", maxMoney=" + maxMoney + ", rateType=" + rateType + ", rate=" + rate
-				+ "]";
+				+ ", adultNumber=" + adultNumber + ", childNumber=" + childNumber + ", minMoney=" + minMoney
+				+ ", maxMoney=" + maxMoney + ", rateType=" + rateType + ", hotelRate=" + hotelRate + "]";
 	}
-	
+
 }
