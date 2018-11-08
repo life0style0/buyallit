@@ -68,7 +68,7 @@
           </div>
           <div class="col-md-7">
             <div class="form-group">
-              <label style="visibility: hidden;">hidden</label>
+              <label>검색 내용</label>
               <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="검색하고 싶은 내용을 입력하세요">
             </div>
           </div>
@@ -123,37 +123,39 @@
               <input type="hidden" id="roomNumberHidden">
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>어른 수</label>
-              <select class="form-control input-lg" name="searchAdultNumber1">
-                <option>1</option>
-                <option selected>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-              </select>
+          <div class="col-md-8">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>어른 수</label>
+                <select class="form-control input-lg" name="searchAdultNumber1">
+                  <option>1</option>
+                  <option selected>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="col-md-4" id="roomNumberAnchor">
-            <div class="form-group">
-              <label>아이 수</label>
-              <select class="form-control input-lg" name="searchChildNumber1">
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-              </select>
+            <div class="col-md-6" id="roomNumberAnchor">
+              <div class="form-group">
+                <label>아이 수</label>
+                <select class="form-control input-lg" name="searchChildNumber1">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                </select>
+              </div>
             </div>
           </div>
           <div class="col-md-4">
@@ -211,7 +213,6 @@
           </div>
         </form>
       </div>
-
     </div>
     <!-- /.container -->
   </section>

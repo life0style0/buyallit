@@ -42,13 +42,7 @@ function setDatetimepickerSetting() {
 }
 
 function addsearchPersonNumber(number) {
-    const peopleHtml = `<div class="col-md-4" style="visibility: hidden;">
-    <div class="form-group">
-      <label>hidden</label>
-      <input type="text">
-    </div>
-  </div>
-  <div class="col-md-4">
+    const peopleHtml = `<div class="col-md-6">
     <div class="form-group">
       <label>어른 수</label>
       <select class="form-control input-lg" name="searchAdultNumber${number}">
@@ -64,7 +58,7 @@ function addsearchPersonNumber(number) {
       </select>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="form-group">
       <label>아이 수</label>
       <select class="form-control input-lg" name="searchChildNumber${number}">
@@ -93,7 +87,7 @@ function changeRoomNumberJjw(element) {
         }
     } else if (beforeValue > thisValue) {
         for (let i = beforeValue; i > thisValue; i -= 1) {
-            for (let j = 0; j < 3; j += 1) {
+            for (let j = 0; j < 2; j += 1) {
                 $('#roomNumberAnchor').next().remove();
             }
         }

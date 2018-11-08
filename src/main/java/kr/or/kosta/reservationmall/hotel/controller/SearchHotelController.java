@@ -62,6 +62,7 @@ public class SearchHotelController implements Controller {
 			addParameterValue(hotelSearchParam, paramMap, i);
 			hotelSearchParams.add(hotelSearchParam);
 		}
+		System.out.println(hotelSearchParams.size());
 		for (HotelSearchParam hotelSearchParamT : hotelSearchParams) {
 			try {
 				hotelService.searchHotelLists(hotelSearchParamT);

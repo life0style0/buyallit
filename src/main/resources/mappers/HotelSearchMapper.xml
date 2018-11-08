@@ -8,6 +8,7 @@
 	<!-- 전체회원 조회 -->
 	<select id="searchHotelLists" parameterType="HotelSearchParam" resultType="map">
 SELECT hotel_id "hotelId",
+       "rate"."avg_rate" "avgRate",
 	   room_name "roomName",
 	   listagg(room_id, ',') within group(order by room_id) "roomIds"
 FROM   (SELECT hotel_id,
@@ -69,6 +70,10 @@ FROM   (SELECT hotel_id,
 </if>
                AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
+               join (select hotel_id, avg(review_service_rate) "avg_rate"
+                      from reviews
+                      group by hotel_id) "rate"
+               using(hotel_id)
 WHERE  room_id NOT IN(SELECT room_id 
                       FROM   reservations 
                       WHERE  room_id in(select room_id
@@ -96,7 +101,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
                                              #{startDay} ) ))
-GROUP  BY hotel_id, room_name
+GROUP  BY hotel_id, "avg_rate", room_name
 	</select>
 
 <select id="searchHotelListsTemp" parameterType="HotelSearchParam" resultType="map">
