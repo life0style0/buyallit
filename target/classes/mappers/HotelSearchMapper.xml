@@ -24,10 +24,16 @@ FROM   (SELECT hotel_id,
 	<when test="hotelRate != null and hotelRate != ''">
 		<choose>
 			<when test="rateType == 'searchAllRate'">
-	                                  AND Avg(( review_service_rate + 
+	                                  AND Avg(( review_price_rate +
+	                                  			review_service_rate + 
 	                                            review_food_rate 
 	                                            + review_clean_rate + 
-	                                            review_location_rate ) / 4)
+	                                            review_location_rate ) / 5)
+	                                            <![CDATA[ > ]]> 
+	                                            #{hotelRate}) 
+			</when>
+			<when test="rateType == 'searchPriceRate'">
+	                                  AND Avg(review_price_rate)
 	                                            <![CDATA[ > ]]> 
 	                                            #{hotelRate}) 
 			</when>

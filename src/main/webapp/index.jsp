@@ -22,7 +22,7 @@
   <link href="resources/css/template/style.css" rel="stylesheet">
   <script type="text/javascript" src="resources/js/common/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
-  
+
   <!-- JJW css file List -->
   <link rel="stylesheet" href="resources/css/jjw/common.css">
   <!-- JJW css file List -->
@@ -56,6 +56,22 @@
       </div>
       <div class="col-md-8">
         <form action="" method="POST" id="searchForm">
+          <div class="col-md-5">
+            <div class="form-group">
+              <label>검색 타입</label>
+              <select class="form-control input-lg" name="searchRateType">
+                <option value="searchAllRate">지역</option>
+                <option value="searchPriceRate">호텔 이름</option>
+                <option value="searchCleanRate">호텔 타입</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="form-group">
+              <label style="visibility: hidden;">hidden</label>
+              <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="검색하고 싶은 내용을 입력하세요">
+            </div>
+          </div>
           <div class="col-md-12">
             <div class="form-group">
               <label>지역</label>
@@ -104,6 +120,7 @@
                 <option>5</option>
                 <option>6</option>
               </select>
+              <input type="hidden" id="roomNumberHidden">
             </div>
           </div>
           <div class="col-md-4">
@@ -160,6 +177,7 @@
               <label>평점 검색</label>
               <select class="form-control input-lg" name="searchRateType">
                 <option value="searchAllRate">전체 별점 평균</option>
+                <option value="searchPriceRate">가격 별점 평균</option>
                 <option value="searchCleanRate">청결도 별점 평균</option>
                 <option value="searchServiceRate">서비스 별점 평균</option>
                 <option value="searchFoodRate">음식 별점 평균</option>
@@ -189,7 +207,7 @@
             <input type="button" value="검색" class="form-control input-lg" id="searchHotelButton">
           </div>
           <div class="hidden">
-              <a class="page-scroll" href="#hotelList" id="searchHotelA"></a>
+            <a class="page-scroll" href="#hotelList" id="searchHotelA"></a>
           </div>
         </form>
       </div>

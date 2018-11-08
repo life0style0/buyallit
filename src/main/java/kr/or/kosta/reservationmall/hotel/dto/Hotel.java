@@ -9,13 +9,16 @@ public class Hotel {
 	private String rate;
 	private String info;
 	private String detail;
+	private String website;
+	private String x;
+	private String y;
 	private String locationName;
 
 	public Hotel() {
 	}
 
 	public Hotel(String id, String name, String address, String phonenum, String rate, String info, String detail,
-			String locationName) {
+			String website, String x, String y, String locationName) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +27,9 @@ public class Hotel {
 		this.rate = rate;
 		this.info = info;
 		this.detail = detail;
+		this.website = website;
+		this.x = x;
+		this.y = y;
 		this.locationName = locationName;
 	}
 
@@ -83,6 +89,30 @@ public class Hotel {
 		this.detail = detail;
 	}
 
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getX() {
+		return x;
+	}
+
+	public void setX(String x) {
+		this.x = x;
+	}
+
+	public String getY() {
+		return y;
+	}
+
+	public void setY(String y) {
+		this.y = y;
+	}
+
 	public String getLocationName() {
 		return locationName;
 	}
@@ -94,7 +124,8 @@ public class Hotel {
 	@Override
 	public String toString() {
 		return "Hotel [id=" + id + ", name=" + name + ", address=" + address + ", phonenum=" + phonenum + ", rate="
-				+ rate + ", info=" + info + ", detail=" + detail + ", locationName=" + locationName + "]";
+				+ rate + ", info=" + info + ", detail=" + detail + ", website=" + website + ", x=" + x + ", y=" + y
+				+ ", locationName=" + locationName + "]";
 	}
 	
 }

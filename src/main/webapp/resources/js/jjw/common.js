@@ -41,53 +41,55 @@ function setDatetimepickerSetting() {
     });
 }
 
-function changeRoomNumberJjw() {
-    const peopleNum = function (number) {
-        const peopleHtml = `<div class="col-md-4" style="visibility: hidden;">
-        <div class="form-group">
-          <label>hidden</label>
-          <input type="text">
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>어른 수</label>
-          <select class="form-control input-lg" name="searchAdultNumber${number}">
-            <option>1</option>
-            <option selected>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>아이 수</label>
-          <select class="form-control input-lg" name="searchChildNumber${number}">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-          </select>
-        </div>
-      </div>`;
-        return peopleHtml;
-    }
-    const thisValue = parseInt(this.value);
+function addsearchPersonNumber(number) {
+    const peopleHtml = `<div class="col-md-4" style="visibility: hidden;">
+    <div class="form-group">
+      <label>hidden</label>
+      <input type="text">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>어른 수</label>
+      <select class="form-control input-lg" name="searchAdultNumber${number}">
+        <option>1</option>
+        <option selected>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>아이 수</label>
+      <select class="form-control input-lg" name="searchChildNumber${number}">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+      </select>
+    </div>
+  </div>`;
+    return peopleHtml;
+}
+
+function changeRoomNumberJjw(element) {
+    const beforeValue = parseInt($('#roomNumberHidden').val());
+    const thisValue = parseInt(element.value);
     if (beforeValue < thisValue) {
         for (let i = beforeValue + 1; i <= thisValue; i += 1) {
-            $('#roomNumberAnchor').after(peopleNum(i));
+            $('#roomNumberAnchor').after(addsearchPersonNumber(i));
         }
     } else if (beforeValue > thisValue) {
         for (let i = beforeValue; i > thisValue; i -= 1) {
@@ -100,7 +102,6 @@ function changeRoomNumberJjw() {
 
 // 장소 검색 객체를 생성합니다
 var ps = new daum.maps.services.Places();
-var ttt;
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
@@ -120,11 +121,9 @@ function placesSearchCB(data, status, pagination) {
     if (status === daum.maps.services.Status.OK) {
         const address = data[0].address_name.split(' ');
         if (address[0] === '서울') {
-            ttt = data;
-            console.log('data[0].website :', data[0].website);
             $('#searchLocationHidden').val(address[1]);
         } else {
-            // 서울이 아닐때
+            // 서울이 아`닐때
             alert('서울이 아닌데?');
             return;
         }
@@ -141,15 +140,16 @@ function placesSearchCB(data, status, pagination) {
 
   }
 }
-var beforeValue;
+
+
 $(function () {
-    $('#roomNumber').on('click', function () {
-        beforeValue = parseInt(this.value);
-    })
+    $('#roomNumber').on('mousedown', function () {
+        $('#roomNumberHidden').val(parseInt(this.value));
+    });
 
     $('#roomNumber').on('change', function () {
-        changeRoomNumberJjw();
-    })
+        changeRoomNumberJjw(this);
+    });
 
     setDatetimepickerSetting();
 
