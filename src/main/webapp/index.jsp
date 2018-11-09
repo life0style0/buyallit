@@ -207,6 +207,7 @@
     </div>
     <!-- /.container -->
   </section>
+  
   <section class="light-bg" id="hotelList">
     <div class="container">
       <div class="row">
