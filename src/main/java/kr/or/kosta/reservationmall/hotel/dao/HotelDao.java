@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.or.kosta.reservationmall.common.web.Params;
 import kr.or.kosta.reservationmall.hotel.dto.Hotel;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
+import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
 
 /**
  * Dao 패턴 적용을 위한 인터페이스 선언
@@ -21,8 +22,8 @@ public interface HotelDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Map<String, String>> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception;
+	public List<HotelSearchResult> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception;
 
-	public List<Map<String, String>> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
+	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
 
 }

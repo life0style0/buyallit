@@ -15,6 +15,7 @@
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Rooms" alias="Rooms"/>
 		<typeAlias type="kr.or.kosta.reservationmall.board.dto.Article" alias="Article"/>
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam" alias="HotelSearchParam"/>
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult" alias="HotelSearchResult"/>
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->

@@ -6,11 +6,10 @@
 <mapper namespace="kr.or.kosta.reservationmall.hotel">
 	
 	<!-- 호텔 지역으로 조회 -->
-	<select id="searchHotelListsByLocation" parameterType="HotelSearchParam" resultType="map">
+	<select id="searchHotelListsByLocation" parameterType="HotelSearchParam" resultType="HotelSearchResult">
 SELECT hotel_id "hotelId",
-       "rate"."price_rate" "priceRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
-	   room_name "roomName",
-	   listagg(room_id, ',') within group(order by room_id) "roomIds"
+       "rate"."price_rate" "priceRate", "rate"."food_rate" "foodRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
+	   room_name "roomName"
 FROM   (SELECT hotel_id,
                room_name,
                room_id
@@ -70,7 +69,7 @@ FROM   (SELECT hotel_id,
 </if>
                AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
-               join (select hotel_id, avg(review_price_rate) "price_rate", avg(review_service_rate) "service_rate", avg(review_clean_rate) "clean_rate", avg(review_location_rate) "location_rate"
+               join (select hotel_id, round(avg(review_price_rate),2) "price_rate", round(avg(review_food_rate),2) "food_rate", round(avg(review_service_rate),2) "service_rate", round(avg(review_clean_rate),2) "clean_rate", round(avg(review_location_rate),2) "location_rate"
                       from reviews
                       group by hotel_id) "rate"
                using(hotel_id)
@@ -83,6 +82,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                                WHERE  location_name = #{value})
                                         AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
+               				 AND reservation_status = 200
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
                                      <![CDATA[ > ]]> 
                                      #{startDay} 
@@ -101,14 +101,13 @@ WHERE  room_id NOT IN(SELECT room_id
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
                                              #{startDay} ) ))
-group by hotel_id, "rate"."price_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
+group by hotel_id, "rate"."price_rate", "rate"."food_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
 	</select>
 
-	<select id="searchHotelListsByHotel" parameterType="HotelSearchParam" resultType="map">
+	<select id="searchHotelListsByHotel" parameterType="HotelSearchParam" resultType="HotelSearchResult">
 SELECT hotel_id "hotelId",
-	   "rate"."price_rate" "priceRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
-	   room_name "roomName",
-	   listagg(room_id, ',') within group(order by room_id) "roomIds"
+	   "rate"."price_rate" "priceRate", "rate"."food_rate" "foodRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
+	   room_name "roomName"
 FROM   (SELECT hotel_id,
                room_name,
                room_id
@@ -168,7 +167,7 @@ FROM   (SELECT hotel_id,
 </if>
                AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
-               join (select hotel_id, avg(review_price_rate) "price_rate", avg(review_service_rate) "service_rate", avg(review_clean_rate) "clean_rate", avg(review_location_rate) "location_rate"
+               join (select hotel_id, round(avg(review_price_rate),2) "price_rate", round(avg(review_food_rate),2) "food_rate", round(avg(review_service_rate),2) "service_rate", round(avg(review_clean_rate),2) "clean_rate", round(avg(review_location_rate),2) "location_rate"
                       from reviews
                       group by hotel_id) "rate"
                using(hotel_id)
@@ -181,6 +180,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                                WHERE  hotel_name like '%'||#{value}||'%')
                                         AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
+               				 AND reservation_status = 200
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
                                      <![CDATA[ > ]]> 
                                      #{startDay} 
@@ -199,7 +199,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
                                              #{startDay} ) ))
-group by hotel_id, "rate"."price_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
+group by hotel_id, "rate"."price_rate", "rate"."food_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
 	</select>
 	
 </mapper>

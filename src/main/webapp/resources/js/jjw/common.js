@@ -169,21 +169,21 @@ $(function () {
         }
     });
 
-    $('#searchForm').submit(function (event) {
-        const data = $(this).serialize();
-        $.ajax({
-            url: '/reservationmall/hotel/searchhotel.mall',
-            data: data,
-            dataType: 'json',
-            success: function (data) {
-                $("#messageBox").html(data);
-            },
-            error: function (xhr, statusText) {
-                alert("(" + xhr.status + ", " + statusText + ")");
-            }
-        });
-        return false;
-    });
+    // $('#searchForm').submit(function (event) {
+    //     const data = $(this).serialize();
+    //     $.ajax({
+    //         url: '/reservationmall/hotel/searchhotel.mall',
+    //         data: data,
+    //         dataType: 'json',
+    //         success: function (data) {
+    //             $("#messageBox").html(data);
+    //         },
+    //         error: function (xhr, statusText) {
+    //             alert("(" + xhr.status + ", " + statusText + ")");
+    //         }
+    //     });
+    //     return false;
+    // });
 
     // $('#searchLocation').on('change', function () {
     //     searchPlaces();
@@ -198,7 +198,6 @@ $(function () {
         
         setTimeout(() => {
             $('#searchForm').submit();
-            $('#searchHotelA').click();
         }, 500);
     })
 

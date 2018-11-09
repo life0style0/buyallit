@@ -116,13 +116,22 @@
 			<version>1.1.1</version>
 		</dependency>
 
+
+		<!-- jiwon 추가된 라이브러리 -->
+		<!-- guava(Google Core Libraries for Java) -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.0-jre</version>
+		</dependency>
+		<!-- jiwon 추가된 라이브러리 -->
+		
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.7</version>
 		</dependency>
-
 	</dependencies>
 
 </project>

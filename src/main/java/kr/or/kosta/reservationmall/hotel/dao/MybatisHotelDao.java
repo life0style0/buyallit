@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
+import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
 
 public class MybatisHotelDao implements HotelDao {
 
@@ -23,17 +24,17 @@ public class MybatisHotelDao implements HotelDao {
 	}
 
 	@Override
-	public List<Map<String, String>> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception {
+	public List<HotelSearchResult> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<Map<String, String>> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByLocation", hotelSearchParam);
+		List<HotelSearchResult> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByLocation", hotelSearchParam);
 		sqlSession.close();
 		return result;
 	}
 	
 	@Override
-	public List<Map<String, String>> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception {
+	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<Map<String, String>> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByHotel", hotelSearchParam);
+		List<HotelSearchResult> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByHotel", hotelSearchParam);
 		sqlSession.close();
 		return result;
 	}

@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="col-md-8">
-        <form action="" method="POST" id="searchForm">
+        <form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm">
           <div class="col-md-5">
             <div class="form-group">
               <label>검색 타입</label>
@@ -201,9 +201,6 @@
           </div>
           <div class="col-md-12">
             <input type="button" value="검색" class="form-control input-lg" id="searchHotelButton">
-          </div>
-          <div class="hidden">
-            <a class="page-scroll" href="#hotelList" id="searchHotelA"></a>
           </div>
         </form>
       </div>
