@@ -30,6 +30,7 @@ public class MybatisLoginDao implements LoginDao {
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		user_pw = sqlSession.selectOne(NAMESPACE+"checkLoginHjh",id);
+		System.out.println(user_pw);
 		sqlSession.close();
 		return (user_pw==Integer.parseInt(passwd))?true:false;
 	}
