@@ -20,7 +20,7 @@
   <link href="resources/css/template/owl.carousel.css" rel="stylesheet">
   <link href="resources/css/template/owl.theme.default.min.css" rel="stylesheet">
   <link href="resources/css/template/style.css" rel="stylesheet">
-  <script type="text/javascript" src="resources/js/common/jquery-3.3.1.js"></script>
+
   <script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
 
   <!-- JJW css file List -->
@@ -207,7 +207,7 @@
     </div>
     <!-- /.container -->
   </section>
-  
+
   <section class="light-bg" id="hotelList">
     <div class="container">
       <div class="row">
@@ -667,8 +667,9 @@
   <!-- Bootstrap core JavaScript
 			================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="resources/js/common/jquery-3.3.1.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+  <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> -->
   <script src="resources/js/template/bootstrap.min.js"></script>
   <script src="resources/js/template/owl.carousel.min.js"></script>
   <script src="resources/js/template/cbpAnimatedHeader.js"></script>
