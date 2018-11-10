@@ -32,7 +32,7 @@
 	<select id="increaseHitCount_hr"  parameterType="String" >
 	UPDATE articles
 	SET article_hit_count "hitCount" = article_hit_count + 1
-	WHERE board_id = 1 AND article_id=#{id}
+	WHERE board_id = 1 AND article_id=#{value}
 	</select>
 	
 	<!-- 쪽지함 만들기 -->

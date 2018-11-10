@@ -1,5 +1,7 @@
 package kr.or.kosta.reservationmall.admin.dao;
 
+import java.util.ArrayList;
+
 import kr.or.kosta.reservationmall.admin.dto.Hotel;
 import kr.or.kosta.reservationmall.admin.dto.Rooms;
 
@@ -12,6 +14,6 @@ public interface AdminDao {
 	
 	public boolean create_hotel_info(Hotel hotel) throws Exception;
 	public boolean create_rooms_info(Rooms rooms) throws Exception;
-	
+	public ArrayList<Hotel> getHotelList() throws Exception;
 	
 }

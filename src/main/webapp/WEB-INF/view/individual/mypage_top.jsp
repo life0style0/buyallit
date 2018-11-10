@@ -25,7 +25,6 @@ if(cookies != null) {
 loginCheck = request.getParameter("loginCheck");
 %>
 
-<script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -45,7 +44,7 @@ loginCheck = request.getParameter("loginCheck");
 					<a href="#page-top"></a>
 				</li>
 				<li>
-					<a class="page-scroll" href="#page-top">메인</a>
+					<a class="page-scroll" href="/reservationmall/">메인</a>
 				</li>
 				<li>
 					<a class="page-scroll" href="#my-info">개인정보</a>
@@ -76,7 +75,7 @@ loginCheck = request.getParameter("loginCheck");
 		          	}else{
 		          	%>
 		           <li>
-					<a class="page-scroll" id="myPage">MyPage</a>
+					<a class="page-scroll" id="myPage" href="/reservationmall/individual/mypage.mall">MyPage</a>
 					</li>
 					<%
 		          	}

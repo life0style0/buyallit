@@ -2,6 +2,8 @@ package kr.or.kosta.reservationmall.admin.service;
 
 
 
+import java.util.ArrayList;
+
 import kr.or.kosta.reservationmall.admin.dao.AdminDao;
 import kr.or.kosta.reservationmall.admin.dto.Hotel;
 import kr.or.kosta.reservationmall.admin.dto.Rooms;
@@ -30,6 +32,11 @@ public class AdminServiceImpl implements AdminService {
 	public boolean create_rooms_info(Rooms rooms) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Hotel> getHotelList() throws Exception {
+		return adminDao.getHotelList();
 	}
 	
 	

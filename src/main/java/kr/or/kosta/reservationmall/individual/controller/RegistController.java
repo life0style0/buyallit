@@ -62,7 +62,7 @@ public class RegistController implements Controller {
 		}
 		
 		//가입 확인 페이지로 
-		mav.setView("/WEB-INF/view/login/regist_form.jsp");
+		mav.setView("/WEB-INF/view/login/regist.jsp");
 		
 		return mav;
 	}

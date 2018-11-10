@@ -45,6 +45,7 @@ public class MybatisUserDao implements UserDao {
 		// 회원 정보 수정 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		sqlSession.update(NAMESPACE+"updateUser",user);
+		sqlSession.commit();
 		sqlSession.close();
 	}
 
@@ -53,7 +54,24 @@ public class MybatisUserDao implements UserDao {
 		// 회원 탈퇴
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		sqlSession.delete(NAMESPACE+"deleteUser",id);
+		sqlSession.commit();
 		sqlSession.close();
+	}
+
+	@Override
+	public User searchById(String id) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		User user= sqlSession.selectOne(NAMESPACE+"searchById", id);
+		sqlSession.close();
+		return user;
+	}
+
+	@Override
+	public User searchByEmail(String email) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		User user= sqlSession.selectOne(NAMESPACE+"searchByEmail", email);
+		sqlSession.close();
+		return user;
 	}
 	
 	
