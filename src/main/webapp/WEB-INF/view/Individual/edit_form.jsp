@@ -11,7 +11,7 @@
             class="form-control" id="regist_id" name="user_id"
             value="${user.user_id}">
           </div>
-        
+       
         <div class="form-group">
           <label for="exampleInputEmail1">비밀번호</label> 
           <input type="password" 

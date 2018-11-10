@@ -19,6 +19,7 @@
 		<!-- 지원 추가 -->
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam" alias="HotelSearchParam"/>
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult" alias="HotelSearchResult"/>
+		<typeAlias type="kr.or.kosta.reservationmall.room.dto.Room" alias="RoomJjw"/>
 		<!-- 지원 추가 -->
 		
 		<!-- 주현 추가 -->

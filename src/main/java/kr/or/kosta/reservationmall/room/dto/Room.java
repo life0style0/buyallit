@@ -1,38 +1,26 @@
-package kr.or.kosta.reservationmall.room.domain;
+package kr.or.kosta.reservationmall.room.dto;
 
 public class Room {
 
-	private String id;
 	private String name;
-	private int standardNumber;
+	private String standardNumber;
+	private String childMaxNumber;
 	private String info;
-	private int price;
-	private String detail;
-	private int pricePolicyId; // 가격 정책도 id로?
-	private int hotelId;
+	private String price;
+	private String[] detail;
 
 	public Room() {
 	}
 
-	public Room(String id, String name, int standardNumber, String info, int price, String detail, int pricePolicyId,
-			int hotelId) {
+	public Room(String name, String standardNumber, String childMaxNumber, String info, String price,
+			String detail) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.standardNumber = standardNumber;
+		this.childMaxNumber = childMaxNumber;
 		this.info = info;
 		this.price = price;
-		this.detail = detail;
-		this.pricePolicyId = pricePolicyId;
-		this.hotelId = hotelId;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		this.detail = detail.split("<?!>");
 	}
 
 	public String getName() {
@@ -43,12 +31,20 @@ public class Room {
 		this.name = name;
 	}
 
-	public int getStandardNumber() {
+	public String getStandardNumber() {
 		return standardNumber;
 	}
 
-	public void setStandardNumber(int standardNumber) {
+	public void setStandardNumber(String standardNumber) {
 		this.standardNumber = standardNumber;
+	}
+
+	public String getChildMaxNumber() {
+		return childMaxNumber;
+	}
+
+	public void setChildMaxNumber(String childMaxNumber) {
+		this.childMaxNumber = childMaxNumber;
 	}
 
 	public String getInfo() {
@@ -59,43 +55,35 @@ public class Room {
 		this.info = info;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public String getDetail() {
+	public String[] getDetail() {
 		return detail;
 	}
 
 	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-
-	public int getPricePolicyId() {
-		return pricePolicyId;
-	}
-
-	public void setPricePolicyId(int pricePolicyId) {
-		this.pricePolicyId = pricePolicyId;
-	}
-
-	public int getHotelId() {
-		return hotelId;
-	}
-
-	public void setHotelId(int hotelId) {
-		this.hotelId = hotelId;
+		this.detail = detail.split("<?!>");
 	}
 
 	@Override
 	public String toString() {
-		return "Room [id=" + id + ", name=" + name + ", standardNumber=" + standardNumber + ", info=" + info
-				+ ", price=" + price + ", detail=" + detail + ", pricePolicyId=" + pricePolicyId + ", hotelId="
-				+ hotelId + "]";
+		return "Room [name=" + name + ", standardNumber=" + standardNumber + ", childMaxNumber=" + childMaxNumber
+				+ ", info=" + info + ", price=" + price + ", detail=" + detail + "]";
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Room) {
+			return name.equals(((Room)obj).getName());
+		} else {
+			return name.equals(obj);
+		}
+	}
+	
 }

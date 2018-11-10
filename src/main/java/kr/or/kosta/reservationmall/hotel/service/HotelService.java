@@ -6,6 +6,7 @@ import java.util.List;
 
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 
 /**
@@ -19,4 +20,6 @@ public interface HotelService {
 	public List<HotelSearchResult> searchHotelListsByLocation(HotelSearchParam hotelSearchParam) throws Exception;
 
 	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
+
+	public Room getRoomInfo(String hotelId, String roomName) throws Exception;
 }

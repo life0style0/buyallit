@@ -1,5 +1,6 @@
 package kr.or.kosta.reservationmall.hotel.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 public class MybatisHotelDao implements HotelDao {
 
@@ -35,6 +37,17 @@ public class MybatisHotelDao implements HotelDao {
 	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<HotelSearchResult> result = sqlSession.selectList(NAMESPACE + "searchHotelListsByHotel", hotelSearchParam);
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public Room getRoomInfo(String hotelId, String roomName) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, String> param = new HashMap<>();
+		param.put("hotelId", hotelId);
+		param.put("roomName", roomName);
+		Room result = sqlSession.selectOne(NAMESPACE + "getRoomInfo", param);
 		sqlSession.close();
 		return result;
 	}

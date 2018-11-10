@@ -2,26 +2,37 @@ package kr.or.kosta.reservationmall.hotel.dto;
 
 public class HotelSearchResult {
 	private int hotelId;
+	private String roomName;
+	private String price;
+	private String standardNumber;
+	private String childMaxNumber;
+	private String roomInfo;
+	private String roomDetail;
 	private String priceRate;
 	private String foodRate;
 	private String serviceRate;
 	private String cleanRate;
 	private String locationRate;
-	private String roomName;
 
 	public HotelSearchResult() {
 	}
 
-	public HotelSearchResult(int hotelId, String priceRate, String foodRate, String serviceRate, String cleanRate,
-			String locationRate, String roomName) {
+	public HotelSearchResult(int hotelId, String roomName, String price, String standardNumber, String childMaxNumber,
+			String roomInfo, String roomDetail, String priceRate, String foodRate, String serviceRate, String cleanRate,
+			String locationRate) {
 		super();
 		this.hotelId = hotelId;
+		this.roomName = roomName;
+		this.price = price;
+		this.standardNumber = standardNumber;
+		this.childMaxNumber = childMaxNumber;
+		this.roomInfo = roomInfo;
+		this.roomDetail = roomDetail;
 		this.priceRate = priceRate;
 		this.foodRate = foodRate;
 		this.serviceRate = serviceRate;
 		this.cleanRate = cleanRate;
 		this.locationRate = locationRate;
-		this.roomName = roomName;
 	}
 
 	public int getHotelId() {
@@ -80,11 +91,52 @@ public class HotelSearchResult {
 		this.roomName = roomName;
 	}
 
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getStandardNumber() {
+		return standardNumber;
+	}
+
+	public void setStandardNumber(String standardNumber) {
+		this.standardNumber = standardNumber;
+	}
+
+	public String getChildMaxNumber() {
+		return childMaxNumber;
+	}
+
+	public void setChildMaxNumber(String childMaxNumber) {
+		this.childMaxNumber = childMaxNumber;
+	}
+
+	public String getRoomInfo() {
+		return roomInfo;
+	}
+
+	public void setRoomInfo(String roomInfo) {
+		this.roomInfo = roomInfo;
+	}
+
+	public String getRoomDetail() {
+		return roomDetail;
+	}
+
+	public void setRoomDetail(String roomDetail) {
+		this.roomDetail = roomDetail;
+	}
+
 	@Override
 	public String toString() {
-		return "HotelSearchResult [hotelId=" + hotelId + ", priceRate=" + priceRate + ", foodRate=" + foodRate
-				+ ", serviceRate=" + serviceRate + ", cleanRate=" + cleanRate + ", locationRate=" + locationRate
-				+ ", roomName=" + roomName + "]";
+		return "HotelSearchResult [hotelId=" + hotelId + ", roomName=" + roomName + ", price=" + price
+				+ ", standardNumber=" + standardNumber + ", childMaxNumber=" + childMaxNumber + ", roomInfo=" + roomInfo
+				+ ", roomDetail=" + roomDetail + ", priceRate=" + priceRate + ", foodRate=" + foodRate
+				+ ", serviceRate=" + serviceRate + ", cleanRate=" + cleanRate + ", locationRate=" + locationRate + "]";
 	}
 
 	@Override

@@ -24,6 +24,7 @@ import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
 import kr.or.kosta.reservationmall.hotel.service.HotelService;
 import kr.or.kosta.reservationmall.hotel.service.HotelServiceImpl;
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 /**
  * hello.mall 요청에 대한 처리 클래스
@@ -90,7 +91,7 @@ public class SearchHotelController implements Controller {
 			}
 			hotelIdSet = Sets.intersection(hotelIdSet, hotelIdSetTemp);
 		}
-		
+
 		List<HotelInfo> hotelInfos = new ArrayList<>();
 		HotelInfo info = null;
 		for (int hotelId : hotelIdSet) {
@@ -104,15 +105,24 @@ public class SearchHotelController implements Controller {
 						info.setLocationRate(hotelSearchResult.getLocationRate());
 						info.setPriceRate(hotelSearchResult.getPriceRate());
 						info.setServiceRate(hotelSearchResult.getServiceRate());
-						info.addRoomNames(i + 1,
-								info.getRoomNames().get(i + 1) == null ? hotelSearchResult.getRoomName() : info.getRoomNames().get(i + 1)  + "," + hotelSearchResult.getRoomName());
+						try {
+							if (!info.isExistRoom(i + 1, hotelSearchResult.getRoomName())) {
+								info.addRooms(i + 1,
+										new Room(hotelSearchResult.getRoomName(), hotelSearchResult.getStandardNumber(),
+												hotelSearchResult.getChildMaxNumber(), hotelSearchResult.getRoomInfo(),
+												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail()));
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
-			if (info.getRoomNames().size() > 0) {
+			if (info.getRooms().size() > 0) {
 				hotelInfos.add(info);
 			}
 		}
+		System.out.println(info);
 		mav.addObject("hotelInfos", hotelInfos);
 
 		mav.setView("/WEB-INF/view/search/search.jsp");

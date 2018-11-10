@@ -5,6 +5,7 @@ import java.util.List;
 import kr.or.kosta.reservationmall.hotel.dao.HotelDao;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 public class HotelServiceImpl implements HotelService {
 
@@ -26,5 +27,10 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception {
 		return hotelDao.searchHotelListsByHotel(hotelSearchParam);
+	}
+	
+	@Override
+	public Room getRoomInfo(String hotelId, String roomName) throws Exception {
+		return hotelDao.getRoomInfo(hotelId, roomName);
 	}
 }

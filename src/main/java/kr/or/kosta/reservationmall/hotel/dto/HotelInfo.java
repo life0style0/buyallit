@@ -1,7 +1,11 @@
 package kr.or.kosta.reservationmall.hotel.dto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 public class HotelInfo {
 	private int hotelId;
@@ -10,14 +14,14 @@ public class HotelInfo {
 	private String serviceRate;
 	private String cleanRate;
 	private String locationRate;
-	private Map<Integer, String> roomNames;
+	private Map<Integer, List<Room>> rooms;
 
 	public HotelInfo() {
-		roomNames = new HashMap<>();
+		rooms = new HashMap<>();
 	}
 
 	public HotelInfo(int hotelId, String priceRate, String foodRate, String serviceRate, String cleanRate,
-			String locationRate, Map<Integer, String> roomNames) {
+			String locationRate, Map<Integer, List<Room>> rooms) {
 		super();
 		this.hotelId = hotelId;
 		this.priceRate = priceRate;
@@ -25,7 +29,7 @@ public class HotelInfo {
 		this.serviceRate = serviceRate;
 		this.cleanRate = cleanRate;
 		this.locationRate = locationRate;
-		this.roomNames = roomNames;
+		this.rooms = rooms;
 	}
 
 	public int getHotelId() {
@@ -76,23 +80,39 @@ public class HotelInfo {
 		this.locationRate = locationRate;
 	}
 
-	public Map<Integer, String> getRoomNames() {
-		return roomNames;
+	public Map<Integer, List<Room>> getRooms() {
+		return rooms;
 	}
 
-	public void setRoomNames(Map<Integer, String> roomNames) {
-		this.roomNames = roomNames;
+	public void setRooms(Map<Integer, List<Room>> rooms) {
+		this.rooms = rooms;
 	}
 
-	public void addRoomNames(int roomNumber, String roomName) {
-		roomNames.put(roomNumber, roomName);
+	public void addRooms(int roomNumber, Room room) {
+		if (!rooms.containsKey(roomNumber)) {
+			rooms.put(roomNumber, new ArrayList<>());
+		}
+		if (!rooms.get(roomNumber).contains(room)) {
+			rooms.get(roomNumber).add(room);
+		}
+	}
+
+	public boolean isExistRoom(int roomNumber, String roomName) {
+		if (rooms.containsKey(roomNumber)) {
+			for (Room room : rooms.get(roomNumber)) {
+				if (room.getName().equals(roomName)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
 	public String toString() {
 		return "HotelInfo [hotelId=" + hotelId + ", priceRate=" + priceRate + ", foodRate=" + foodRate
 				+ ", serviceRate=" + serviceRate + ", cleanRate=" + cleanRate + ", locationRate=" + locationRate
-				+ ", roomNames=" + roomNames + "]";
+				+ ", rooms=" + rooms + "]";
 	}
 
 }

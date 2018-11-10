@@ -7,6 +7,7 @@ import kr.or.kosta.reservationmall.common.web.Params;
 import kr.or.kosta.reservationmall.hotel.dto.Hotel;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 /**
  * Dao 패턴 적용을 위한 인터페이스 선언
@@ -26,4 +27,5 @@ public interface HotelDao {
 
 	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
 
+	public Room getRoomInfo(String hotelId, String roomName) throws Exception;
 }

@@ -7,12 +7,19 @@
 	
 	<!-- 호텔 지역으로 조회 -->
 	<select id="searchHotelListsByLocation" parameterType="HotelSearchParam" resultType="HotelSearchResult">
-SELECT hotel_id "hotelId",
-       "rate"."price_rate" "priceRate", "rate"."food_rate" "foodRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
-	   room_name "roomName"
+SELECT hotel_id "hotelId", room_name "roomName", "room_price" "price",
+       room_standard_person_number "standardNumber",
+       ROOM_CHILD_MAX_NUMBER "childMaxNumber",
+       room_info "roomInfo",
+       room_detail "roomDetail",
+	   "rate"."price_rate" "priceRate", "rate"."food_rate" "foodRate",
+	   "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate",
+	   "rate"."location_rate" "locationRate"
 FROM   (SELECT hotel_id,
                room_name,
-               room_id
+               room_id,
+               r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) "room_price",
+               room_standard_person_number, ROOM_CHILD_MAX_NUMBER, room_info, room_detail
         FROM   rooms r join price_policy pp using(price_policy_id)
         WHERE  hotel_id IN(SELECT hotel_id 
                            FROM   reviews 
@@ -82,7 +89,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                                WHERE  location_name = #{value})
                                         AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
-               				 AND reservation_status = 200
+               				 AND reservation_status <![CDATA[ <= ]]> 300
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
                                      <![CDATA[ > ]]> 
                                      #{startDay} 
@@ -101,16 +108,26 @@ WHERE  room_id NOT IN(SELECT room_id
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
                                              #{startDay} ) ))
-group by hotel_id, "rate"."price_rate", "rate"."food_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
+GROUP  BY hotel_id, room_name, "room_price", "rate"."price_rate", room_standard_person_number, 
+ROOM_CHILD_MAX_NUMBER, room_info, room_detail, "rate"."food_rate", "rate"."location_rate", 
+"rate"."service_rate", "rate"."clean_rate"
+order by hotel_id, "room_price"
 	</select>
 
 	<select id="searchHotelListsByHotel" parameterType="HotelSearchParam" resultType="HotelSearchResult">
-SELECT hotel_id "hotelId",
-	   "rate"."price_rate" "priceRate", "rate"."food_rate" "foodRate", "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate", "rate"."location_rate" "locationRate",
-	   room_name "roomName"
+SELECT hotel_id "hotelId", room_name "roomName", "room_price" "price",
+       room_standard_person_number "standardNumber",
+       ROOM_CHILD_MAX_NUMBER "childMaxNumber",
+       room_info "roomInfo",
+       room_detail "roomDetail",
+	   "rate"."price_rate" "priceRate", "rate"."food_rate" "foodRate",
+	   "rate"."service_rate" "serviceRate", "rate"."clean_rate" "cleanRate",
+	   "rate"."location_rate" "locationRate", room_standard_person_number, ROOM_CHILD_MAX_NUMBER, room_info, room_detail
 FROM   (SELECT hotel_id,
                room_name,
-               room_id
+               room_id,
+               r.room_price*(1 + pp.price_peak_season + pp.price_weekday + pp.price_breakfast) "room_price",
+               room_standard_person_number, ROOM_CHILD_MAX_NUMBER, room_info, room_detail
         FROM   rooms r join price_policy pp using(price_policy_id)
         WHERE  hotel_id IN(SELECT hotel_id 
                            FROM   reviews 
@@ -180,7 +197,7 @@ WHERE  room_id NOT IN(SELECT room_id
                                                WHERE  hotel_name like '%'||#{value}||'%')
                                         AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                							AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
-               				 AND reservation_status = 200
+               				 AND reservation_status <![CDATA[ <= ]]> 300
                              AND ( ( To_char(reservation_end_day, 'YYYY-MM-DD') 
                                      <![CDATA[ > ]]> 
                                      #{startDay} 
@@ -199,7 +216,24 @@ WHERE  room_id NOT IN(SELECT room_id
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
                                              #{startDay} ) ))
-group by hotel_id, "rate"."price_rate", "rate"."food_rate", "rate"."service_rate", "rate"."clean_rate", "rate"."location_rate", room_name
+GROUP  BY hotel_id, room_name, "room_price", "rate"."price_rate", room_standard_person_number, 
+ROOM_CHILD_MAX_NUMBER, room_info, room_detail, "rate"."food_rate", "rate"."location_rate", 
+"rate"."service_rate", "rate"."clean_rate"
+order by hotel_id, "room_price"
+	</select>
+	
+	<select id="getRoomInfo" parameterType="map" resultType="RoomJjw">
+	SELECT room_name "name", 
+       room_standard_person_number "standardNumber", 
+       room_child_max_number "childMaxNumber", 
+       room_info "info", 
+       room_detail "detail", 
+       room_price * ( 1 + price_peak_season + price_weekday + price_breakfast ) "price"
+FROM   rooms 
+       join price_policy USING(price_policy_id) 
+WHERE  hotel_id = #{hotelId} 
+       AND room_name = #{roomName}
+       and ROWNUM = 1
 	</select>
 	
 </mapper>

@@ -20,7 +20,6 @@ import kr.or.kosta.reservationmall.login.service.LoginService;
  * 요청파라메터 한글인코딩 처리 필터
  */
 public class IndexDataFilter implements Filter {
-	private AdminService adminService;
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -29,16 +28,8 @@ public class IndexDataFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
-		adminService = (AdminService)factory.getBean(AdminServiceImpl.class);
+		//XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		
-		ArrayList<Hotel> hotelList = new ArrayList<>();
-		try {
-			hotelList = adminService.getHotelList();
-		} catch (Exception e) {
-			throw new ServletException("UserService.list() 예외 발생", e);
-		}
-		request.setAttribute("hotelList", hotelList);
 		chain.doFilter(request, response);
 		// 후처리
 	}
