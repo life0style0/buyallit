@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.reservationmall.myreview">
+	
+	<!-- 리뷰 새로 쓰기 -->
+	<insert id="writeReview" parameterType="Review">
+		INSERT INTO reviews 
+		            (review_id, 
+		             review_content, 
+		             review_date, 
+		             review_service_rate, 
+		             review_food_rate, 
+		             review_clean_rate, 
+		             review_location_rate, 
+		             review_price_rate, 
+		             hotel_id, 
+		             user_id) 
+		VALUES     (review_id_seq.NEXTVAL, 
+		            #{review_content}, 
+		            SYSDATE, 
+		            #{review_service_rate}, 
+		            #{review_food_rate}, 
+		            #{review_clean_rate}, 
+		            #{review_location_rate}, 
+		            #{review_price_rate}, 
+		            #{hotel_id}, 
+		            #{user_id})
+	</insert>
+	
+	<!-- 리뷰 아이디로 리뷰 조회 -->
+	<select id="searchReviewById" parameterType="int" resultType="Review">
+		SELECT review_id, 
+		       review_content, 
+		       review_date, 
+		       review_service_rate, 
+		       review_food_rate, 
+		       review_clean_rate, 
+		       review_location_rate, 
+		       review_price_rate, 
+		       review_helpful_count, 
+		       review_report_count, 
+		       hotel_id, 
+		       user_id 
+		FROM   reviews 
+		WHERE  review_id = #{value} 
+	</select>
+	
+</mapper>

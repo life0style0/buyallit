@@ -19,5 +19,10 @@ public interface UserService {
 	
 	/** 회원 수정 **/
 	public void updateUser(User user) throws Exception;
-
+	
+	/** 아이디로 회원찾기 **/
+	public User searchById(String id) throws Exception;
+	
+	/** 이메일로 회원 찾기 **/
+	public User searchByEmail(String email) throws Exception;
 }

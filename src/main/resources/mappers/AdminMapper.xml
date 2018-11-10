@@ -4,8 +4,19 @@
                         
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.reservationmall.admin">
-	
-
-	
-		
+	<select id="getHotelList" resultType="Hotel" >
+		SELECT 	hotel_id,
+       		   	hotel_name,
+      		   	hotel_address,
+      		   	hotel_phonenum,
+       			hotel_rate,
+       			hotel_info,
+       			hotel_detail,
+       			hotel_website,
+       			hotel_x,
+       			hotel_y,
+       			location_id
+		FROM   hotels
+		ORDER BY hotel_id
+	</select>	
 </mapper>

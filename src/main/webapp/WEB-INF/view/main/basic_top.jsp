@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
-<script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->

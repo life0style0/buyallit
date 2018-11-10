@@ -38,6 +38,7 @@ public class LoginController implements Controller {
 			String rememId = request.getParameter("rememId");
 			try {
 				check = loginService.checkLogin_hjh(user_id, user_pw);
+				check = loginService.checkLogin_hjh(user_id, user_pw);
 			} catch (Exception e) {
 				throw new ServletException("UserService.list() 예외 발생", e);
 			}

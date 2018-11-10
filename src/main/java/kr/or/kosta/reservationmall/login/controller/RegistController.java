@@ -30,7 +30,7 @@ public class RegistController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		loginService = (LoginService)factory.getBean(LoginServiceImpl.class);
 		
-		mav.setView("/WEB-INF/view/login/regist_form.jsp");
+		mav.setView("/WEB-INF/view/login/regist.jsp");
 
 		mav.addObject("registResult", "trying");
 		return mav;

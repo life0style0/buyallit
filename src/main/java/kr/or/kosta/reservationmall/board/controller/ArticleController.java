@@ -50,14 +50,18 @@ public class ArticleController implements Controller {
 		PrintWriter out = null;
 		String result = "";
 		for (Article article : list) {
-			result += "<tr>\r\n" + 
-					"    <td>"+article.getId()+"</td>\r\n" + 
-					"    <td>"+article.getTitle()+"</td>\r\n" + 
-					"    <td>"+article.getUserId()+"</td>\r\n" + 
-					"    <td>"+article.getDate()+"</td>\r\n" + 
-					"    <td>"+article.getHitCount()+"</td>\r\n" + 
-					"  </tr>";
+			result += 	"	<tr class='accordion'>" + 
+						"  		 <th scope='row'><a href='#'>View More</a>"+article.getId()+"</th>\r\n" + 
+						"   	 <td>"+article.getTitle()+ 	  "</td>\r\n"+ 
+						"    	 <td>"+article.getUserId()+	  "</td>\r\n" + 
+						"    	 <td>"+article.getDate()+	  "</td>\r\n" + 
+						"    	 <td>"+article.getHitCount()+ "</td>\r\n" +
+						"	</tr>\r\n"+ 
+						"<tr>\r\n" + 
+						"   <td colspan='5'>"+article.getContents()+ "</td>\r\n" + 
+						"	</tr>";
 		}
+		
 		try {
 		out = response.getWriter();
 		out.println(result);
@@ -68,7 +72,6 @@ public class ArticleController implements Controller {
 		return null;
 		
 	}
-	
 	
 
 }

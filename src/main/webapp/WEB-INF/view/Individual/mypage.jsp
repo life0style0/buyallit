@@ -25,11 +25,13 @@ User user= (User)request.getAttribute("user");
 System.out.println(user);
 System.out.println("끝");
 
-//loginCheck = request.getParameter("loginCheck");
+//String cancellationRes= (String)request.getAttribute("cancellationRes");
 %>
+
 
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="userId" value="<%=loginId%>" />
+
 
 <!DOCTYPE html>
 <html lang="utf-8">
@@ -53,21 +55,166 @@ System.out.println("끝");
 		<link href="/reservationmall/resources/css/template/style.css" rel="stylesheet">
 	
     <!-- 주현 css 추가  -->
+    <!--  
   	<link href="/reservationmall/resources/css/sjh/style.css" rel="stylesheet">
+    -->
     <!-- 주현 css 추가  -->
      
 		<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
-		<script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
     
+    <!-- 
+		<script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
+     -->
+     
     <!-- 주현 js 추가  -->
     <script type="text/javascript">
-    $(function(){ //부트스트랩 탭메뉴
-        $('ul.nav-tabs a').click(function (e) {
+    
+    $(function(){ 
+        $('ul.nav-tabs a').click(function (e) { //부트스트랩 탭메뉴
           e.preventDefault()
           $(this).tab('show')
         })
+        
+        if($('#logoutBtn') != null){ // 로그아웃
+        	$('#logoutBtn').on('click',function(){
+        		var d = new Date();
+        	    var expires = "expires=" + d.toGMTString();
+        	    document.cookie = 'loginId' + "=" + '' + ";" + expires + ";path=/";
+        	    location.href='/reservationmall/index.jsp';
+        	});
+        } 
+        
+        if($('#withdrawalMOpenBtn') != null){ // 회원 탈퇴
+          $('#withdrawalMOpenBtn').click(function(){
+        	  
+        	  $('#withdrawalBtn').on('click',function(){
+        		  console.log('탈퇴 버튼 클릭');
+        		  var userId= '<%=loginId%>';
+        		  console.log(userId);
+        		  
+        		  $.ajax({
+        			  data: {
+        				'userId' :   userId
+        			  },
+        			  url:"/reservationmall/individual/withdrawal.mall",
+        			  success: function(data){
+        				 // alert('탈퇴성공');
+        				 data= data.trim();
+        				 if(data=='withdrawalSuccess'){
+        					 var d = new Date();
+        	        	     var expires = "expires=" + d.toGMTString();
+        					 document.cookie = 'loginId' + "=" + '' + ";" + expires + ";path=/";
+        					 $('#withdrawal-confirm-Modal').modal();
+        				 } else if(data == 'withdrawalFail'){
+        					 alert('from server : withdrawalFail');
+        				 }
+        			  }, 
+        			  error: function(){
+        				 alert('서버로부터 전송 에러');
+        			  }
+        		  });
+        	  });
+        	  $('#withdrawal-Modal').modal();
+          })
+        }
+        
+        if($('button[name=write-reviewOpenBtn]') != null){ //리뷰 쓰기 버튼
+        	$('button[name=write-reviewOpenBtn]').on('click',function(){
+        		//alert('리뷰 쓰기 버튼');
+        		
+        		var writeReviewId= $(this).context.value;
+        		var hotelName= $(this).parents('.section-text').find('[name="res_hotel_name"]').text();
+        		var roomName= $(this).parents('.section-text').find('[name="res_room_name"]').text();
+        		var checkin= $(this).parents('.section-text').find('[name="res_start_day"]').text();
+        		var checkout= $(this).parents('.section-text').find('[name="res_end_day"]').text();
+        		
+        		$('#modal-write-review-id').html(writeReviewId);
+        		$('#write-review-hotel-name').html(hotelName);
+        		$('#write-review-room-name').html(roomName);
+        		$('#write-review-checkin').html(checkin);
+        		$('#write-review-checkout').html(checkout);
+        		$('#write-review_res_id').attr('value',writeReviewId);
+        		
+        		
+        	//$('#write-review-Modal').modal();
+        	});
+        }
+        
+        if($('button[name=cancellationOpenBtn]') != null){ //예약 취소 버튼
+        	$('button[name=cancellationOpenBtn]').on('click',function(){
+        		
+        		var cancellationId= $(this).context.value;
+        		var hotelName= $(this).parents('.section-text').find('[name="res_hotel_name"]').text();
+        		var roomName= $(this).parents('.section-text').find('[name="res_room_name"]').text();
+        		var checkin= $(this).parents('.section-text').find('[name="res_start_day"]').text();
+        		var checkout= $(this).parents('.section-text').find('[name="res_end_day"]').text();
+        		console.log(cancellationId);
+        
+        		
+        		$('#modal-cancellation-id').html(cancellationId);
+        		$('#cancellation-hotel-name').html(hotelName);
+        		$('#cancellation-room-name').html(roomName);
+        		$('#cancellation-checkin').html(checkin);
+        		$('#cancellation-checkout').html(checkout);
+        		$('#cancellation_res_id').attr('value',cancellationId);
+        		
+        		
+        		//$('#cancellation-Modal').modal();
+        		
+        		$('#cancellationBtn').on('click',function(){
+        			$('#cancellationForm').submit();
+        		});
+        	});
+        }
     })
     </script>
+    
+    <c:choose>
+      <c:when test="${requestScope.editUserResult eq 'trying'}">    
+      </c:when>
+      <c:when test="${requestScope.editUserResult eq 'success'}">
+        <script type="text/javascript">
+        $(function(){ 
+        	$('#edit-result').html('개인정보 수정되었습니다');
+        	$('#edit-confirm-Modal').modal();
+        })
+        </script>
+      </c:when>
+      <c:when test="${requestScope.editUserResult eq 'fail'}">
+        <script type="text/javascript">
+        $(function(){ 
+          $('#edit-result').html('개인정보 수정 실패했습니다');
+          $('#edit-confirm-Modal').modal();
+        })
+        </script>
+      </c:when>
+      <c:when test="${requestScope.cancellationRes eq 'success'}">
+        <script type="text/javascript">
+        $(function(){ 
+          $('#cancellation-result').html('예약 취소되었습니다');
+          
+          $('#cancellation-confirm-Modal-close').on('click',function(){
+        	  location.href='/reservationmall/individual/mypage.mall';
+          });
+          
+          $('#cancellation-confirm-Modal').modal();
+        })
+        </script>
+      </c:when>
+      <c:when test="${requestScope.cancellationRes eq 'fail'}">
+        <script type="text/javascript">
+        $(function(){ 
+          $('#cancellation-result').html('예약 취소 실패입니다');
+          
+          $('#cancellation-confirm-Modal-close').on('click',function(){
+        	  location.href='/reservationmall/individual/mypage.mall';
+          });
+          
+          $('#cancellation-confirm-Modal').modal();
+        })
+        </script>
+      </c:when>
+     </c:choose>
     <!-- 주현 js 추가 끝  -->
     
 	</head>
@@ -159,27 +306,11 @@ System.out.println("끝");
     <div style="height:50px"></div>
       <div id="ww">
       <div class="container">
-      
-      <c:choose>
-      
-      <c:when test="${requestScope.editUserResult eq 'success'}">
-        <div class="row">
-          <h3> 수정 완료 </h3>  
-        </div>
-      </c:when>
-      
-      <c:when test="${requestScope.editUserResult eq 'fail'}">
-        <div class="row">
-          <h3> 수정 실패 </h3>  
-        </div>
-      </c:when>
-      
-      <c:otherwise>
-        <%--수정폼 보여주기 --%> 
+        
+        <%-- 수정폼 --%>
         <jsp:include page="/WEB-INF/view/individual/edit_form.jsp"></jsp:include>
-      </c:otherwise>
+        <%-- 수정폼 --%>
       
-      </c:choose>
       </div>
       <!-- /container -->
     </div>
@@ -197,7 +328,7 @@ System.out.println("끝");
       <div id="ww">
       <div class="container">
         <div class="row">
-          <button type="button" class="btn btn-danger" id="leaveBtn">탈퇴하기</button>
+          <button type="button" class="btn btn-danger" id="withdrawalMOpenBtn">탈퇴하기</button>
         </div>
       </div>
       <!-- /container -->
@@ -224,49 +355,140 @@ System.out.println("끝");
           </div>
         </div>
         
-				<div class="row">
+        <c:choose>
+        <c:when test="${not empty resList}">
+        <c:forEach var="reservationInfo" items="${resList}" varStatus="status">
+        
+          <c:choose>
+            <c:when test="${reservationInfo.reservation_status==200}">
+              <div class="row bg-info">
+            </c:when>
+        
+            <c:when test="${reservationInfo.reservation_status==400}">
+              <div class="row bg-danger">
+            </c:when>
+                                      
+            <c:otherwise>
+              <div class="row bg-info">
+            </c:otherwise>
+          </c:choose>
+				
+                    <div style="height:20px"></div>
 					<div class="col-md-7">
 						<div class="section-text">
-							<h3> 호텔이름</h3>
+							<h3> 
+                              호텔이름 : 
+                              <span name="res_hotel_name">${reservationInfo.hotel_name}</span>
+                            </h3>
               
                             <div class="row">
                               <div class="col-md-9 h4">
-                              <h4> 예약번호 : 예약번호 </h4>
+                              <h4> 
+                                예약번호 : 
+                                <span name="res_id">${reservationInfo.reservation_id} </span>
+                              </h4>
                               </div>
                               <div class="col-md-3 h4">
-                              <button type="button" class="btn btn-red" id="cancellationBtn"
-                              data-toggle="modal"  data-target="#Modal-cancel">예약취소</button>
+                              
+                                <c:choose>
+                                  <c:when test="${reservationInfo.reservation_status==200}">
+                                  <%--정상 예약인 경우--%>
+                                    <c:choose>
+                                      <c:when test="${reservationInfo.end_day_check >= 1}">
+                                       <%-- 정상적으로 끝난 예약 --%>
+                                       <button type="button" class="btn btn-primary" name="write-reviewOpenBtn"
+                                        data-toggle="modal"  data-target="#write-review-Modal"
+                                        value="${reservationInfo.reservation_id}">리뷰쓰기</button>
+                                      </c:when>
+                                      <c:otherwise>
+                                        <c:choose>
+                                          <c:when test="${reservationInfo.start_day_check > -1 && reservationInfo.end_day_check <1}">
+                                           <%-- 진행중 예약 --%>
+                                           <span class="text-danger">이용중</span>
+                                          </c:when>
+                                          <c:when test="${reservationInfo.start_day_check > -2}">
+                                           <%--하루 전이므로 취소 불가 예약 --%>
+                                           <span class="text-danger">체크인 하루전!</span>
+                                          </c:when>
+                                          <c:when test="${reservationInfo.start_day_check <= -2}">
+                                           <%--아직 시작하지 않은 예약 --%>
+                                           <button type="button" class="btn btn-danger" name="cancellationOpenBtn"
+                                            data-toggle="modal"  data-target="#cancellation-Modal" 
+                                            value="${reservationInfo.reservation_id}">예약취소</button>
+                                          </c:when>
+                                          <c:otherwise>
+                                            <span>에러:${reservationInfo.start_day_check},${reservationInfo.end_day_check}</span>
+                                          </c:otherwise>
+                                        </c:choose>
+                                      </c:otherwise>
+                                    </c:choose>
+                                   
+                                  </c:when>
+    
+                                  <c:when test="${reservationInfo.reservation_status==400}">
+                                  <%--취소된 예약인 경우--%>
+                                    <span class="text-danger">취소된 예약</span>
+                                  </c:when>
+                                  
+                                  <c:otherwise>
+                                  </c:otherwise>
+          
+                                </c:choose>
+                              
                               </div>
                             </div>
                              
                             <div class="row">
                             <div class="col-md-6 h5"> 
                               <label>체크인</label> 
+                              <div name="res_start_day">${reservationInfo.reservation_start_day}</div>
                             </div>
                             <div class="col-md-6 h5"> 
-                              <label>체크아웃</label> 
+                              <label>체크아웃</label>
+                              <div name="res_end_day">${reservationInfo.reservation_end_day}</div> 
                             </div>
                             
                             <div class="col-md-6 h5"> 
                               <label>호텔주소</label> 
+                              <div name="res_hotel_address">${reservationInfo.hotel_address}</div> 
                             </div>
                             <div class="col-md-6 h5"> 
                               <label>방이름</label> 
+                              <div name="res_room_name">${reservationInfo.room_name}</div>
                             </div>
                             <div class="col-md-6 h5"> 
                               <label>방 기준인원</label> 
+                              <div>
+                              <span>일반 ${reservationInfo.room_standard_person_number} 명, </span>
+                              <span>어린이 ${reservationInfo.room_child_max_number} 명</span>
+                              </div>
                             </div>
                             <div class="col-md-6 h5"> 
                              <label>결제금액</label> 
+                             <div name="res_total_price">${reservationInfo.total_price}</div>
                             </div>
                             <div class="col-md-6 h5"> 
-                              <label>결제일</label> 
+                              <label>결제일시</label>
+                              <div name="res_payment_day">${reservationInfo.payment_day}</div>
                             </div>
                             <div class="col-md-6 h5"> 
-                              <label>결제유형</label> 
+                              <label>결제유형</label>
+                              <div name="res_payment_type">${reservationInfo.payment_type}</div> 
                             </div>
+                            <c:choose>
+                            <c:when test="${reservationInfo.reservation_status==400}">
+                              <%--취소된 예약인 경우--%>
+                            <div class="col-md-12 h5"> 
+                                <label class="text-danger">결제취소일</label>
+                              <div name="res_payment_cancellation_day">
+                                <span class="text-danger">${reservationInfo.payment_cancellation_day}</span>
+                              </div> 
+                            </div>
+                            </c:when>
+                            </c:choose>
                             </div>
 						</div>
+                        <div style="height:20px"></div>
 					</div>
                     
                     <!-- 호텔 이미지 시작-->
@@ -292,9 +514,15 @@ System.out.println("끝");
                     <!-- 호텔 이미지 끝-->
                     
 				</div>
+                <div style="height:50px"></div>
+        </c:forEach>
+        </c:when>
+        </c:choose>
+        
 			</div>
         <div style="height:50px"></div>
 		</section>
+    </section>
     <!--  예약 내역 조회 끝 -->
 
 
@@ -498,9 +726,165 @@ System.out.println("끝");
 			</div>
 		</div>
     
-     <%-- 예약취소 모달 --%>
-     <jsp:include page="/mypage-modal/cancellation-modal.jsp"/>
-     <%-- 예약취소 모달 --%>
+        <!--  개인정보 수정 결과 모달  -->
+         <div class="modal fade" id="edit-confirm-Modal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 개인정보 수정 </h4>
+              </div>
+              <div class="modal-body">
+                <p id="edit-result">   </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  개인정보 수정 결과 모달  -->
+        
+        <!--  회원 탈퇴 모달  -->
+         <div class="modal fade" id="withdrawal-Modal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 회원 탈퇴 </h4>
+              </div>
+              <div class="modal-body">
+                <p> 탈퇴하시겠습니까?  </p>
+              </div>
+              <div class="modal-footer">
+              <button type="button" id="withdrawalBtn" class="btn btn-danger" data-dismiss="modal" >탈퇴하기</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 회원 탈퇴 모달  -->
+        
+        <!--  회원 탈퇴 성공 모달  -->
+         <div class="modal fade" id="withdrawal-confirm-Modal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 회원 탈퇴 </h4>
+              </div>
+              <div class="modal-body">
+                <p> 탈퇴되었습니다  </p>
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-default" href="/reservationmall/"> 메인으로 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 회원 탈퇴 성공 모달  -->
+    
+        <!-- 리뷰쓰기 모달 -->
+        <div class="modal fade" id="write-review-Modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 리뷰 쓰기 </h4>
+              </div>
+              <div class="modal-body">
+                <p class="row">
+                  예약 번호 
+                  <span id="modal-write-review-id"> </span>
+                </p>
+                <p class="row">
+                  <span id="write-review-hotel-name" class="alert alert-info"> </span>
+                  <span id="write-review-room-name" class="alert alert-info"> </span>
+                </p>
+                <p class="row">
+                  체크인 
+                  <span id="write-review-checkin" class="badge"> </span>
+                  체크아웃  
+                  <span id="write-review-checkout" class="badge"> </span>
+                </p>
+                <p> 리뷰 쓰기 </p>
+                <div>
+                  <form id="writeReviewForm" action="/reservationmall/individual/writeReview.mall" method="post">
+                    <input type="hidden" id="write-review_res_id" name="write-review_res_id" value=""/>
+                    <textarea id="write-review-text" class="form-control" rows="10"
+                    placeholder="여기에 리뷰를 작성하세요.."></textarea>
+                  </form>
+                </div> 
+              <div class="modal-footer">
+                <button type="button" id="write-reviewBtn" class="btn btn-primary" data-dismiss="modal" >리뷰쓰기</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- 리뷰쓰기 모달 -->
+        
+        <!-- 예약취소 모달 -->
+        <div class="modal fade" id="cancellation-Modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 예약취소 </h4>
+              </div>
+              <div class="modal-body">
+                <p class="row">
+                  예약 번호 
+                  <span id="modal-cancellation-id"> </span>
+                </p>
+                <p class="row">
+                  <span id="cancellation-hotel-name" class="alert alert-info"> </span>
+                  <span id="cancellation-room-name" class="alert alert-info"> </span>
+                </p>
+                <p class="row">
+                  체크인 :
+                  <span id="cancellation-checkin" class="badge"> </span>
+                  & 체크아웃 : 
+                  <span id="cancellation-checkout" class="badge"> </span>
+                </p>
+                <p> 예약 취소 하시겠습니까? </p>
+              </div>
+              <div class="modal-footer">
+                <form id="cancellationForm" action="/reservationmall/individual/cancellationRes.mall" method="post">
+                  <input type="hidden" id="cancellation_res_id" name="cancellation_res_id" value=""/>
+                  <button type="button" id="cancellationBtn" class="btn btn-danger" data-dismiss="modal" >취소하기</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 예약취소 모달 -->
+     
+        <!--  예약취소 확인 모달  -->
+         <div class="modal fade" id="cancellation-confirm-Modal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 예약 취소 </h4>
+              </div>
+              <div class="modal-body">
+                <p id="cancellation-result">   </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="cancellation-confirm-Modal-close" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  예약취소 확인  모달  -->
+     
 
 		<!-- Bootstrap core JavaScript
 			================================================== -->

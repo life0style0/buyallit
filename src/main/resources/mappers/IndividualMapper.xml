@@ -37,7 +37,7 @@
 			<if test="user_phonenum != null">user_phonenum = #{user_phonenum},</if>
 		    <if test="user_email != null">user_email = #{user_email} </if>
 		</set>
-		WHERE  user_id = #{user_id}; 
+		WHERE  user_id = #{user_id}
 	</update>
 	
 	<!-- 회원 삭제 -->
@@ -45,5 +45,35 @@
 		DELETE FROM users
 		WHERE  user_id = #{value}
 	</delete>
-		
+	
+	<!-- 아이디로 회원 찾기 -->
+	<select id="searchById" parameterType="String" resultType="User">
+		SELECT user_id "user_id", 
+		       user_pw "user_pw", 
+		       user_name "user_name", 
+		       user_age "user_age", 
+		       user_address "user_address", 
+		       user_phonenum "user_phonenum", 
+		       user_email "user_email", 
+		       user_rate "user_rate",
+		       TO_CHAR(user_regdate) "user_regdate"
+		FROM users
+		WHERE user_id=#{value}
+	</select>
+	
+	<!-- 이메일로 회원 찾기 -->
+	<select id="searchByEmail" parameterType="String" resultType="User">
+		SELECT user_id "user_id", 
+		       user_pw "user_pw", 
+		       user_name "user_name", 
+		       user_age "user_age", 
+		       user_address "user_address", 
+		       user_phonenum "user_phonenum", 
+		       user_email "user_email", 
+		       user_rate "user_rate",
+		       TO_CHAR(user_regdate) "user_regdate"
+		FROM users
+		WHERE user_email=#{value}
+	</select>
+	
 </mapper>

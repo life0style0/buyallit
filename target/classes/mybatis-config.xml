@@ -14,8 +14,17 @@
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Hotel" alias="Hotel"/>
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Rooms" alias="Rooms"/>
 		<typeAlias type="kr.or.kosta.reservationmall.board.dto.Article" alias="Article"/>
+		<typeAlias type="kr.or.kosta.reservationmall.board.dto.Notes" alias="Notes"/>
+
+		<!-- 지원 추가 -->
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam" alias="HotelSearchParam"/>
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult" alias="HotelSearchResult"/>
+		<!-- 지원 추가 -->
+		
+		<!-- 주현 추가 -->
+		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.ReservationInfo" alias="ReservationInfo"/>
+		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.Review" alias="Review"/>
+		<!-- 주현 추가 -->
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->
@@ -58,9 +67,12 @@
 		
 		<!-- 혜림 -->
 		<mapper resource="mappers/ArticleMapper.xml"  />
+		<mapper resource="mappers/NoteMapper.xml"  />
 				
-		<!-- 주현  -->
+		<!-- 주현 -->
 		<mapper resource="mappers/IndividualMapper.xml"  />
+		<mapper resource="mappers/MyReservationMapper.xml"  /> <!-- 1108추가 -->
+		<mapper resource="mappers/MyReviewMapper.xml"  /> <!-- 1109추가 -->
 		
 		<!-- 지원 -->
 		<mapper resource="mappers/HotelSearchMapper.xml"  />
