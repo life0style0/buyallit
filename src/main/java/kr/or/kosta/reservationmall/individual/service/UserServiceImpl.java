@@ -36,6 +36,18 @@ public class UserServiceImpl implements UserService {
 		userDao.update(user);
 		
 	}
+
+	@Override
+	public User searchById(String id) throws Exception {
+		//아이디로 회원 찾기
+		return userDao.searchById(id);
+	}
+
+	@Override
+	public User searchByEmail(String email) throws Exception {
+		//이메일로 회원 찾기
+		return userDao.searchByEmail(email);
+	}
 	
 
 

@@ -41,11 +41,11 @@ function setDatetimepickerSetting() {
     });
 }
 
-function addsearchPersonNumber(number) {
+function addsearchPersonNumber(number, className) {
     const peopleHtml = `<div class="col-md-6">
     <div class="form-group">
       <label>어른 수</label>
-      <select class="form-control input-lg" name="searchAdultNumber${number}">
+      <select class="form-control ${className}" name="searchAdultNumber${number}">
         <option>1</option>
         <option selected>2</option>
         <option>3</option>
@@ -61,7 +61,7 @@ function addsearchPersonNumber(number) {
   <div class="col-md-6">
     <div class="form-group">
       <label>아이 수</label>
-      <select class="form-control input-lg" name="searchChildNumber${number}">
+      <select class="form-control ${className}" name="searchChildNumber${number}">
         <option>0</option>
         <option>1</option>
         <option>2</option>
@@ -83,7 +83,23 @@ function changeRoomNumberJjw(element) {
     const thisValue = parseInt(element.value);
     if (beforeValue < thisValue) {
         for (let i = beforeValue + 1; i <= thisValue; i += 1) {
-            $('#roomNumberAnchor').after(addsearchPersonNumber(i));
+            $('#roomNumberAnchor').after(addsearchPersonNumber(i, 'input-lg'));
+        }
+    } else if (beforeValue > thisValue) {
+        for (let i = beforeValue; i > thisValue; i -= 1) {
+            for (let j = 0; j < 2; j += 1) {
+                $('#roomNumberAnchor').next().remove();
+            }
+        }
+    }
+}
+
+function changeRoomNumber2Jjw(element) {
+    const beforeValue = parseInt($('#roomNumberHidden').val());
+    const thisValue = parseInt(element.value);
+    if (beforeValue < thisValue) {
+        for (let i = beforeValue + 1; i <= thisValue; i += 1) {
+            $('#roomNumberAnchor').after(addsearchPersonNumber(i,''));
         }
     } else if (beforeValue > thisValue) {
         for (let i = beforeValue; i > thisValue; i -= 1) {
@@ -145,7 +161,17 @@ $(function () {
         changeRoomNumberJjw(this);
     });
 
+    $('#roomNumber2').on('mousedown', function () {
+        $('#roomNumberHidden').val(parseInt(this.value));
+    });
+
+    $('#roomNumber2').on('change', function () {
+        changeRoomNumber2Jjw(this);
+    });
+
     setDatetimepickerSetting();
+
+    calculateDayJjw();
 
     $('.owl-jjw').owlCarousel({
         autoplay: false,

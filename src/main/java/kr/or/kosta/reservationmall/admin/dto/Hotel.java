@@ -1,12 +1,19 @@
 package kr.or.kosta.reservationmall.admin.dto;
 
+import java.util.ArrayList;
+
 public class Hotel {
 
 	private String hotel_id;
+	private String hotel_name;
 	private String hotel_address;
+	private String hotel_phonenum;
 	private String hotel_rate;
 	private String hotel_info;
 	private String hotel_detail;
+	private String hotel_website;
+	private String hotel_x;
+	private String hotel_y;
 	private String location_id;
 	
 	public Hotel() {
@@ -71,6 +78,46 @@ public class Hotel {
 
 	public void setLocation_id(String location_id) {
 		this.location_id = location_id;
+	}
+
+	public String getHotel_name() {
+		return hotel_name;
+	}
+
+	public void setHotel_name(String hotel_name) {
+		this.hotel_name = hotel_name;
+	}
+
+	public String getHotel_phonenum() {
+		return hotel_phonenum;
+	}
+
+	public void setHotel_phonenum(String hotel_phonenum) {
+		this.hotel_phonenum = hotel_phonenum;
+	}
+
+	public String getHotel_website() {
+		return hotel_website;
+	}
+
+	public void setHotel_website(String hotel_website) {
+		this.hotel_website = hotel_website;
+	}
+
+	public String getHotel_x() {
+		return hotel_x;
+	}
+
+	public void setHotel_x(String hotel_x) {
+		this.hotel_x = hotel_x;
+	}
+
+	public String getHotel_y() {
+		return hotel_y;
+	}
+
+	public void setHotel_y(String hotel_y) {
+		this.hotel_y = hotel_y;
 	}
 	
 	

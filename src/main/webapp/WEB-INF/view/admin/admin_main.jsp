@@ -21,162 +21,440 @@
 	<link href="/reservationmall/resources/css/template/owl.theme.default.min.css"  rel="stylesheet">
 	<link href="/reservationmall/resources/css/template/style.css" rel="stylesheet">
 	<link href="/reservationmall/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="/reservationmall/resources/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=aba8nx_n3O9CvAauIsql&amp;submodules=panorama,geocoder,drawing,visualization"></script>
+
+	<script>
+	$(function () {
+	  $("#home-tab").on("click", function(e){
+		  
+		  $("#home-tab").tab('show');
+	  });
+	  
+	  $("#profile-tab").on("click", function(e){
 	
+		  $("#profile-tab").tab('show');
+		});
+	  $("a[name='paymentList']").on("click", function(e){
+		 $(this).collapse('show');
+	  });
+		
+	  $("#roomInfo").on("click", function(e){
+		  
+		  $("#roomInfo").tab('show');
+	  });
+	});
+	</script>
 </head>
 <body>
 	<!-- top 네비게이션 -->
 	<jsp:include page="/WEB-INF/view/main/basic_top.jsp"></jsp:include>
-		<div class="container">
-			<div style="height:100px"></div>	
-		</div>
-	<div class="container">
+
+	<section>
+			<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="section-title">
+						<h2>검색 결과</h2>
+						<p>요기조아 만의 차별화된 검색으로 고객님의 행복을 찾아 드립니다.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row row-0-gutter">
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>신라호텔</h2>
+								<p>호텔업소, 4성급</p>
+								<a data-toggle="modal" data-target="#Modal-1">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_2.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>힐튼 호텔</h2>
+								<p>고급 호텔, 5성급</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_3.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>대충 호텔</h2>
+								<p>이런 느낌, 오케이?</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-3">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+			</div>
+			<div class="row row-0-gutter">
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_4.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>Smart Name</h2>
+								<p>Branding, Design</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-4">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_5.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>Fast People</h2>
+								<p>Branding, Web Design</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-5">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_6.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>Kites & Stars</h2>
+								<p>Branding, Web Design</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+			</div>
+			
+			<div class="row row-0-gutter">
+				<!-- start portfolio item -->
+				<div class="col-md-4 col-0-gutter">
+					<div class="ot-portfolio-item">
+						<figure class="effect-bubba">
+							<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img02" class="img-responsive" />
+							<figcaption>
+								<h2>신라호텔</h2>
+								<p>호텔업소, 4성급</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-1">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<!-- end portfolio item -->
+				<!-- start portfolio item -->
+				
+				<!-- end portfolio item -->
+				<!-- start portfolio item -->
+			
+				<!-- end portfolio item -->
+			</div>
+			
+			
+			</div><!-- end container -->
 		
-	 <ul id="myTab" class="nav nav-tabs" role="tablist">
-	 <li role="presentation" class="dropdown active">
-        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">통계정보 <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-          <li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">날짜별</a></li>
-          <li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">호텔별</a></li>
-        </ul>
-      </li>
-      <li role="presentation"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">호텔 관리</a></li>
-      <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">QA관리</a></li>
-      <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">회원관리</a></li>
-      
-    </ul>
-    <div id="myTabContent" class="tab-content">
-      <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
-        <script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
-			<div id="container" style="border: solid 1px black; width: 100%; 
-			height: 300px; margin-bottom: 10px;">
-			        <canvas id="canvas" style="margin-left: 5px;"></canvas>
-			    </div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="section-footer">
+						<h2><button class="btn btn-warning">더 보기</button></h2>
+					</div>
+				</div>
+			</div>
+		
+		</section>
+		
+		
+		<section>
+		<div class="container">
+		    <div class="panel-body">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne">
+				      <h4 class="panel-title">
+				        <button class="btn btn-info" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				         	 결제정보
+				        </button>
+				      </h4>
+				    </div>
+				    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				      <div class="panel-body">
+				        고객정보 방예약 정보 등등
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingTwo">
+				      <h4 class="panel-title">
+				        <button class="btn btn-info collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				          방정보
+				        </button>
+				      </h4>
+				    </div>
+				    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+				      <div class="panel-body">
+				        <ul class="list-group">
+				          <li class="list-group-item">스위트룸</li>
+				          <li class="list-group-item">고급룸</li>
+				          <li class="list-group-item">그루비룸</li>
+				        </ul>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+		   	</div>
+		    <div class="panel-footer">
+		    	<span style="flat:left;">총 결제 금액 : 35000</span> <button type="button" class="btn btn-danger" style="float:right;">결제하기</button>
+		    </div>
+		</div>
+				
+		</section>	
+
+	
+	<!-- 모달 -->
+	<div class="modal fade bs-example-modal-lg" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<!-- hotel infomation  -->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="Modal-label-1">신라호텔</h4>
+					</div>
+					<div class="modal-body">
+						<div role="tabpanel">
+						    <ul class="nav nav-tabs" role="tablist">
+						      <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true" data-target="#home">호텔정보</a></li>
+						      <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" data-target="#profile">비교분석</a></li>
+						    </ul>
+						    <!-- 호텔정보 탭 시작 -->
+							<div id="myTabContent" class="tab-content">
+								<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
+									<div class="owl-portfolio owl-carousel">
+										<div class="item">
+											<div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_1.jpg" class="img-responsive" alt="portfolio"></div>
+										</div>
+										<div class="item">
+											<div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_2.jpg" class="img-responsive" alt="portfolio"></div>
+										</div>
+										<div class="item">
+											<div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive" alt="portfolio"></div>
+										</div>
+									</div>
+									<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img01" class="img-responsive" />
+									<div class="modal-works">
+										<span>특급호텔</span><span>스파</span><span>찜질방</span>
+									</div>
+									<p>안녕하세요 신라호텔입니다. 성심성의껏 고객님을 황제로 모시겠습니다.</p>
+									<div role="tabpanel">
+									    <ul class="nav nav-tabs" role="tablist">
+									      <li role="presentation" class="active"><a href="#room1" id="room1-tab" role="tab" data-toggle="tab" aria-controls="room1" aria-expanded="true" data-target="#room1">방 선택1</a></li>
+									      <li role="presentation"><a href="#room2" role="tab" id="room2-tab" data-toggle="tab" aria-controls="room2" data-target="#room2">방 선택2</a></li>
+									    </ul>
+									    
+									    <div id="roomTab" class="tab-content">
+									    	<div role="tabpanel" class="tab-pane fade in active" id="room1" aria-labelledBy="room1-tab">
+									    	<span class="label label-success">기준인원 : 4 </span>
+									    	<table class="table table-hover">
+										      <thead>
+										        <tr>
+										          <th>#</th>
+										          <th>방이름</th>
+										          <th>인원수</th>
+										          <th>가격</th>
+										          <th>선택</th>
+										        </tr>
+										      </thead>
+										      <tbody>
+										        <tr>
+										          <th scope="row">1</th>
+										          <td>스위트룸</td>
+										          <td>최소 : 3  최대 : 6</td>
+										          <td>3000000원</td>
+										          <td><button type="button" id="roomInfo" class="btn btn-primary" data-toggle="collapse" data-target="#romminfo" aria-expanded="false" aria-controls="romminfo">방정보</button>
+										          <button type="button" class="btn btn-primary">선택</button></td>
+										        </tr>
+										        <tr>
+										          <th scope="row">2</th>
+										          <td>Jacob</td>
+										          <td>Thornton</td>
+										          <td>@fat</td>
+										        </tr>
+										        <tr>
+										          <th scope="row">3</th>
+										          <td>Larry</td>
+										          <td>the Bird</td>
+										          <td>@twitter</td>
+										        </tr>
+										      </tbody>
+										    </table>
+										    <div class="collapse" id="romminfo">
+											  <div class="well" >
+											    방정보
+											  </div>
+											</div>
+									    	
+									    	</div>
+									    	
+									    	<div role="tabpanel" class="tab-pane fade in active" id="room2" aria-labelledBy="room2-tab">
+									    	</div>
+									    </div>
+									    
+									</div>
+										
+								</div>
+									
+								<!-- 비교분석 탭 시작 -->
+								<div role="tabpanel" class="tab-pane" id="profile" aria-labelledBy="profile-tab">
+							 		<div class="row">
+									  	<div class="col-md-6">
+									  		<div class="jumbotron">
+											 	<div id="map" style="width:100%;height:300px;"></div>
+												<script>
+												var mapOptions = {
+												    center: new naver.maps.LatLng(37.3595704, 127.105399),
+												    zoom: 10
+												};
+												
+												var map = new naver.maps.Map('map', mapOptions);
+												</script>
+									  		</div>
+									  	</div>
+									  	<div class="col-md-6">
+									  		<div class="jumbotron">
+											 <script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
+											 <div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
+											        <canvas id="canvasRadar" style="margin-left: 5px;"></canvas>
+											</div>
+											<div style="border: solid 1px black; width: 100%; 
+												height: 30%; margin-bottom: 10px;">
+												        <canvas id="canvasRadar2" style="margin-left: 5px;"></canvas>
+											</div>
+											<script>
+											var target = document.getElementById('canvasRadar').getContext('2d');
+											var targets = document.getElementById('canvasRadar2').getContext('2d');
+									
+											var ChartHelper = {
+										            chartColors: {
+										                red: 'rgb(255, 99, 132)'
+										                , orange: 'rgb(255, 159, 64)'
+										                , yellow: 'rgb(255, 205, 86)'
+										                , green: 'rgb(75, 192, 192)'
+										                , blue: 'rgb(54, 162, 235)'
+										                , purple: 'rgb(153, 102, 255)'
+										                , grey: 'rgb(201, 203, 207)'
+										            }
+										        };
+											 var color = Chart.helpers.color;
+												
+										        var data1 = null;
+										        var data2 = null;
+										        var barChartData = null;
+											
+									
+											window.RadarChart = new Chart(target, {
+											    type: 'radar',
+											    data: {
+											        labels: ['서비스', '청결도', '가격', '시설', '교통'],
+											        datasets: [
+										                {
+										                    label: '신라호텔'
+										                    , backgroundColor: 
+															color(ChartHelper.chartColors.blue).alpha(0.5).rgbString()
+										                    , borderColor: ChartHelper.chartColors.blue
+										                    , borderWidth: 1
+										                    , data: [3.5, 2.2, 5.0, 4.2, 3.8]
+										                }, {
+										                    label: '평균값'
+											                    , backgroundColor: 
+																color(ChartHelper.chartColors.red).alpha(0.5).rgbString()
+											                    , borderColor: ChartHelper.chartColors.red
+											                    , borderWidth: 1
+											                    , data: [3.2, 3.2, 3.0, 3.2, 3.8]
+											                }]
+											    },
+											    option : Chart.defaults.radar
+											});
+													var data1 = null;
+											        var data2 = null;
+											        var barChartData = null;
+											
+											       
+											        // todo: data setting
+											        data1 = [150000];
+											        data2 = [200000];
+											
+											        barChartData = {
+											            labels: ['총가격']
+											            , datasets: [
+											                {
+											                    label: '신라호텔'
+											                    , backgroundColor: 
+											color(ChartHelper.chartColors.blue).alpha(0.5).rgbString()
+											                    , borderColor: ChartHelper.chartColors.blue
+											                    , borderWidth: 1
+											                    , data: data1
+											                }
+											                , {
+											                    label: '평균가격'
+											                    , backgroundColor: 
+											color(ChartHelper.chartColors.red).alpha(0.5).rgbString()
+											                    , borderColor: ChartHelper.chartColors.red
+											                    , borderWidth: 1
+											                    , data: data2
+											                }
+											            ]
+											        };
+									
+									        window.BarChart = new Chart(targets, {
+									            type: 'bar'
+												// 옆으로 누운 bar 차트를 쓰실 경우 바꾸시면 됩니다.
+									            //type: 'horizontalBar'
+									            , data: barChartData
+									            , options: Chart.defaults.bar
+									        });
+											</script>
+										</div>
+									</div>
+							 	</div>
+							</div>
+						</div>
+					</div>
+					
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info">예약하기</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		</div>
+		
+		
 			
-			    <script type="text/javascript">
-			        var ChartHelper = {
-			            chartColors: {
-			                red: 'rgb(255, 99, 132)'
-			                , orange: 'rgb(255, 159, 64)'
-			                , yellow: 'rgb(255, 205, 86)'
-			                , green: 'rgb(75, 192, 192)'
-			                , blue: 'rgb(54, 162, 235)'
-			                , purple: 'rgb(153, 102, 255)'
-			                , grey: 'rgb(201, 203, 207)'
-			            }
-			        };
-			
-			        var color = Chart.helpers.color;
-			
-			        var data1 = null;
-			        var data2 = null;
-			        var barChartData = null;
-			
-			        // todo: data setting
-			        data1 = ['10', '20', '30', '40', '50', '60', '70', '80'
-			, '90', '100', '110', '120'];
-			        data2 = ['120', '110', '100', '90', '80', '70', '60', '50'
-			, '40', '30', '20', '10'];
-			
-			        barChartData = {
-			            labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월'
-			, '9월', '10월', '11월', '12월']
-			            , datasets: [
-			                {
-			                    label: 'DataSet1'
-			                    , backgroundColor: 
-			color(ChartHelper.chartColors.blue).alpha(0.5).rgbString()
-			                    , borderColor: ChartHelper.chartColors.blue
-			                    , borderWidth: 1
-			                    , data: data2
-			                }
-			                , {
-			                    label: 'DataSet2'
-			                    , backgroundColor: 
-			color(ChartHelper.chartColors.red).alpha(0.5).rgbString()
-			                    , borderColor: ChartHelper.chartColors.red
-			                    , borderWidth: 1
-			                    , data: data1
-			                }
-			            ]
-			        };
-			
-			        var ctx = document.getElementById('canvas').getContext('2d');
-			
-			        window.BarChart = new Chart(ctx, {
-			            type: 'bar'
-			// 옆으로 누운 bar 차트를 쓰실 경우 바꾸시면 됩니다.
-			            //type: 'horizontalBar'
-			            , data: barChartData
-			            , options: {
-			// responsive, maintainAspectRatio의 설정이 아래와 같이 해야
-			// 브라우저의 크기를 변경해도 canvas를 감싸고 있는
-			// div의 크기에 따라 차트가 깨지지 않고 이쁘게 출력 됩니다. 
-			                responsive: true   //auto size : true
-			                , maintainAspectRatio: false
-			                , legend: {
-			                    position: 'top'
-			                }
-			                , title: {
-			                    display: true
-			                    , text: 'Chart Title'
-			                }
-			// Bar 하나에 데이터 모두 보여줄 경우 사용
-			// 주석 처리 할 경우 이 예제에서는 data1, data2 각각 bar가 2개씩 나옵니다.
-			                //, scales: {
-			                //    xAxes: [
-			                //        { stacked: true }
-			                //    ]
-			                //    , yAxes: [
-			                //        { stacked: true }
-			                //    ]
-			                //}
-			
-			// or bar chart 하나씩 보여줄 경우
-			                  , scales: {
-			                        yAxes: [{
-			                            ticks: {
-			// Y 축 0부터 시작
-			                                beginAtZero:true
-			// Y 축 정수로 보여주기 
-			// 숫자가 작거나 또는 0인 경우 등 자동으로 보여주므로 소숫점으로 나타난다
-			                                , callback: function (value) {
-			                                    if (0 === value % 1) {
-			                                        return value;
-			                                    }
-			                                }
-			                            }
-			                        }]
-			                    }
-			// 아래 주석 처리하여도 포인터를 바에 가져가면 수치가 나옵니다.
-			// 그러나 min 버젼을 link할 경우 영역에다 가져가면 나오질 않아요
-			// 또한 툴팁에 해당 데이터의 색도 나오지 않습니다.
-			// 직접 코딩 후 min 버젼으로 교체하여 테스트 해보시면 차이를 알 수 있습니다.
-			                // Tooltip 
-			                //, tooltips: {
-			                //    mode: 'index',
-			                //    intersect: false,
-			                //},
-			                //hover: {
-			                //    mode: 'nearest',
-			                //    intersect: true
-			                //}
-			            }
-			        });
-			
-			        var colorNames = Object.keys(ChartHelper.chartColors);
-    		</script>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledBy="profile-tab">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledBy="dropdown1-tab">
-        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="dropdown2" aria-labelledBy="dropdown2-tab">
-        <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-      </div>
-    </div>
-	</div>
 
 	<!-- bottom네비게이션 -->
 	<jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>

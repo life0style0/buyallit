@@ -50,18 +50,16 @@ loginCheck = request.getParameter("loginCheck");
 				<li>
 					<a class="page-scroll" href="#search">호텔검색</a>
 				</li>
-				<li>
-					<a class="page-scroll" href="#recommendation">추천리스트</a>
-				</li>
-                <li>
-                <a class="page-scroll" data-toggle="modal" data-target="#notice" id="board">공지사항</a>
-                </li>
+               
 				<li>
 					<a class="page-scroll" href="#faq">FAQ</a>
 				</li>
 				<li>
 					<a class="page-scroll" href="#contact">Contact</a>
 				</li>
+				<li>
+                	<a class="page-scroll" data-toggle="modal" data-target="#notice" id="board">공지사항</a>
+                </li>
 				 <%
 		          if(loginId == null){
 				  %>

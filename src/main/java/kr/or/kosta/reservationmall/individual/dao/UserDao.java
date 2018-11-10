@@ -22,6 +22,10 @@ public interface UserDao {
 	
 	public void delete(String id) throws Exception; //회원 삭제
 	
+	public User searchById(String id) throws Exception; //아이디로 회원 찾기
+	
+	public User searchByEmail(String email) throws Exception; //이메일로 회원 찾기
+	
 //	public List<User> listAll() throws Exception; //회원 전체 조회
 	
 	

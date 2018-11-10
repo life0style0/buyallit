@@ -51,8 +51,10 @@ public class SearchHotelController implements Controller {
 				String[] parameters = request.getParameterValues(key);
 				if (parameters.length > 1) {
 					paramMap.put(typeRemovedKey, parameters);
+					request.setAttribute(key, parameters);
 				} else {
 					paramMap.put(typeRemovedKey, parameters[0]);
+					request.setAttribute(key, parameters[0]);
 				}
 			}
 		}
@@ -113,7 +115,7 @@ public class SearchHotelController implements Controller {
 		}
 		mav.addObject("hotelInfos", hotelInfos);
 
-		mav.setView("/WEB-INF/view/search/temp2.jsp");
+		mav.setView("/WEB-INF/view/search/search.jsp");
 		return mav;
 	}
 

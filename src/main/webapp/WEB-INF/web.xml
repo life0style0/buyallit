@@ -56,6 +56,26 @@
 		</init-param>
 		 -->
 	</filter>
+	
+	<!--  1107 주현 추가  -->
+	<filter>
+		<filter-name>MypageLoadFilter</filter-name>
+		<filter-class>kr.or.kosta.reservationmall.individual.filter.MypageLoadFilter</filter-class>
+	</filter>
+	<!--  1107 주현 추가  -->
+	
+	<!-- index.jsp 데이터 로딩 -->
+	<filter>
+		<filter-name>IndexDataFilter</filter-name>
+		<filter-class>kr.or.kosta.reservationmall.common.filter.IndexDataFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>IndexDataFilter</filter-name>
+		<url-pattern>/</url-pattern>
+		<url-pattern>/index.mall</url-pattern>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping>
 
 	<!-- 필터 매핑 -->
 	<filter-mapping>
@@ -65,8 +85,16 @@
 
 	<filter-mapping>
 		<filter-name>LoginCheckFilter</filter-name>
-		<url-pattern>/test1322</url-pattern>
+		<url-pattern>/individual/*</url-pattern>
 	</filter-mapping>
+	
+	<!--  1107 주현 추가  -->
+	<filter-mapping>
+		<filter-name>MypageLoadFilter</filter-name>
+		<url-pattern>/individual/*</url-pattern>
+	</filter-mapping>
+	<!--  1107 주현 추가  -->
+	
 
 	<!-- 웹브라우저 모든 요청에 대한 단일 진입점 역할의 Front Controller Servlet(메인서블릿) 등록 -->
 	<servlet>
