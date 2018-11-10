@@ -22,8 +22,6 @@
 	<link href="/reservationmall/resources/css/template/owl.theme.default.min.css" rel="stylesheet">
 	<link href="/reservationmall/resources/css/template/style.css" rel="stylesheet">
 	<link href="/reservationmall/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
-	<script type="text/javascript" src="/reservationmall/resources/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=aba8nx_n3O9CvAauIsql&amp;submodules=panorama,geocoder,drawing,visualization"></script>
 
 
@@ -435,10 +433,14 @@
 								<p>안녕하세요 신라호텔입니다. 성심성의껏 고객님을 황제로 모시겠습니다.</p>
 								<div role="tabpanel">
 									<ul class="nav nav-tabs" role="tablist">
-										<li role="presentation" class="active"><a href="#room1" id="room1-tab" role="tab" data-toggle="tab"
-											 aria-controls="room1" aria-expanded="true" data-target="#room1">방 선택1</a></li>
-										<li role="presentation"><a href="#room2" role="tab" id="room2-tab" data-toggle="tab" aria-controls="room2"
-											 data-target="#room2">방 선택2</a></li>
+										<li role="presentation" class="active">
+											<button href="#room1" id="room1-tab" role="tab" data-toggle="tab" aria-controls="room1" aria-expanded="true"
+											 data-target="#room1">방 선택1</button>
+										</li>
+										<li role="presentation">\
+											<button href="#room2" role="tab" id="room2-tab" data-toggle="tab" aria-controls="room2" data-target="#room2">방
+												선택2</button>
+										</li>
 									</ul>
 
 									<div id="roomTab" class="tab-content">
@@ -657,9 +659,7 @@
 		</div>
 	</div>
 
-
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> -->
+	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
 	<script src="/reservationmall/resources/js/template/bootstrap.min.js"></script>
 	<script src="/reservationmall/resources/js/template/owl.carousel.min.js"></script>
 	<script src="/reservationmall/resources/js/template/cbpAnimatedHeader.js"></script>
