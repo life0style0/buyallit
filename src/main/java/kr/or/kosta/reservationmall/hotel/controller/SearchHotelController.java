@@ -45,13 +45,34 @@ public class SearchHotelController implements Controller {
 		Map<String, Object> paramMap = new HashMap<>();
 
 		String type = "search";
+//		Set<String> set = request.getParameterMap().keySet();
+//		for (String key : set) {
+//			if (key.startsWith(type)) {
+//				String typeRemovedKey = key.substring(type.length());
+//				String[] parameters = request.getParameterValues(key);
+//				if (parameters.length > 1) {
+//					paramMap.put(typeRemovedKey, parameters);
+//					request.setAttribute(key, parameters);
+//				} else {
+//					paramMap.put(typeRemovedKey, parameters[0]);
+//					request.setAttribute(key, parameters[0]);
+//				}
+//			}
+//		}
+		String[] adultNumber = request.getParameterValues("searchAdultNumber");
+		request.setAttribute("searchAdultNumber", adultNumber);
+		String[] childNumber = request.getParameterValues("searchChildNumber");
+		request.setAttribute("searchChildNumber", childNumber);
+		for (int i = 0; i < childNumber.length; i++) {
+			paramMap.put("AdultNumber" + (i + 1), adultNumber[i]);
+			paramMap.put("ChildNumber" + (i + 1), childNumber[i]);
+		}
 		Set<String> set = request.getParameterMap().keySet();
 		for (String key : set) {
 			if (key.startsWith(type)) {
 				String typeRemovedKey = key.substring(type.length());
 				String[] parameters = request.getParameterValues(key);
 				if (parameters.length > 1) {
-					paramMap.put(typeRemovedKey, parameters);
 					request.setAttribute(key, parameters);
 				} else {
 					paramMap.put(typeRemovedKey, parameters[0]);
@@ -122,7 +143,6 @@ public class SearchHotelController implements Controller {
 				hotelInfos.add(info);
 			}
 		}
-		System.out.println(info);
 		mav.addObject("hotelInfos", hotelInfos);
 
 		mav.setView("/WEB-INF/view/search/search.jsp");
@@ -143,11 +163,22 @@ public class SearchHotelController implements Controller {
 				}
 				if (temp[temp.length - 1].equals("set" + keyTemp)) {
 					method = method2;
-					String value = (String) paramMap.get(key);
-					try {
-						method.invoke(bean, value);
-					} catch (Exception e) {
-						e.printStackTrace();
+					if (paramMap.get(key) instanceof String[]) {
+						String[] values = (String[]) paramMap.get(key);
+						for (String value : values) {
+							try {
+								method.invoke(bean, value);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					} else if (paramMap.get(key) instanceof String) {
+						String value = (String) paramMap.get(key);
+						try {
+							method.invoke(bean, value);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 					break;
 				}

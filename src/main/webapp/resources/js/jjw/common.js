@@ -41,11 +41,11 @@ function setDatetimepickerSetting() {
     });
 }
 
-function addsearchPersonNumber(number, className) {
+function addsearchPersonNumber(className) {
     const peopleHtml = `<div class="col-md-6">
     <div class="form-group">
       <label>어른 수</label>
-      <select class="form-control ${className}" name="searchAdultNumber${number}">
+      <select class="form-control ${className}" name="searchAdultNumber">
         <option>1</option>
         <option selected>2</option>
         <option>3</option>
@@ -61,7 +61,7 @@ function addsearchPersonNumber(number, className) {
   <div class="col-md-6">
     <div class="form-group">
       <label>아이 수</label>
-      <select class="form-control ${className}" name="searchChildNumber${number}">
+      <select class="form-control ${className}" name="searchChildNumber">
         <option>0</option>
         <option>1</option>
         <option>2</option>
@@ -83,12 +83,12 @@ function changeRoomNumberJjw(element) {
     const thisValue = parseInt(element.value);
     if (beforeValue < thisValue) {
         for (let i = beforeValue + 1; i <= thisValue; i += 1) {
-            $('#roomNumberAnchor').after(addsearchPersonNumber(i, 'input-lg'));
+            $('#roomNumberAnchor').append(addsearchPersonNumber('input-lg'));
         }
     } else if (beforeValue > thisValue) {
         for (let i = beforeValue; i > thisValue; i -= 1) {
             for (let j = 0; j < 2; j += 1) {
-                $('#roomNumberAnchor').next().remove();
+                $('#roomNumberAnchor').children().last().remove();
             }
         }
     }
@@ -99,12 +99,12 @@ function changeRoomNumber2Jjw(element) {
     const thisValue = parseInt(element.value);
     if (beforeValue < thisValue) {
         for (let i = beforeValue + 1; i <= thisValue; i += 1) {
-            $('#roomNumberAnchor').after(addsearchPersonNumber(i,''));
+            $('#roomNumberAnchor').append(addsearchPersonNumber(''));
         }
     } else if (beforeValue > thisValue) {
         for (let i = beforeValue; i > thisValue; i -= 1) {
             for (let j = 0; j < 2; j += 1) {
-                $('#roomNumberAnchor').next().remove();
+                $('#roomNumberAnchor').children().last().remove();
             }
         }
     }
@@ -115,15 +115,15 @@ var ps = new daum.maps.services.Places();
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
-  var keyword = $('#searchValueInput').val();
+    var keyword = $('#searchValueInput').val();
 
-  if (!keyword.replace(/^\s+|\s+$/g, '')) {
-    alert('키워드를 입력해주세요!');
-    return false;
-  }
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
 
-  // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-  ps.keywordSearch(keyword, placesSearchCB);
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch(keyword, placesSearchCB);
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -138,17 +138,48 @@ function placesSearchCB(data, status, pagination) {
             return;
         }
 
-  } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
 
-    alert('검색 결과가 존재하지 않습니다.');
-    return;
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
 
-  } else if (status === daum.maps.services.Status.ERROR) {
+    } else if (status === daum.maps.services.Status.ERROR) {
 
-    alert('검색 결과 중 오류가 발생했습니다.');
-    return;
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
 
-  }
+    }
+}
+
+function owlSearch() {
+    if ($('#owl-search-num')) {
+        for (let i = 1; i <= $('#owl-search-num').children().length; i += 1) {
+            $(`.owl-search-${i}`).owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [
+                    "<i class='fa fa-angle-left'></i>",
+                    "<i class='fa fa-angle-right'></i>"
+                ],
+                dots: false,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 1
+                    },
+                    1000: {
+                        items: 1
+                    }
+                }
+            });
+        }
+    }
 }
 
 
@@ -221,7 +252,7 @@ $(function () {
         } else {
             $('#searchValueInputHidden').val($('#searchValueInput').val());
         }
-        
+
         setTimeout(() => {
             $('#searchForm').submit();
         }, 500);
@@ -232,4 +263,6 @@ $(function () {
             $(this).val('');
         })
     })
+
+    owlSearch();
 })

@@ -34,7 +34,18 @@
 </head>
 
 <body>
-<%-- 	<c:forEach items="${hotelInfos}" var="hotelInfo">
+	<c:forEach items="${hotelInfos}" var="hotelInfo">
+		<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
+			<c:if test="${roomnum.count ==1}">
+
+				<c:forEach items="${rooms.value}" var="room">
+					<c:forEach items="${room.detail}" var="detail">
+					</c:forEach>
+				</c:forEach>
+			</c:if>
+		</c:forEach>
+	</c:forEach>
+	<%-- 	<c:forEach items="${hotelInfos}" var="hotelInfo">
 	<c:forEach items="${hotelInfo.rooms}" var="rooms">
 	${rooms.value}
 	</c:forEach>
@@ -114,47 +125,57 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>객실 수</label> <select class="form-control " id="roomNumber2" name="searchRoomNumber">
-								<option selected>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-								<option>6</option>
-							</select> <input type="hidden" id="roomNumberHidden">
+								<option ${searchRoomNumber==1 ? 'selected' : '' }>1</option>
+								<option ${searchRoomNumber==2 ? 'selected' : '' }>2</option>
+								<option ${searchRoomNumber==3 ? 'selected' : '' }>3</option>
+								<option ${searchRoomNumber==4 ? 'selected' : '' }>4</option>
+								<option ${searchRoomNumber==5 ? 'selected' : '' }>5</option>
+								<option ${searchRoomNumber==6 ? 'selected' : '' }>6</option>
+							</select> <input type="hidden" id="roomNumberHidden" value="${searchRoomNumber}">
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>어른 수</label> <select class="form-control " name="searchAdultNumber1">
-									<option>1</option>
-									<option selected>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-									<option>8</option>
-									<option>9</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6" id="roomNumberAnchor">
-							<div class="form-group">
-								<label>아이 수</label> <select class="form-control " name="searchChildNumber1">
-									<option>0</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-									<option>8</option>
-									<option>9</option>
-								</select>
-							</div>
-						</div>
+					<div class="col-md-3" id="roomNumberAnchor">
+						<c:forEach begin="1" end="${searchRoomNumber}" var="i">
+							<c:forEach items="${searchAdultNumber}" var="adultNumber" varStatus="adultNumberStatus">
+								<c:if test="${adultNumberStatus.count == i}">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>어른 수</label> <select class="form-control" name="searchAdultNumber">
+												<option ${adultNumber==1 ? 'selected' : '' }>1</option>
+												<option ${adultNumber==2 ? 'selected' : '' }>2</option>
+												<option ${adultNumber==3 ? 'selected' : '' }>3</option>
+												<option ${adultNumber==4 ? 'selected' : '' }>4</option>
+												<option ${adultNumber==5 ? 'selected' : '' }>5</option>
+												<option ${adultNumber==6 ? 'selected' : '' }>6</option>
+												<option ${adultNumber==7 ? 'selected' : '' }>7</option>
+												<option ${adultNumber==8 ? 'selected' : '' }>8</option>
+												<option ${adultNumber==9 ? 'selected' : '' }>9</option>
+											</select>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
+							<c:forEach items="${searchChildNumber}" var="childNumber" varStatus="childNumberStatus">
+								<c:if test="${childNumberStatus.count == i}">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>아이 수</label> <select class="form-control" name="searchChildNumber">
+												<option ${childNumber==0 ? 'selected' : '' }>0</option>
+												<option ${childNumber==1 ? 'selected' : '' }>1</option>
+												<option ${childNumber==2 ? 'selected' : '' }>2</option>
+												<option ${childNumber==3 ? 'selected' : '' }>3</option>
+												<option ${childNumber==4 ? 'selected' : '' }>4</option>
+												<option ${childNumber==5 ? 'selected' : '' }>5</option>
+												<option ${childNumber==6 ? 'selected' : '' }>6</option>
+												<option ${childNumber==7 ? 'selected' : '' }>7</option>
+												<option ${childNumber==8 ? 'selected' : '' }>8</option>
+												<option ${childNumber==9 ? 'selected' : '' }>9</option>
+											</select>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
+						</c:forEach>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
@@ -166,12 +187,18 @@
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>평점 검색</label> <select class="form-control " name="searchRateType">
-									<option value="searchAllRate">전체 별점 평균</option>
-									<option value="searchPriceRate">가격 별점 평균</option>
-									<option value="searchCleanRate">청결도 별점 평균</option>
-									<option value="searchServiceRate">서비스 별점 평균</option>
-									<option value="searchFoodRate">음식 별점 평균</option>
-									<option value="searchLocationRate">위치 별점 평균</option>
+									<option value="searchAllRate" ${searchRateType=='searchAllRate' ? 'selected' : '' }>전체
+										별점 평균</option>
+									<option value="searchPriceRate" ${searchRateType==searchPriceRate ? 'selected' : '' }>가격
+										별점 평균</option>
+									<option value="searchCleanRate" ${searchRateType==searchCleanRate ? 'selected' : '' }>청결도
+										별점 평균</option>
+									<option value="searchServiceRate" ${searchRateType==searchServiceRate ? 'selected' : '' }>서비스
+										별점 평균</option>
+									<option value="searchFoodRate" ${searchRateType==searchFoodRate ? 'selected' : '' }>음식
+										별점 평균</option>
+									<option value="searchLocationRate" ${searchRateType==searchLocationRate ? 'selected' : '' }>위치
+										별점 평균</option>
 								</select>
 							</div>
 						</div>
@@ -203,7 +230,6 @@
 	</section>
 
 
-
 	<section>
 		<div class="container">
 			<div class="row">
@@ -214,27 +240,26 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-0-gutter">
+			<div class="row row-0-gutter" id="owl-search-num">
 				<c:forEach items="${hotelList}" var="hotel">
 					<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
-						<c:choose>
-							<c:when test="${hotelInfo.hotelId == hotel.hotel_id}">
-								<!-- start portfolio item -->
-								<div class="col-md-4 col-0-gutter">
-									<div class="ot-portfolio-item">
-										<figure class="effect-bubba">
-											<img src="/reservationmall/resources/images/hotels/hotel_${hotel.hotel_id}.jpg" alt="img02" class="img-responsive" />
-											<figcaption>
-												<h2>${hotel.hotel_name}</h2>
-												<p>${hotel.hotel_rate}</p>
-												<a data-toggle="modal" data-target="#Modal-${hotelnum.count}">View more</a>
-											</figcaption>
-										</figure>
-									</div>
+						<c:if test="${hotelInfo.hotelId == hotel.hotel_id}">
+							<!-- start portfolio item -->
+							<div class="col-md-4 col-0-gutter">
+								<div class="ot-portfolio-item">
+									<figure class="effect-bubba">
+										<img src="/reservationmall/resources/images/hotels/hotel_${hotel.hotel_id}.jpg" alt="img02" class="img-responsive" />
+										<figcaption>
+											<h2>${hotel.hotel_name}</h2>
+											<p>${hotel.hotel_rate}</p>
+											<a data-toggle="modal" data-target="#Modal-${hotelnum.count}">View
+												more</a>
+										</figcaption>
+									</figure>
 								</div>
-								<!-- end portfolio item -->
-							</c:when>
-						</c:choose>
+							</div>
+							<!-- end portfolio item -->
+						</c:if>
 					</c:forEach>
 				</c:forEach>
 			</div>
@@ -326,24 +351,23 @@
 										<!-- 호텔정보 탭 시작 -->
 										<div id="myTabContent" class="tab-content">
 											<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
-												<div class="owl-portfolio owl-carousel">
+												<div class="owl-search-${hotelnum.count} owl-carousel">
 													<div class="item">
-														<div class="owl-portfolio-item">
+														<div class="owl-search-item">
 															<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" class="img-responsive" alt="portfolio">
 														</div>
 													</div>
 													<div class="item">
-														<div class="owl-portfolio-item">
+														<div class="owl-search-item">
 															<img src="/reservationmall/resources/images/hotels/hotel_2.jpg" class="img-responsive" alt="portfolio">
 														</div>
 													</div>
 													<div class="item">
-														<div class="owl-portfolio-item">
+														<div class="owl-search-item">
 															<img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive" alt="portfolio">
 														</div>
 													</div>
 												</div>
-												<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img01" class="img-responsive" />
 												<div class="modal-works">
 													<c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
 														<span>${detail}</span>
@@ -353,18 +377,28 @@
 												<div role="tabpanel">
 													<ul class="nav nav-tabs" role="tablist">
 														<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum">
-															<li role="presentation" class="active">
-																<a href="#room${roomnum.count}" id="room${roomnum.count}-tab" role="tab" data-toggle="tab" aria-controls="room${roomnum.count}"
-																 aria-expanded="true" data-target="#room${roomnum.count}">방 선택${roomnum.count}</a>
-															</li>
+															<li role="presentation" class="${roomnum.count == 1 ? 'active' : ''}"><a href="#room${hotelnum.count}-${roomnum.count}"
+																 id="room${hotelnum.count}-${roomnum.count}-tab" role="tab" data-toggle="tab" aria-controls="room${hotelnum.count}-${roomnum.count}"
+																 aria-expanded="${roomnum.count == 1 ? 'true' : 'false'}" data-target="#room${hotelnum.count}-${roomnum.count}">방
+																	선택${roomnum.count}</a></li>
 														</c:forEach>
 													</ul>
 
 													<div id="roomTab" class="tab-content">
 														<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
-															<div role="tabpanel" class="tab-pane fade in active" id="room${roomnum.count}" aria-labelledBy="room1-tab">
-																<span class="label label-success">기준인원 : 1명, 아이 : 최대 2명
-																</span>
+															<div role="tabpanel" class="tab-pane fade in ${roomnum.count == 1 ? 'active' : ''}" id="room${hotelnum.count}-${roomnum.count}"
+															 aria-labelledBy="room${hotelnum.count}-${roomnum.count}-tab">
+																<h3><span class="label label-default">예약 인원</span></h3>
+																<c:forEach items="${searchAdultNumber}" var="adultNumber" varStatus="adultNumberStatus">
+																	<c:if test="${adultNumberStatus.count == roomnum.count}">
+																		<span class="lead"><span class="label label-success">어른 : ${adultNumber}명</span></span>
+																	</c:if>
+																</c:forEach>
+																<c:forEach items="${searchChildNumber}" var="childNumber" varStatus="childNumberStatus">
+																	<c:if test="${childNumberStatus.count == roomnum.count}">
+																		<span class="lead"><span class="label label-success">아이 : ${childNumber}명</span></span>
+																	</c:if>
+																</c:forEach>
 																<table class="table table-hover">
 																	<thead>
 																		<tr>
@@ -378,19 +412,30 @@
 																	<tbody>
 																		<c:forEach items="${rooms.value}" var="room" varStatus="roomId">
 																			<tr>
-																				<th scope="row">1</th>
+																				<th scope="row">${roomId.count}</th>
 																				<td>${room.name}</td>
 																				<td>최소 : 1 최대 : ${room.standardNumber}</td>
 																				<td>${room.price}원</td>
-																				<td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#romminfo${roomId.count}"
-																					 aria-expanded="false" aria-controls="romminfo${roomId.count}">방정보</button>
+																				<td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#romminfo${hotelnum.count}-${roomId.count}"
+																					 aria-expanded="false" aria-controls="romminfo${hotelnum.count}-${roomId.count}">방정보</button>
 																					<button type="button" class="btn btn-primary">선택</button></td>
+																			</tr>
+																			<tr class="collapse" id="romminfo${hotelnum.count}-${roomId.count}">
+																				<td colspan="5"><span>
+																						<div class="well">방정보입니다.</div>
+																						<div>${room.info}</div>
+																						<div class="modal-works">
+																							<c:forEach items="${room.detail}" var="detail">
+																								<span>${detail}</span>
+																							</c:forEach>
+																						</div>
+																					</span></td>
 																			</tr>
 																		</c:forEach>
 																	</tbody>
 																</table>
 																<c:forEach items="${rooms.value}" var="room" varStatus="roomId">
-																<div class="collapse" id="romminfo${roomId.count}">
+																	<!-- <div class="collapse" id="romminfo${hotelnum.count}-${roomId.count}">
 																	<div class="well">방정보입니다.</div>
 																	<div>${room.info}</div>
 																	<div class="modal-works">
@@ -398,7 +443,7 @@
 																				<span>${detail}</span>
 																			</c:forEach>
 																		</div>
-																</div>
+																</div> -->
 																</c:forEach>
 															</div>
 														</c:forEach>

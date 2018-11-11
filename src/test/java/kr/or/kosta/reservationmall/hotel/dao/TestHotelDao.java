@@ -84,6 +84,9 @@ public class TestHotelDao {
 								info.addRooms(i + 1,
 										dao.getRoomInfo(String.valueOf(hotelId), hotelSearchResult.getRoomName()));
 							}
+							for (String string : info.getRooms().get(i+1).get(0).getDetail()) {
+								System.out.println(string);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -101,12 +104,12 @@ public class TestHotelDao {
 		System.out.println("걸린 시간: " + 걸린시간 + " 밀리초");
 	}
 
-//	@Test
+	@Test
 	public void test3() {
-		Integer i = 3;
-		int b = 2;
-		System.out.println(((Object)b).equals(2));
-		String a = "1234";
-		System.out.println(a.substring(1, 3));
+		String a = "고급 침구<?!>LCD TV<?!>객실 금고<?!>무료 생수<?!>에어컨<?!>미니 냉장고<?!>슬리퍼<?!>암막 커튼";
+		String[] b = a.split("<\\?!>");
+		for (String string : b) {
+			System.out.println(string);
+		}
 	}
 }

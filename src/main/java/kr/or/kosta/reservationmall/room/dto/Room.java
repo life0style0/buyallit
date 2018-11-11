@@ -20,7 +20,7 @@ public class Room {
 		this.childMaxNumber = childMaxNumber;
 		this.info = info;
 		this.price = price;
-		this.detail = detail.split("<?!>");
+		this.detail = detail.split("<\\?!>");
 	}
 
 	public String getName() {
@@ -68,7 +68,7 @@ public class Room {
 	}
 
 	public void setDetail(String detail) {
-		this.detail = detail.split("<?!>");
+		this.detail = detail.split("<\\?!>");
 	}
 
 	@Override

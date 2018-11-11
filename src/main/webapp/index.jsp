@@ -125,11 +125,11 @@
               <input type="hidden" id="roomNumberHidden">
             </div>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8" id="roomNumberAnchor">
             <div class="col-md-6">
               <div class="form-group">
                 <label>어른 수</label>
-                <select class="form-control input-lg" name="searchAdultNumber1">
+                <select class="form-control input-lg" name="searchAdultNumber">
                   <option>1</option>
                   <option selected>2</option>
                   <option>3</option>
@@ -142,10 +142,10 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-6" id="roomNumberAnchor">
+            <div class="col-md-6">
               <div class="form-group">
                 <label>아이 수</label>
-                <select class="form-control input-lg" name="searchChildNumber1">
+                <select class="form-control input-lg" name="searchChildNumber">
                   <option>0</option>
                   <option>1</option>
                   <option>2</option>
