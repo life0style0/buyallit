@@ -112,10 +112,11 @@ public class SearchHotelController implements Controller {
 			}
 			hotelIdSet = Sets.intersection(hotelIdSet, hotelIdSetTemp);
 		}
-
 		List<HotelInfo> hotelInfos = new ArrayList<>();
+		String hotelIds = "";
 		HotelInfo info = null;
 		for (int hotelId : hotelIdSet) {
+			hotelIds += hotelId + ",";
 			info = new HotelInfo();
 			info.setHotelId(hotelId);
 			for (int i = 0; i < searchResult.size(); i++) {
@@ -131,7 +132,8 @@ public class SearchHotelController implements Controller {
 								info.addRooms(i + 1,
 										new Room(hotelSearchResult.getRoomName(), hotelSearchResult.getStandardNumber(),
 												hotelSearchResult.getChildMaxNumber(), hotelSearchResult.getRoomInfo(),
-												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail()));
+												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail(),
+												hotelService.getRoomImages(hotelId, hotelSearchResult.getRoomName())));
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -143,6 +145,14 @@ public class SearchHotelController implements Controller {
 				hotelInfos.add(info);
 			}
 		}
+
+		Map<String, List<String>> hotelImages = null;
+		try {
+			hotelImages = hotelService.getHotelImages(hotelIds.substring(0, hotelIds.length() - 1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("hotelImages", hotelImages);
 		mav.addObject("hotelInfos", hotelInfos);
 
 		mav.setView("/WEB-INF/view/search/search.jsp");

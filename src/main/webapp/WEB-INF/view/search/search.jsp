@@ -34,17 +34,6 @@
 </head>
 
 <body>
-	<c:forEach items="${hotelInfos}" var="hotelInfo">
-		<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
-			<c:if test="${roomnum.count ==1}">
-
-				<c:forEach items="${rooms.value}" var="room">
-					<c:forEach items="${room.detail}" var="detail">
-					</c:forEach>
-				</c:forEach>
-			</c:if>
-		</c:forEach>
-	</c:forEach>
 	<%-- 	<c:forEach items="${hotelInfos}" var="hotelInfo">
 	<c:forEach items="${hotelInfo.rooms}" var="rooms">
 	${rooms.value}
@@ -89,7 +78,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>검색 내용</label> <input type="search" class="form-control" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput"
-							 value="${searchValue}"> <input type="hidden" name="searchValue" id="searchValueInputHidden" value="${searchValue}">
+							 value="${searchValue}" required> <input type="hidden" name="searchValue" id="searchValueInputHidden" value="${searchValue}">
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -244,21 +233,25 @@
 				<c:forEach items="${hotelList}" var="hotel">
 					<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
 						<c:if test="${hotelInfo.hotelId == hotel.hotel_id}">
-							<!-- start portfolio item -->
-							<div class="col-md-4 col-0-gutter">
-								<div class="ot-portfolio-item">
-									<figure class="effect-bubba">
-										<img src="/reservationmall/resources/images/hotels/hotel_${hotel.hotel_id}.jpg" alt="img02" class="img-responsive" />
-										<figcaption>
-											<h2>${hotel.hotel_name}</h2>
-											<p>${hotel.hotel_rate}</p>
-											<a data-toggle="modal" data-target="#Modal-${hotelnum.count}">View
-												more</a>
-										</figcaption>
-									</figure>
-								</div>
-							</div>
-							<!-- end portfolio item -->
+							<c:forEach items="${hotelImages}" var="hotelImage">
+								<c:if test="${hotelImage.key == hotelInfo.hotelId}">
+									<!-- start portfolio item -->
+									<div class="col-md-4 col-0-gutter">
+										<div class="ot-portfolio-item">
+											<figure class="effect-bubba">
+												<img src="/reservationmall/resources/images/${hotelImage.value[0]}" alt="/reservationmall/resources/images/template/demo/image_main.jpg"
+												 class="img-responsive" />
+												<figcaption>
+													<h2>${hotel.hotel_name}</h2>
+													<p>${hotel.hotel_rate}</p>
+													<a data-toggle="modal" data-target="#Modal-${hotelInfo.hotelId}" class="hotelInfoLink">View more</a>
+												</figcaption>
+											</figure>
+										</div>
+									</div>
+									<!-- end portfolio item -->
+								</c:if>
+							</c:forEach>
 						</c:if>
 					</c:forEach>
 				</c:forEach>
@@ -327,8 +320,8 @@
 		<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
 			<c:choose>
 				<c:when test="${hotelInfo.hotelId == hotel.hotel_id}">
-					<div class="modal fade bs-example-modal-lg" id="Modal-${hotelnum.count}" tabindex="-1" role="dialog"
-					 aria-labelledby="Modal-label-${hotelnum.count}">
+					<div class="modal fade bs-example-modal-lg" id="Modal-${hotelInfo.hotelId}" tabindex="-1" role="dialog"
+					 aria-labelledby="Modal-label-${hotelInfo.hotelId}">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<!-- hotel infomation  -->
@@ -351,44 +344,40 @@
 										<!-- 호텔정보 탭 시작 -->
 										<div id="myTabContent" class="tab-content">
 											<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
-												<div class="owl-search-${hotelnum.count} owl-carousel">
-													<div class="item">
-														<div class="owl-search-item">
-															<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" class="img-responsive" alt="portfolio">
-														</div>
-													</div>
-													<div class="item">
-														<div class="owl-search-item">
-															<img src="/reservationmall/resources/images/hotels/hotel_2.jpg" class="img-responsive" alt="portfolio">
-														</div>
-													</div>
-													<div class="item">
-														<div class="owl-search-item">
-															<img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive" alt="portfolio">
-														</div>
-													</div>
+												<div class="owl-search-${hotelInfo.hotelId} owl-carousel">
+													<c:forEach items="${hotelImages}" var="hotelImage">
+														<c:if test="${hotelImage.key == hotelInfo.hotelId}">
+															<c:forEach items="${hotelImage.value}" var="imageDirectory">
+																<div class="item text-center">
+																	<div class="owl-search-item">
+																		<img class="owl-lazy" data-src="/reservationmall/resources/images/${imageDirectory}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+																	</div>
+																</div>
+															</c:forEach>
+														</c:if>
+													</c:forEach>
 												</div>
-												<div class="modal-works">
+												<div class="col-md-12">
 													<c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
-														<span>${detail}</span>
+														<span></sapn><span class="label label-info">${detail}</span></span>
 													</c:forTokens>
 												</div>
 												<p>${hotel.hotel_info}</p>
 												<div role="tabpanel">
 													<ul class="nav nav-tabs" role="tablist">
 														<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum">
-															<li role="presentation" class="${roomnum.count == 1 ? 'active' : ''}"><a href="#room${hotelnum.count}-${roomnum.count}"
-																 id="room${hotelnum.count}-${roomnum.count}-tab" role="tab" data-toggle="tab" aria-controls="room${hotelnum.count}-${roomnum.count}"
-																 aria-expanded="${roomnum.count == 1 ? 'true' : 'false'}" data-target="#room${hotelnum.count}-${roomnum.count}">방
+															<li role="presentation" class="${roomnum.count == 1 ? 'active' : ''}"><a href="#room${hotelInfo.hotelId}-${roomnum.count}"
+																 id="room${hotelInfo.hotelId}-${roomnum.count}-tab" role="tab" data-toggle="tab" aria-controls="room${hotelInfo.hotelId}-${roomnum.count}"
+																 aria-expanded="${roomnum.count == 1 ? 'true' : 'false'}" data-target="#room${hotelInfo.hotelId}-${roomnum.count}">방
 																	선택${roomnum.count}</a></li>
 														</c:forEach>
 													</ul>
 
 													<div id="roomTab" class="tab-content">
 														<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
-															<div role="tabpanel" class="tab-pane fade in ${roomnum.count == 1 ? 'active' : ''}" id="room${hotelnum.count}-${roomnum.count}"
-															 aria-labelledBy="room${hotelnum.count}-${roomnum.count}-tab">
-																<h3><span class="label label-default">예약 인원</span></h3>
+															<div role="tabpanel" class="tab-pane fade in ${roomnum.count == 1 ? 'active' : ''}" id="room${hotelInfo.hotelId}-${roomnum.count}"
+															 aria-labelledBy="room${hotelInfo.hotelId}-${roomnum.count}-tab">
+																<span class="lead"><span class="label label-default">예약 인원</span></span class="lead">
 																<c:forEach items="${searchAdultNumber}" var="adultNumber" varStatus="adultNumberStatus">
 																	<c:if test="${adultNumberStatus.count == roomnum.count}">
 																		<span class="lead"><span class="label label-success">어른 : ${adultNumber}명</span></span>
@@ -406,7 +395,7 @@
 																			<th>방이름</th>
 																			<th>인원수</th>
 																			<th>가격</th>
-																			<th>선택</th>
+																			<th></th>
 																		</tr>
 																	</thead>
 																	<tbody>
@@ -416,42 +405,47 @@
 																				<td>${room.name}</td>
 																				<td>최소 : 1 최대 : ${room.standardNumber}</td>
 																				<td>${room.price}원</td>
-																				<td><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#romminfo${hotelnum.count}-${roomId.count}"
-																					 aria-expanded="false" aria-controls="romminfo${hotelnum.count}-${roomId.count}">방정보</button>
-																					<button type="button" class="btn btn-primary">선택</button></td>
+																				<td>
+																					<button type="button" class="btn btn-primary room-info-btn" data-toggle="collapse" data-target="#romminfo${hotelInfo.hotelId}-${roomId.count}"
+																					 aria-expanded="false" aria-controls="romminfo${hotelInfo.hotelId}-${roomId.count}">방정보</button>
+																					<button type="button" class="btn btn-primary roomSelect">선택</button>
+																					<input type="hidden" value="${hotelInfo.hotelId}">
+																					<input type="hidden" value="${roomnum.count}">
+																					<input type="hidden" value="${room.name}">
+																				</td>
 																			</tr>
-																			<tr class="collapse" id="romminfo${hotelnum.count}-${roomId.count}">
-																				<td colspan="5"><span>
-																						<div class="well">방정보입니다.</div>
-																						<div>${room.info}</div>
-																						<div class="modal-works">
-																							<c:forEach items="${room.detail}" var="detail">
-																								<span>${detail}</span>
-																							</c:forEach>
+																			<tr class="collapse" id="romminfo${hotelInfo.hotelId}-${roomId.count}">
+																				<td colspan="5" style="width: 100%;">
+																					<span>
+																						<div class="col-md-12">
+																							<img class="img-responsive" src="/reservationmall/resources/images/${room.images[0]}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+																							<div>${room.info}</div>
+																							<div>
+																								<c:forEach items="${room.detail}" var="detail">
+																									<span class="label label-warning">${detail}</span>
+																								</c:forEach>
+																							</div>
+																							<!-- <div class="owl-search-${hotelInfo.hotelId}-${roomId.count} owl-carousel">
+																								<c:forEach items="${room.images}" var="imageDirectory">
+																									<div class="item text-center">
+																										<div class="owl-search-item">
+																											<img class="owl-lazy" data-src="/reservationmall/resources/images/${imageDirectory}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+																										</div>
+																									</div>
+																								</c:forEach>
+																							</div> -->
 																						</div>
-																					</span></td>
+																					</span>
+																				</td>
 																			</tr>
 																		</c:forEach>
 																	</tbody>
 																</table>
-																<c:forEach items="${rooms.value}" var="room" varStatus="roomId">
-																	<!-- <div class="collapse" id="romminfo${hotelnum.count}-${roomId.count}">
-																	<div class="well">방정보입니다.</div>
-																	<div>${room.info}</div>
-																	<div class="modal-works">
-																			<c:forEach items="${room.detail}" var="detail">
-																				<span>${detail}</span>
-																			</c:forEach>
-																		</div>
-																</div> -->
-																</c:forEach>
 															</div>
 														</c:forEach>
-														<div role="tabpanel" class="tab-pane fade in active" id="room2" aria-labelledBy="room2-tab"></div>
 													</div>
 
 												</div>
-
 											</div>
 
 											<!-- 비교분석 탭 시작 -->
@@ -616,6 +610,11 @@
 
 									<div class="modal-footer">
 										<button type="button" class="btn btn-info">예약하기</button>
+										<div class="hidden">
+											<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
+												<input type="hidden" id="roomSelected${hotelInfo.hotelId}-${roomnum.count}">
+											</c:forEach>
+										</div>
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 

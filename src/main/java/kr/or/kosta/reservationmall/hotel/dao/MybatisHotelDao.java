@@ -51,4 +51,23 @@ public class MybatisHotelDao implements HotelDao {
 		sqlSession.close();
 		return result;
 	}
+	
+	@Override
+	public List<Map<String,String>> getHotelImages(String hotelIds) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Map<String,String>> result = sqlSession.selectList(NAMESPACE + "getHotelImages", hotelIds);
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public List<String> getRoomImages(int hotelId, String roomName) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, Object> param = new HashMap<>();
+		param.put("hotelId", hotelId);
+		param.put("roomName", roomName);
+		List<String> result = sqlSession.selectList(NAMESPACE + "getRoomImages", param);
+		sqlSession.close();
+		return result;
+	}
 }

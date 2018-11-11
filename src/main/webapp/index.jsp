@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>\
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -77,7 +77,7 @@
           <div class="col-md-7">
             <div class="form-group">
               <label>검색 내용</label>
-              <input type="search" class="form-control input-lg" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput">
+              <input type="search" class="form-control input-lg" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput" required>
               <input type="hidden" name="searchValue" id="searchValueInputHidden">
             </div>
           </div>
@@ -122,7 +122,7 @@
                 <option>5</option>
                 <option>6</option>
               </select>
-              <input type="hidden" id="roomNumberHidden">
+              <input type="hidden" id="roomNumberHidden" value="1">
             </div>
           </div>
           <div class="col-md-8" id="roomNumberAnchor">

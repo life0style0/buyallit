@@ -236,4 +236,20 @@ WHERE  hotel_id = #{hotelId}
        and ROWNUM = 1
 	</select>
 	
+	<select id="getHotelImages" parameterType="string" resultType="map">
+SELECT hotel_id "hotelId", 
+       image_directory "imageDirectory"
+FROM   images 
+WHERE  hotel_id IN(${value})
+	</select>
+	
+	<select id="getRoomImages" parameterType="map" resultType="string">
+SELECT image_directory "imageDirectory"
+FROM   images 
+WHERE  room_id IN (SELECT room_id 
+                   FROM   rooms 
+                   WHERE  hotel_id = ${hotelId}
+                          AND room_name = #{roomName})
+	</select>
+	
 </mapper>

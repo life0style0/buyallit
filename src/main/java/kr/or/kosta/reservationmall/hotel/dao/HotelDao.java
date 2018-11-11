@@ -28,4 +28,8 @@ public interface HotelDao {
 	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
 
 	public Room getRoomInfo(String hotelId, String roomName) throws Exception;
+
+	public List<Map<String,String>> getHotelImages(String hotelIds) throws Exception;
+
+	public List<String> getRoomImages(int hotelId, String roomName) throws Exception;
 }

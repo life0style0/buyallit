@@ -17,6 +17,7 @@ import com.google.common.collect.Sets;
 import kr.or.kosta.reservationmall.hotel.dto.HotelInfo;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.room.dto.Room;
 
 public class TestHotelDao {
 	MybatisHotelDao dao;
@@ -27,7 +28,7 @@ public class TestHotelDao {
 		Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
 		dao.setSqlSessionFactory(new SqlSessionFactoryBuilder().build(reader, "development"));
 	}
-	
+
 	@Test
 	public void test() throws Exception {
 
@@ -54,11 +55,12 @@ public class TestHotelDao {
 			}
 			hotelIdSet = Sets.intersection(hotelIdSet, hotelIdSetTemp);
 		}
-
 		long 시작시간 = System.currentTimeMillis();
 		List<HotelInfo> hotelInfo = new ArrayList<>();
+		String hotelIds = "";
 		HotelInfo info = null;
 		for (int hotelId : hotelIdSet) {
+			hotelIds += hotelId + ",";
 			info = new HotelInfo();
 			info.setHotelId(hotelId);
 			for (int i = 0; i < searchResult.size(); i++) {
@@ -82,10 +84,10 @@ public class TestHotelDao {
 						try {
 							if (!info.isExistRoom(i + 1, hotelSearchResult.getRoomName())) {
 								info.addRooms(i + 1,
-										dao.getRoomInfo(String.valueOf(hotelId), hotelSearchResult.getRoomName()));
-							}
-							for (String string : info.getRooms().get(i+1).get(0).getDetail()) {
-								System.out.println(string);
+										new Room(hotelSearchResult.getRoomName(), hotelSearchResult.getStandardNumber(),
+												hotelSearchResult.getChildMaxNumber(), hotelSearchResult.getRoomInfo(),
+												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail(),
+												dao.getRoomImages(hotelId, hotelSearchResult.getRoomName())));
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -102,9 +104,10 @@ public class TestHotelDao {
 		long 걸린시간 = 끝시간 - 시작시간;
 
 		System.out.println("걸린 시간: " + 걸린시간 + " 밀리초");
+		System.out.println(info);
 	}
 
-	@Test
+//	@Test
 	public void test3() {
 		String a = "고급 침구<?!>LCD TV<?!>객실 금고<?!>무료 생수<?!>에어컨<?!>미니 냉장고<?!>슬리퍼<?!>암막 커튼";
 		String[] b = a.split("<\\?!>");

@@ -152,38 +152,53 @@ function placesSearchCB(data, status, pagination) {
 }
 
 function owlSearch() {
-    if ($('#owl-search-num')) {
-        for (let i = 1; i <= $('#owl-search-num').children().length; i += 1) {
-            $(`.owl-search-${i}`).owlCarousel({
-                loop: true,
-                margin: 10,
-                nav: true,
-                navText: [
-                    "<i class='fa fa-angle-left'></i>",
-                    "<i class='fa fa-angle-right'></i>"
-                ],
-                dots: false,
-                autoplay: true,
-                autoplayTimeout: 5000,
-                autoplayHoverPause: true,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 1
-                    },
-                    1000: {
-                        items: 1
-                    }
+    $('[class*=owl-search-].owl-carousel').each(function () {
+        $(this).owlCarousel({
+            items: 1,
+            loop: true,
+            margin: 10,
+            autoHeight: true,
+            lazyLoad: true,
+            nav: true,
+            navText: [
+                "<i class='fa fa-angle-left'></i>",
+                "<i class='fa fa-angle-right'></i>"
+            ],
+            dots: false,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 1
                 }
-            });
-        }
-    }
+            }
+        });
+    });
 }
 
+function initButtons(button) {
+    const buttons = $(button).closest('tbody').find('.roomSelect');
+    buttons.removeClass('active');
+    buttons.addClass('btn-primary');
+}
 
-$(function () {
+function addRoomInfo(button) {
+    $(button).addClass('active');
+        $(button).removeClass('btn-primary');
+        const hotelId = $(button).next().val(); // hotel Id
+        const roomNum = $(button).next().next().val(); // room num
+        const roomName = $(button).next().next().next().val(); // room Name
+        $(`#roomSelected${hotelId}-${roomNum}`).val(`${hotelId}-${roomName}`);
+}
+
+function eventRegist() {
     $('#roomNumber').on('mousedown', function () {
         $('#roomNumberHidden').val(parseInt(this.value));
     });
@@ -200,52 +215,6 @@ $(function () {
         changeRoomNumber2Jjw(this);
     });
 
-    setDatetimepickerSetting();
-
-    calculateDayJjw();
-
-    $('.owl-jjw').owlCarousel({
-        autoplay: false,
-        loop: false,
-        nav: false,
-        navText: [
-            "<i class='fa fa-angle-left' style='display=none;'></i>'",
-            "<i class='fa fa-angle-right' style='display=none;'></i>"
-        ],
-        dots: false,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            }
-        }
-    });
-
-    // $('#searchForm').submit(function (event) {
-    //     const data = $(this).serialize();
-    //     $.ajax({
-    //         url: '/reservationmall/hotel/searchhotel.mall',
-    //         data: data,
-    //         dataType: 'json',
-    //         success: function (data) {
-    //             $("#messageBox").html(data);
-    //         },
-    //         error: function (xhr, statusText) {
-    //             alert("(" + xhr.status + ", " + statusText + ")");
-    //         }
-    //     });
-    //     return false;
-    // });
-
-    // $('#searchLocation').on('change', function () {
-    //     searchPlaces();
-    // });
-
     $('#searchHotelButton').on('click', function () {
         if ($('#searchValueType').val() === 'searchLocation') {
             searchPlaces();
@@ -256,13 +225,38 @@ $(function () {
         setTimeout(() => {
             $('#searchForm').submit();
         }, 500);
-    })
+    });
 
     $('#searchExtra').on('click', function () {
         $('.extraSearch').find('input:text').each(function () {
             $(this).val('');
-        })
-    })
+        });
+    });
 
+    $('.modal').on('show.bs.modal', function () {
+        window.dispatchEvent(new Event('resize'));
+    });
+
+    $('.modal').on('shown.bs.modal', function () {
+        setTimeout(() => {
+            owl.trigger('prev.owl.carousel');
+        }, 300);
+    });
+
+    $('.roomSelect').on('click', function () {
+        initButtons(this);
+        addRoomInfo(this);
+    });
+}
+
+var owl = $('.owl-carousel');
+
+$(function () {
+    eventRegist();
+
+    setDatetimepickerSetting();
+
+    calculateDayJjw();
+    
     owlSearch();
-})
+});

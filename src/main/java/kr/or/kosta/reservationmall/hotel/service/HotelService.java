@@ -3,6 +3,7 @@ package kr.or.kosta.reservationmall.hotel.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
@@ -22,4 +23,8 @@ public interface HotelService {
 	public List<HotelSearchResult> searchHotelListsByHotel(HotelSearchParam hotelSearchParam) throws Exception;
 
 	public Room getRoomInfo(String hotelId, String roomName) throws Exception;
+
+	public Map<String,List<String>> getHotelImages(String hotelIds) throws Exception;
+	
+	public List<String> getRoomImages(int hotelId, String roomName) throws Exception;
 }
