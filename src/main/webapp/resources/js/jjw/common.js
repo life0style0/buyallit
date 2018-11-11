@@ -7,6 +7,7 @@ function calculateDayJjw() {
     } else {
         const betweenDay = (endDay - startDay) / (1000 * 60 * 60 * 24);
         $('#betweenDay').html(`<strong>${betweenDay}박 ${betweenDay + 1}일</strong>`);
+        $('#betweenDay2').html(`<strong>${betweenDay}박 ${betweenDay + 1}일</strong>`);
     }
 }
 
@@ -191,11 +192,79 @@ function initButtons(button) {
 
 function addRoomInfo(button) {
     $(button).addClass('active');
-        $(button).removeClass('btn-primary');
-        const hotelId = $(button).next().val(); // hotel Id
-        const roomNum = $(button).next().next().val(); // room num
-        const roomName = $(button).next().next().next().val(); // room Name
-        $(`#roomSelected${hotelId}-${roomNum}`).val(`${hotelId}-${roomName}`);
+    $(button).removeClass('btn-primary');
+    const hotelId = $(button).next().val(); // hotel Id
+    const roomNum = $(button).next().next().val(); // room num
+    const roomId = $(button).next().next().next().val(); //room Id
+    const roomPrice = $(button).next().next().next().next().val(); // room Name
+    const roomName = $(button).next().next().next().next().next().val(); // room Name
+    const adultNumber = $(`#adultNumber${roomNum}`).val();
+    const childNumber = $(`#childNumber${roomNum}`).val();
+    $(`#roomSelected${hotelId}-${roomNum}`).val(`${hotelId}-${roomNum}-${roomId}-${adultNumber}-${childNumber}-${roomPrice}-${roomName}`);
+}
+
+function addHotmlRoomInfo(button) {
+    const roomInfos = $(button).next().children();
+    let isGood = true;
+    roomInfos.each(function (i) {
+        if (!$(this).val()) {
+            $(button).prev().remove();
+            $(button).before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>예약할 방을 모두 선택해 주세요.</div>`);
+            isGood = false;
+            return;
+        }
+    });
+    if (isGood) {
+        $('#headinghotel').next().remove();
+        $('#headingRoom').next().remove();
+        let roomNames = '';
+        let hotelId;
+        let totalPrice = 0;
+        let html =
+            `<div id="collapseRoom" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingRoom">
+            <div class="panel-body">
+                <div class="panel-group" id="roomSelectInfos" role="tablist" aria-multiselectable="true">`;
+        roomInfos.each(function (i) {
+            const value = $(this).val().split('-');
+            hotelId = value[0];
+            const roomNum = value[1];
+            const roomId = value[2];
+            const adultNumber = value[3];
+            const childNumber = value[4];
+            const roomPrice = value[5];
+            const roomName = value.length > 7 ? value.slice(6).join('-') : value[6];
+            html += `<div class="panel panel-success">
+        <div class="panel-heading" role="tab" id="room-${i}">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#roomSelectInfos" href="#room-hotelId-${i}" data-target="#room-hotelId-${i}"
+                aria-expanded="false" aria-controls="room-hotelId-${i}">${roomName} (어른 : ${adultNumber}명, 아이 ${childNumber}명), ${roomPrice}원</a>
+            </h4>
+        </div>
+        <div id="room-hotelId-${i}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="room-${i}">
+            <div class="panel-body">`;
+            html += $(`#select${hotelId}-${roomNum}-${roomId}`).html();
+            html += `</div></div></div>`;
+
+            totalPrice += parseInt(roomPrice);
+            roomNames += `, ${roomName}`;
+        });
+
+        let htmlHotel = '<div id="collapseHotel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingHotel"><div class="panel-body">';
+        htmlHotel += $('#hotelHtml').html();
+        htmlHotel += '</div></div>';
+
+        const hotelName = $(`#Modal-label-${hotelId}`).html();
+
+        $('#collapseHotelAnchor').html(`선택 호텔 정보 (${hotelName})`);
+        $('#collapseRoomAnchor').html(`선택 방 정보 (${roomNames.slice(2)})`);
+        $('#headinghotel').after(htmlHotel);
+        $('#headingRoom').after(html);
+        $('#totalPrice').html(`총 결제 금액 : ${totalPrice}원`);
+
+        $(`#Modal-${hotelId}`).modal('hide');
+
+        window.dispatchEvent(new Event('resize'));
+    }
 }
 
 function eventRegist() {
@@ -247,6 +316,10 @@ function eventRegist() {
         initButtons(this);
         addRoomInfo(this);
     });
+
+    $('.reservationButton').on('click', function () {
+        addHotmlRoomInfo(this);
+    });
 }
 
 var owl = $('.owl-carousel');
@@ -257,6 +330,6 @@ $(function () {
     setDatetimepickerSetting();
 
     calculateDayJjw();
-    
+
     owlSearch();
 });
