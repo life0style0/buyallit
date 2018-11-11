@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,21 +45,17 @@ public class SearchHotelController implements Controller {
 		hotelService = (HotelService) factory.getBean(HotelServiceImpl.class);
 		Map<String, Object> paramMap = new HashMap<>();
 
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			for (Cookie cookie : cookies) {
+				if(cookie.getName().equals("loginId")) {
+					request.setAttribute("userId", cookie.getValue());
+					break;
+				}
+			}
+		}
 		String type = "search";
-//		Set<String> set = request.getParameterMap().keySet();
-//		for (String key : set) {
-//			if (key.startsWith(type)) {
-//				String typeRemovedKey = key.substring(type.length());
-//				String[] parameters = request.getParameterValues(key);
-//				if (parameters.length > 1) {
-//					paramMap.put(typeRemovedKey, parameters);
-//					request.setAttribute(key, parameters);
-//				} else {
-//					paramMap.put(typeRemovedKey, parameters[0]);
-//					request.setAttribute(key, parameters[0]);
-//				}
-//			}
-//		}
 		String[] adultNumber = request.getParameterValues("searchAdultNumber");
 		request.setAttribute("searchAdultNumber", adultNumber);
 		String[] childNumber = request.getParameterValues("searchChildNumber");
@@ -112,49 +109,54 @@ public class SearchHotelController implements Controller {
 			}
 			hotelIdSet = Sets.intersection(hotelIdSet, hotelIdSetTemp);
 		}
-		List<HotelInfo> hotelInfos = new ArrayList<>();
-		String hotelIds = "";
-		HotelInfo info = null;
-		for (int hotelId : hotelIdSet) {
-			hotelIds += hotelId + ",";
-			info = new HotelInfo();
-			info.setHotelId(hotelId);
-			for (int i = 0; i < searchResult.size(); i++) {
-				for (HotelSearchResult hotelSearchResult : searchResult.get(i)) {
-					if (hotelSearchResult.getHotelId() == hotelId) {
-						info.setCleanRate(hotelSearchResult.getCleanRate());
-						info.setFoodRate(hotelSearchResult.getFoodRate());
-						info.setLocationRate(hotelSearchResult.getLocationRate());
-						info.setPriceRate(hotelSearchResult.getPriceRate());
-						info.setServiceRate(hotelSearchResult.getServiceRate());
-						try {
-							if (!info.isExistRoom(i + 1, hotelSearchResult.getRoomName())) {
-								info.addRooms(i + 1,
-										new Room(hotelSearchResult.getRoomName(), hotelSearchResult.getStandardNumber(),
-												hotelSearchResult.getChildMaxNumber(), hotelSearchResult.getRoomInfo(),
-												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail(),
-												hotelService.getRoomImages(hotelId, hotelSearchResult.getRoomName())));
+		
+		if (hotelIdSet.size() >= 1) {
+			List<HotelInfo> hotelInfos = new ArrayList<>();
+			String hotelIds = "";
+			HotelInfo info = null;
+			for (int hotelId : hotelIdSet) {
+				hotelIds += hotelId + ",";
+				info = new HotelInfo();
+				info.setHotelId(hotelId);
+				for (int i = 0; i < searchResult.size(); i++) {
+					for (HotelSearchResult hotelSearchResult : searchResult.get(i)) {
+						if (hotelSearchResult.getHotelId() == hotelId) {
+							info.setCleanRate(hotelSearchResult.getCleanRate());
+							info.setFoodRate(hotelSearchResult.getFoodRate());
+							info.setLocationRate(hotelSearchResult.getLocationRate());
+							info.setPriceRate(hotelSearchResult.getPriceRate());
+							info.setServiceRate(hotelSearchResult.getServiceRate());
+							try {
+								if (!info.isExistRoom(i + 1, hotelSearchResult.getRoomName())) {
+									info.addRooms(i + 1, new Room(hotelSearchResult.getRoomName(),
+											hotelSearchResult.getStandardNumber(),
+											hotelSearchResult.getChildMaxNumber(), hotelSearchResult.getRoomInfo(),
+											hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail(),
+											hotelService.getRoomImages(hotelId, hotelSearchResult.getRoomName())));
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
 							}
-						} catch (Exception e) {
-							e.printStackTrace();
 						}
 					}
 				}
+				if (info.getRooms().size() > 0) {
+					hotelInfos.add(info);
+				}
 			}
-			if (info.getRooms().size() > 0) {
-				hotelInfos.add(info);
+
+			Map<String, List<String>> hotelImages = null;
+			try {
+				hotelImages = hotelService.getHotelImages(hotelIds.substring(0, hotelIds.length() - 1));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			mav.addObject("noResult", false);
+			mav.addObject("hotelImages", hotelImages);
+			mav.addObject("hotelInfos", hotelInfos);
+		} else {
+			mav.addObject("noResult", true);
 		}
-
-		Map<String, List<String>> hotelImages = null;
-		try {
-			hotelImages = hotelService.getHotelImages(hotelIds.substring(0, hotelIds.length() - 1));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mav.addObject("hotelImages", hotelImages);
-		mav.addObject("hotelInfos", hotelInfos);
-
 		mav.setView("/WEB-INF/view/search/search.jsp");
 		return mav;
 	}

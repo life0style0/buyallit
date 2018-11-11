@@ -191,6 +191,12 @@ function initButtons(button) {
 }
 
 function addRoomInfo(button) {
+    if (!$('#userId').val()) {
+        $(button).closest('.modal-body').next().find('.reservationButton').prev().remove();
+        $(button).closest('.modal-body').next().find('.reservationButton').before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><a href="/reservationmall/login/controller.mall" class="alert-link">로그인</a>을 하셔야 선택할 수 있습니다.</div>`);
+        return;
+    }
+
     $(button).addClass('active');
     $(button).removeClass('btn-primary');
     const hotelId = $(button).next().val(); // hotel Id

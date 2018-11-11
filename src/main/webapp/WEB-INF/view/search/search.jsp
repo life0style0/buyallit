@@ -230,45 +230,42 @@
 				</div>
 			</div>
 			<div class="row row-0-gutter" id="owl-search-num">
-				<c:forEach items="${hotelList}" var="hotel">
-					<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
-						<c:if test="${hotelInfo.hotelId == hotel.hotel_id}">
-							<c:forEach items="${hotelImages}" var="hotelImage">
-								<c:if test="${hotelImage.key == hotelInfo.hotelId}">
-									<!-- start portfolio item -->
-									<div class="col-md-4 col-0-gutter">
-										<div class="ot-portfolio-item">
-											<figure class="effect-bubba">
-												<img src="/reservationmall/resources/images/${hotelImage.value[0]}" alt="/reservationmall/resources/images/template/demo/image_main.jpg"
-												 class="img-responsive" />
-												<figcaption>
-													<h2>${hotel.hotel_name}</h2>
-													<p>${hotel.hotel_rate}</p>
-													<a data-toggle="modal" data-target="#Modal-${hotelInfo.hotelId}" class="hotelInfoLink">View more</a>
-												</figcaption>
-											</figure>
-										</div>
-									</div>
-									<!-- end portfolio item -->
+				<c:choose>
+					<c:when test="${noResult}">
+						<h2>죄송합니다! 고객님이 원하시는 조건에 부합하는 호텔이 없습니다.</h2>
+						<p class="lead">조건을 낮추거나 기간을 조정하여 다시 검색해 주세요.</p>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${hotelList}" var="hotel">
+							<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
+								<c:if test="${hotelInfo.hotelId == hotel.hotel_id}">
+									<c:forEach items="${hotelImages}" var="hotelImage">
+										<c:if test="${hotelImage.key == hotelInfo.hotelId}">
+											<!-- start portfolio item -->
+											<div class="col-md-4 col-0-gutter">
+												<div class="ot-portfolio-item">
+													<figure class="effect-bubba">
+														<img src="/reservationmall/resources/images/${hotelImage.value[0]}" alt="/reservationmall/resources/images/template/demo/image_main.jpg"
+														 class="img-responsive" />
+														<figcaption>
+															<h2>${hotel.hotel_name}</h2>
+															<p>${hotel.hotel_rate}</p>
+															<a data-toggle="modal" data-target="#Modal-${hotelInfo.hotelId}" class="hotelInfoLink">View more</a>
+														</figcaption>
+													</figure>
+												</div>
+											</div>
+											<!-- end portfolio item -->
+										</c:if>
+									</c:forEach>
 								</c:if>
 							</c:forEach>
-						</c:if>
-					</c:forEach>
-				</c:forEach>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<!-- end container -->
-
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="section-footer">
-					<h2>
-						<button class="btn btn-warning">더 보기</button>
-					</h2>
-				</div>
-			</div>
-		</div>
-
 	</section>
 
 
@@ -320,308 +317,309 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="hidden">
+			<input type="hidden" id="userId" value="${(userId == null) || userId.length == 0 ? '' : userId}">
+		</div>
 	</section>
 
 
 	<!-- 모달 -->
-	<c:forEach items="${hotelList}" var="hotel">
-		<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
-			<c:choose>
-				<c:when test="${hotelInfo.hotelId == hotel.hotel_id}">
-					<div class="modal fade bs-example-modal-lg" id="Modal-${hotelInfo.hotelId}" tabindex="-1" role="dialog"
-					 aria-labelledby="Modal-label-${hotelInfo.hotelId}">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<!-- hotel infomation  -->
+	<c:if test="${!noResult}">
+		<c:forEach items="${hotelList}" var="hotel">
+			<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
+				<c:choose>
+					<c:when test="${hotelInfo.hotelId == hotel.hotel_id}">
+						<div class="modal fade bs-example-modal-lg" id="Modal-${hotelInfo.hotelId}" tabindex="-1" role="dialog"
+						 aria-labelledby="Modal-label-${hotelInfo.hotelId}">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<!-- hotel infomation  -->
 
 
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title" id="Modal-label-${hotelInfo.hotelId}">${hotel.hotel_name}</h4>
-								</div>
-								<div class="modal-body">
-									<div role="tabpanel">
-										<ul class="nav nav-tabs" role="tablist">
-											<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab"
-												 aria-controls="home" aria-expanded="true" data-target="#home">호텔정보</a></li>
-											<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
-												 data-target="#profile">비교분석</a></li>
-										</ul>
-										<!-- 호텔정보 탭 시작 -->
-										<div id="myTabContent" class="tab-content">
-											<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
-												<div class="owl-search-${hotelInfo.hotelId} owl-carousel">
-													<c:forEach items="${hotelImages}" var="hotelImage">
-														<c:if test="${hotelImage.key == hotelInfo.hotelId}">
-															<c:forEach items="${hotelImage.value}" var="imageDirectory">
-																<div class="item text-center">
-																	<div class="owl-search-item">
-																		<img class="owl-lazy" data-src="/reservationmall/resources/images/${imageDirectory}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="Modal-label-${hotelInfo.hotelId}">${hotel.hotel_name}</h4>
+									</div>
+									<div class="modal-body">
+										<div role="tabpanel">
+											<ul class="nav nav-tabs" role="tablist">
+												<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab"
+													 aria-controls="home" aria-expanded="true" data-target="#home">호텔정보</a></li>
+												<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
+													 data-target="#profile">비교분석</a></li>
+											</ul>
+											<!-- 호텔정보 탭 시작 -->
+											<div id="myTabContent" class="tab-content">
+												<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
+													<div class="owl-search-${hotelInfo.hotelId} owl-carousel">
+														<c:forEach items="${hotelImages}" var="hotelImage">
+															<c:if test="${hotelImage.key == hotelInfo.hotelId}">
+																<c:forEach items="${hotelImage.value}" var="imageDirectory">
+																	<div class="item text-center">
+																		<div class="owl-search-item">
+																			<img class="owl-lazy" data-src="/reservationmall/resources/images/${imageDirectory}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+																		</div>
 																	</div>
-																</div>
-															</c:forEach>
-														</c:if>
-													</c:forEach>
-												</div>
-												<div class="col-md-12" id="hotelHtml">
-													<div class="col-md-1"></div>
-													<div class="col-md-10 text-center">
-														<c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
-															<span><span class="label label-info">${detail}</span></span>
-														</c:forTokens>
-													</div>
-													<div class="col-md-1"></div>
-													<div class="col-md-12">
-														<p>호텔 등급 : ${hotel.hotel_rate}</p>
-														<p>호텔 전화번호 : ${hotel.hotel_phonenum}</p>
-														<p>호텔 웹사이트 : ${hotel.hotel_website}</p>
-														<p>호텔 주소 : ${hotel.hotel_address}</p>
-														<p>소개글 : ${hotel.hotel_info}</p>
-													</div>
-												</div>
-												<div role="tabpanel">
-													<ul class="nav nav-tabs" role="tablist">
-														<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum">
-															<li role="presentation" class="${roomnum.count == 1 ? 'active' : ''}"><a href="#room${hotelInfo.hotelId}-${roomnum.count}"
-																 id="room${hotelInfo.hotelId}-${roomnum.count}-tab" role="tab" data-toggle="tab" aria-controls="room${hotelInfo.hotelId}-${roomnum.count}"
-																 aria-expanded="${roomnum.count == 1 ? 'true' : 'false'}" data-target="#room${hotelInfo.hotelId}-${roomnum.count}">방
-																	선택${roomnum.count}</a></li>
-														</c:forEach>
-													</ul>
-
-													<div id="roomTab" class="tab-content">
-														<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
-															<div role="tabpanel" class="tab-pane fade in ${roomnum.count == 1 ? 'active' : ''}" id="room${hotelInfo.hotelId}-${roomnum.count}"
-															 aria-labelledBy="room${hotelInfo.hotelId}-${roomnum.count}-tab">
-																<span class="lead"><span class="label label-default">예약 인원</span></span class="lead">
-																<c:forEach items="${searchAdultNumber}" var="adultNumber" varStatus="adultNumberStatus">
-																	<c:if test="${adultNumberStatus.count == roomnum.count}">
-																		<span class="lead"><span class="label label-success">어른 : ${adultNumber}명</span></span>
-																		<input type="hidden" id="adultNumber${roomnum.count}" value="${adultNumber}">
-																	</c:if>
 																</c:forEach>
-																<c:forEach items="${searchChildNumber}" var="childNumber" varStatus="childNumberStatus">
-																	<c:if test="${childNumberStatus.count == roomnum.count}">
-																		<span class="lead"><span class="label label-success">아이 : ${childNumber}명</span></span>
-																		<input type="hidden" id="childNumber${roomnum.count}" value="${childNumber}">
-																	</c:if>
-																</c:forEach>
-																<table class="table table-hover">
-																	<thead>
-																		<tr>
-																			<th>#</th>
-																			<th>방이름</th>
-																			<th>인원수</th>
-																			<th>가격</th>
-																			<th></th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<c:forEach items="${rooms.value}" var="room" varStatus="roomId">
-																			<tr>
-																				<th scope="row">${roomId.count}</th>
-																				<td>${room.name}</td>
-																				<td>최소 : 1 최대 : ${room.standardNumber}</td>
-																				<td>${room.price}원</td>
-																				<td>
-																					<button type="button" class="btn btn-primary room-info-btn" data-toggle="collapse" data-target="#romminfo${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}"
-																					 aria-expanded="false" aria-controls="romminfo${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}">방정보</button>
-																					<button type="button" class="btn btn-primary roomSelect">선택</button>
-																					<input type="hidden" value="${hotelInfo.hotelId}">
-																					<input type="hidden" value="${roomnum.count}">
-																					<input type="hidden" value="${roomId.count}">
-																					<input type="hidden" value="${room.price}">
-																					<input type="hidden" value="${room.name}">
-																				</td>
-																			</tr>
-																			<tr class="collapse" id="romminfo${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}">
-																				<td colspan="5" style="width: 100%;">
-																					<span>
-																						<div class="col-md-12" id="select${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}">
-																							<img class="img-responsive" src="/reservationmall/resources/images/${room.images[0]}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
-																							<div>${room.info}</div>
-																							<div>
-																								<c:forEach items="${room.detail}" var="detail">
-																									<span class="label label-warning">${detail}</span>
-																								</c:forEach>
-																							</div>
-																						</div>
-																					</span>
-																				</td>
-																			</tr>
-																		</c:forEach>
-																	</tbody>
-																</table>
-															</div>
+															</c:if>
 														</c:forEach>
 													</div>
-
-												</div>
-											</div>
-
-											<!-- 비교분석 탭 시작 -->
-											<div role="tabpanel" class="tab-pane" id="profile" aria-labelledBy="profile-tab">
-												<div class="row">
-													<div class="col-md-6">
-														<div class="jumbotron">
-															<div id="map" style="width: 100%; height: 300px;"></div>
-															<script>
-																var mapOptions = {
-																	center: new naver.maps.LatLng(
-																		37.3595704,
-																		127.105399),
-																	zoom: 10
-																};
-
-																var map = new naver.maps.Map(
-																	'map',
-																	mapOptions);
-															</script>
+													<div class="col-md-12" id="hotelHtml">
+														<div class="col-md-1"></div>
+														<div class="col-md-10 text-center">
+															<c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
+																<span><span class="label label-info">${detail}</span></span>
+															</c:forTokens>
+														</div>
+														<div class="col-md-1"></div>
+														<div class="col-md-12">
+															<p>호텔 등급 : ${hotel.hotel_rate}</p>
+															<p>호텔 전화번호 : ${hotel.hotel_phonenum}</p>
+															<p>호텔 웹사이트 : ${hotel.hotel_website}</p>
+															<p>호텔 주소 : ${hotel.hotel_address}</p>
+															<p>소개글 : ${hotel.hotel_info}</p>
 														</div>
 													</div>
-													<div class="col-md-6">
-														<div class="jumbotron">
-															<script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
-															<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
-																<canvas id="canvasRadar" style="margin-left: 5px;"></canvas>
+													<div role="tabpanel">
+														<ul class="nav nav-tabs" role="tablist">
+															<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum">
+																<li role="presentation" class="${roomnum.count == 1 ? 'active' : ''}"><a href="#room${hotelInfo.hotelId}-${roomnum.count}"
+																	 id="room${hotelInfo.hotelId}-${roomnum.count}-tab" role="tab" data-toggle="tab" aria-controls="room${hotelInfo.hotelId}-${roomnum.count}"
+																	 aria-expanded="${roomnum.count == 1 ? 'true' : 'false'}" data-target="#room${hotelInfo.hotelId}-${roomnum.count}">방
+																		선택${roomnum.count}</a></li>
+															</c:forEach>
+														</ul>
+
+														<div id="roomTab" class="tab-content">
+															<c:forEach items="${hotelInfo.rooms}" varStatus="roomnum" var="rooms">
+																<div role="tabpanel" class="tab-pane fade in ${roomnum.count == 1 ? 'active' : ''}" id="room${hotelInfo.hotelId}-${roomnum.count}"
+																 aria-labelledBy="room${hotelInfo.hotelId}-${roomnum.count}-tab">
+																	<span class="lead"><span class="label label-default">예약 인원</span></span class="lead">
+																	<c:forEach items="${searchAdultNumber}" var="adultNumber" varStatus="adultNumberStatus">
+																		<c:if test="${adultNumberStatus.count == roomnum.count}">
+																			<span class="lead"><span class="label label-success">어른 : ${adultNumber}명</span></span>
+																			<input type="hidden" id="adultNumber${roomnum.count}" value="${adultNumber}">
+																		</c:if>
+																	</c:forEach>
+																	<c:forEach items="${searchChildNumber}" var="childNumber" varStatus="childNumberStatus">
+																		<c:if test="${childNumberStatus.count == roomnum.count}">
+																			<span class="lead"><span class="label label-success">아이 : ${childNumber}명</span></span>
+																			<input type="hidden" id="childNumber${roomnum.count}" value="${childNumber}">
+																		</c:if>
+																	</c:forEach>
+																	<table class="table table-hover">
+																		<thead>
+																			<tr>
+																				<th>#</th>
+																				<th>방이름</th>
+																				<th>인원수</th>
+																				<th>가격</th>
+																				<th></th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<c:forEach items="${rooms.value}" var="room" varStatus="roomId">
+																				<tr>
+																					<th scope="row">${roomId.count}</th>
+																					<td>${room.name}</td>
+																					<td>최소 : 1 최대 : ${room.standardNumber}</td>
+																					<td>${room.price}원</td>
+																					<td>
+																						<button type="button" class="btn btn-primary room-info-btn" data-toggle="collapse" data-target="#romminfo${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}"
+																						 aria-expanded="false" aria-controls="romminfo${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}">방정보</button>
+																						<button type="button" class="btn btn-primary roomSelect">선택</button>
+																						<input type="hidden" value="${hotelInfo.hotelId}">
+																						<input type="hidden" value="${roomnum.count}">
+																						<input type="hidden" value="${roomId.count}">
+																						<input type="hidden" value="${room.price}">
+																						<input type="hidden" value="${room.name}">
+																					</td>
+																				</tr>
+																				<tr class="collapse" id="romminfo${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}">
+																					<td colspan="5" style="width: 100%;">
+																						<span>
+																							<div class="col-md-12" id="select${hotelInfo.hotelId}-${roomnum.count}-${roomId.count}">
+																								<img class="img-responsive" src="/reservationmall/resources/images/${room.images[0]}" alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+																								<div>${room.info}</div>
+																								<div>
+																									<c:forEach items="${room.detail}" var="detail">
+																										<span class="label label-warning">${detail}</span>
+																									</c:forEach>
+																								</div>
+																							</div>
+																						</span>
+																					</td>
+																				</tr>
+																			</c:forEach>
+																		</tbody>
+																	</table>
+																</div>
+															</c:forEach>
+														</div>
+
+													</div>
+												</div>
+
+												<!-- 비교분석 탭 시작 -->
+												<div role="tabpanel" class="tab-pane" id="profile" aria-labelledBy="profile-tab">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="jumbotron">
+																<div id="map" style="width: 100%; height: 300px;"></div>
+																<script>
+																	var mapOptions = {
+																		center: new naver.maps.LatLng(
+																			37.3595704,
+																			127.105399),
+																		zoom: 10
+																	};
+
+																	var map = new naver.maps.Map(
+																		'map',
+																		mapOptions);
+																</script>
 															</div>
-															<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
-																<canvas id="canvasRadar2" style="margin-left: 5px;"></canvas>
+														</div>
+														<div class="col-md-6">
+															<div class="jumbotron">
+																<script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
+																<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
+																	<canvas id="canvasRadar" style="margin-left: 5px;"></canvas>
+																</div>
+																<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
+																	<canvas id="canvasRadar2" style="margin-left: 5px;"></canvas>
+																</div>
+																<script>
+																	var target = document
+																		.getElementById(
+																			'canvasRadar')
+																		.getContext(
+																			'2d');
+																	var targets = document
+																		.getElementById(
+																			'canvasRadar2')
+																		.getContext(
+																			'2d');
+
+																	var ChartHelper = {
+																		chartColors: {
+																			red: 'rgb(255, 99, 132)',
+																			orange: 'rgb(255, 159, 64)',
+																			yellow: 'rgb(255, 205, 86)',
+																			green: 'rgb(75, 192, 192)',
+																			blue: 'rgb(54, 162, 235)',
+																			purple: 'rgb(153, 102, 255)',
+																			grey: 'rgb(201, 203, 207)'
+																		}
+																	};
+																	var color = Chart.helpers.color;
+
+																	var data1 = null;
+																	var data2 = null;
+																	var barChartData = null;
+
+																	window.RadarChart = new Chart(
+																		target,
+																		{
+																			type: 'radar',
+																			data: {
+																				labels: [
+																					'서비스',
+																					'청결도',
+																					'가격',
+																					'시설',
+																					'교통'],
+																				datasets: [
+																					{
+																						label: '신라호텔',
+																						backgroundColor: color(
+																							ChartHelper.chartColors.blue)
+																							.alpha(
+																								0.5)
+																							.rgbString(),
+																						borderColor: ChartHelper.chartColors.blue,
+																						borderWidth: 1,
+																						data: [
+																							3.5,
+																							2.2,
+																							5.0,
+																							4.2,
+																							3.8]
+																					},
+																					{
+																						label: '평균값',
+																						backgroundColor: color(
+																							ChartHelper.chartColors.red)
+																							.alpha(
+																								0.5)
+																							.rgbString(),
+																						borderColor: ChartHelper.chartColors.red,
+																						borderWidth: 1,
+																						data: [
+																							3.2,
+																							3.2,
+																							3.0,
+																							3.2,
+																							3.8]
+																					}]
+																			},
+																			option: Chart.defaults.radar
+																		});
+																	var data1 = null;
+																	var data2 = null;
+																	var barChartData = null;
+
+																	// todo: data setting
+																	data1 = [150000];
+																	data2 = [200000];
+
+																	barChartData = {
+																		labels: ['총가격'],
+																		datasets: [
+																			{
+																				label: '신라호텔',
+																				backgroundColor: color(
+																					ChartHelper.chartColors.blue)
+																					.alpha(
+																						0.5)
+																					.rgbString(),
+																				borderColor: ChartHelper.chartColors.blue,
+																				borderWidth: 1,
+																				data: data1
+																			},
+																			{
+																				label: '평균가격',
+																				backgroundColor: color(
+																					ChartHelper.chartColors.red)
+																					.alpha(
+																						0.5)
+																					.rgbString(),
+																				borderColor: ChartHelper.chartColors.red,
+																				borderWidth: 1,
+																				data: data2
+																			}]
+																	};
+
+																	window.BarChart = new Chart(
+																		targets,
+																		{
+																			type: 'bar'
+																			// 옆으로 누운 bar 차트를 쓰실 경우 바꾸시면 됩니다.
+																			//type: 'horizontalBar'
+																			,
+																			data: barChartData,
+																			options: Chart.defaults.bar
+																		});
+																</script>
 															</div>
-															<script>
-																var target = document
-																	.getElementById(
-																		'canvasRadar')
-																	.getContext(
-																		'2d');
-																var targets = document
-																	.getElementById(
-																		'canvasRadar2')
-																	.getContext(
-																		'2d');
-
-																var ChartHelper = {
-																	chartColors: {
-																		red: 'rgb(255, 99, 132)',
-																		orange: 'rgb(255, 159, 64)',
-																		yellow: 'rgb(255, 205, 86)',
-																		green: 'rgb(75, 192, 192)',
-																		blue: 'rgb(54, 162, 235)',
-																		purple: 'rgb(153, 102, 255)',
-																		grey: 'rgb(201, 203, 207)'
-																	}
-																};
-																var color = Chart.helpers.color;
-
-																var data1 = null;
-																var data2 = null;
-																var barChartData = null;
-
-																window.RadarChart = new Chart(
-																	target,
-																	{
-																		type: 'radar',
-																		data: {
-																			labels: [
-																				'서비스',
-																				'청결도',
-																				'가격',
-																				'시설',
-																				'교통'],
-																			datasets: [
-																				{
-																					label: '신라호텔',
-																					backgroundColor: color(
-																						ChartHelper.chartColors.blue)
-																						.alpha(
-																							0.5)
-																						.rgbString(),
-																					borderColor: ChartHelper.chartColors.blue,
-																					borderWidth: 1,
-																					data: [
-																						3.5,
-																						2.2,
-																						5.0,
-																						4.2,
-																						3.8]
-																				},
-																				{
-																					label: '평균값',
-																					backgroundColor: color(
-																						ChartHelper.chartColors.red)
-																						.alpha(
-																							0.5)
-																						.rgbString(),
-																					borderColor: ChartHelper.chartColors.red,
-																					borderWidth: 1,
-																					data: [
-																						3.2,
-																						3.2,
-																						3.0,
-																						3.2,
-																						3.8]
-																				}]
-																		},
-																		option: Chart.defaults.radar
-																	});
-																var data1 = null;
-																var data2 = null;
-																var barChartData = null;
-
-																// todo: data setting
-																data1 = [150000];
-																data2 = [200000];
-
-																barChartData = {
-																	labels: ['총가격'],
-																	datasets: [
-																		{
-																			label: '신라호텔',
-																			backgroundColor: color(
-																				ChartHelper.chartColors.blue)
-																				.alpha(
-																					0.5)
-																				.rgbString(),
-																			borderColor: ChartHelper.chartColors.blue,
-																			borderWidth: 1,
-																			data: data1
-																		},
-																		{
-																			label: '평균가격',
-																			backgroundColor: color(
-																				ChartHelper.chartColors.red)
-																				.alpha(
-																					0.5)
-																				.rgbString(),
-																			borderColor: ChartHelper.chartColors.red,
-																			borderWidth: 1,
-																			data: data2
-																		}]
-																};
-
-																window.BarChart = new Chart(
-																	targets,
-																	{
-																		type: 'bar'
-																		// 옆으로 누운 bar 차트를 쓰실 경우 바꾸시면 됩니다.
-																		//type: 'horizontalBar'
-																		,
-																		data: barChartData,
-																		options: Chart.defaults.bar
-																	});
-															</script>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-
 									</div>
-
-
 									<div class="modal-footer">
 										<button type="button" class="btn btn-info reservationButton">예약하기</button>
 										<div class="hidden">
@@ -631,17 +629,14 @@
 										</div>
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
-
 								</div>
-
 							</div>
 						</div>
-					</div>
-
-				</c:when>
-			</c:choose>
+					</c:when>
+				</c:choose>
+			</c:forEach>
 		</c:forEach>
-	</c:forEach>
+	</c:if>
 
 	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
 	<script src="/reservationmall/resources/js/template/bootstrap.min.js"></script>
