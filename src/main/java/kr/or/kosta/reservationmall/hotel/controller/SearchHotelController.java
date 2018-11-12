@@ -93,6 +93,11 @@ public class SearchHotelController implements Controller {
 		} else {
 			mav.addObject("noResult", true);
 		}
+		if (request.getAttribute("refreshPage") != null && (boolean)request.getAttribute("refreshPage")) {
+			request.removeAttribute("refreshPage");
+			request.getSession().setAttribute("refreshPage", true);
+		}
+		
 		mav.setView("/WEB-INF/view/search/search.jsp");
 		return mav;
 	}

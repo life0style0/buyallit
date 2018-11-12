@@ -1,8 +1,12 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:if test="${sessionScope.refreshPage}">
+	<c:set var="refreshPage" value="${false}" scope="session"/>
+	<script>location.reload();</script>
+<%-- 	<c:remove var="refreshPage" scope="session"/> --%>
+</c:if>
 <html>
-
 <head>
 	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 	<meta charset="utf-8">
@@ -34,7 +38,8 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/view/main/main_top.jsp"></jsp:include>
+<%@ include file="/WEB-INF/view/main/main_top.jsp" %>
+<%-- 	<jsp:include page="/WEB-INF/view/main/main_top.jsp"></jsp:include> --%>
 	<header>
 		<div class="container invisible">
 			hidden value for layout

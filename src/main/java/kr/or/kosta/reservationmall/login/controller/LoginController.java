@@ -70,7 +70,6 @@ public class LoginController implements Controller {
 			mav.setView("redirect:/reservationmall/index.jsp");
 			return mav;
 		case "hotelSearch":
-			System.out.println("searchHotel 실행");
 			try {
 				check = loginService.checkLogin_hjh(user_id, user_pw);
 				check = loginService.checkLogin_hjh(user_id, user_pw);
@@ -93,8 +92,13 @@ public class LoginController implements Controller {
 				cookie.setMaxAge(-1);
 				response.addCookie(cookie);
 
+				if (request.getSession().getAttribute("refreshPage") != null
+						&& !((boolean) request.getSession().getAttribute("refreshPage"))) {
+					request.getSession().removeAttribute("refreshPage");
+				} else {
+					mav.addObject("refreshPage", true);
+				}
 				mav.addObject("loginCheck", "success");
-
 			} else {
 				mav.addObject("loginCheck", "fail");
 			}

@@ -28,6 +28,7 @@
 		<!-- <url-pattern>/blog/*</url-pattern> -->
 	</servlet-mapping>
 
+
 	<!-- 에러(예외) 페이지 설정 -->
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
