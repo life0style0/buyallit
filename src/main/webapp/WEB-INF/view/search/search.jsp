@@ -34,13 +34,19 @@
 </head>
 
 <body>
-	<%-- 	<c:forEach items="${hotelInfos}" var="hotelInfo">
-	<c:forEach items="${hotelInfo.rooms}" var="rooms">
-	${rooms.value}
-	</c:forEach>
-	</c:forEach> --%>
-
-	<section>
+	<jsp:include page="/WEB-INF/view/main/main_top.jsp"></jsp:include>
+	<header>
+		<div class="container invisible">
+			hidden value for layout
+		</div>
+		<div class="container invisible">
+			hidden value for layout
+		</div>
+		<div class="container invisible">
+			hidden value for layout
+		</div>
+	</header>
+	<section id="search" class="dark-bg">
 		<div class="container">
 			<div class="row">
 				<form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm">
@@ -56,7 +62,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>검색 내용</label> <input type="search" class="form-control" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput"
-							 value="${searchValue}" required> <input type="hidden" name="searchValue" id="searchValueInputHidden" value="${searchValue}">
+							 value="${searchValue}"> <input type="hidden" name="searchValue" id="searchValueInputHidden" value="${searchValue}">
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -144,13 +150,13 @@
 							</c:forEach>
 						</c:forEach>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-1">
 						<div class="form-group">
 							<label style="visibility: hidden;">hidden</label> <input class="btn btn-primary" type="button" data-toggle="collapse"
-							 data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" id="searchExtra" value="추가 검색 옵션">
+							 data-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" id="searchExtra" value="추가 검색">
 						</div>
 					</div>
-					<div class="col-md-5 collapse" id="collapseSearch">
+					<div class="col-md-6 collapse extraSearch" id="collapseSearch">
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>평점 검색</label> <select class="form-control " name="searchRateType">
@@ -169,10 +175,10 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-md-7">
+						<div class="col-md-7 extraSearch">
 							<div class="form-group">
 								<label style="visibility: hidden;">hidden</label> <input type="text" class="form-control " name="searchHotelRate"
-								 placeholder="호텔 최소 별점을 입력해주세요" value="${searchHotelRate}">
+								 placeholder="호텔 평점을 입력해주세요. (1 ~ 5)" value="${searchHotelRate}">
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -190,6 +196,11 @@
 					</div>
 					<div class="col-md-12">
 						<input type="button" value="검색" class="form-control btn-success" id="searchHotelButton">
+					</div>
+					<div class="hidden">
+						<input type="hidden" id="loginIdHidden" name="user_id">
+						<input type="hidden" id="loginPwHidden" name="user_pw">
+						<input type="hidden" name="daoType" value="hotelSearch">
 					</div>
 				</form>
 			</div>
@@ -214,8 +225,8 @@
 						<p class="lead">조건을 낮추거나 기간을 조정하여 다시 검색해 주세요.</p>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${hotelList}" var="hotel">
-							<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
+						<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
+							<c:forEach items="${hotelList}" var="hotel">
 								<c:if test="${hotelInfo.hotelId == hotel.hotel_id}">
 									<c:forEach items="${hotelImages}" var="hotelImage">
 										<c:if test="${hotelImage.key == hotelInfo.hotelId}">
@@ -238,6 +249,9 @@
 									</c:forEach>
 								</c:if>
 							</c:forEach>
+							<c:if test="${(hotelnum.count)%3 == 0 && !hotelnum.last}">
+								<hr class="col-md-12">
+							</c:if>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -289,22 +303,29 @@
 				</div>
 			</div>
 			<div class="panel-footer col-md-12">
-				<div class="col-md-10"><span class="lead" id="totalPrice"></span></div>
-				<div class="col-md-2">
-					<button type="button" class="btn btn-danger" style="float: right;">결제하기</button>
-				</div>
+				<form class="row" action method>
+					<div class="col-xs-10 col-md-10"><span class="lead" id="totalPrice"></span></div>
+					<div class="col-xs-2 col-md-2">
+						<button type="button" class="btn btn-danger" style="float: right;">결제하기</button>
+						<div class="hidden">
+							<input type="hidden" id="userId" name="userId" value="${(userId == null) || userId.length() == 0 ? '' : userId}">
+							<input type="hidden" id="hotelId" name="hotelId">
+							<input type="hidden" id="roomName" name="roomName">
+							<input type="hidden" id="totalPrice2" name="totalPrice">
+							<input type="hidden" id="reservationStartDay" name="reservationStartDay" value="${searchStartDay}">
+							<input type="hidden" id="reservationEndDay" name="reservationEndDay" value="${searchEndDay}">
+						</div>
+					</div>
+				</form>
 			</div>
-		</div>
-		<div class="hidden">
-			<input type="hidden" id="userId" value="${(userId == null) || userId.length() == 0 ? '' : userId}">
 		</div>
 	</section>
 
 
 	<!-- 모달 -->
 	<c:if test="${!noResult}">
-		<c:forEach items="${hotelList}" var="hotel">
-			<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
+		<c:forEach items="${hotelInfos}" var="hotelInfo" varStatus="hotelnum">
+			<c:forEach items="${hotelList}" var="hotel">
 				<c:choose>
 					<c:when test="${hotelInfo.hotelId == hotel.hotel_id}">
 						<div class="modal fade bs-example-modal-lg" id="Modal-${hotelInfo.hotelId}" tabindex="-1" role="dialog"
@@ -629,6 +650,7 @@
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
+	<script src="/reservationmall/resources/js/jjw/validator.js"></script>
 	<script src="/reservationmall/resources/js/jjw/common.js"></script>
 	<!--======== JJW javascript file List =========-->
 </body>

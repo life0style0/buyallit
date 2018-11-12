@@ -183,8 +183,10 @@ function initButtons(button) {
 
 function addRoomInfo(button) {
     if (!$('#userId').val()) {
-        $(button).closest('.modal-body').next().find('.reservationButton').prev().remove();
-        $(button).closest('.modal-body').next().find('.reservationButton').before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><a href="/reservationmall/login/controller.mall" class="alert-link"><strong>로그인</strong></a>을 하셔야 선택할 수 있습니다.</div>`);
+        const reserveB = $(button).closest('.modal-body').next().find('.reservationButton');
+        reserveB.prev().remove();
+        reserveB.before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><a class="alert-link room-login-alert" data-toggle="modal" data-target="#loginModal"><strong>로그인</strong></a>을 하셔야 선택할 수 있습니다.</div>`);
+        $(button).closest('.modal').animate({ scrollTop: reserveB.offset().top * 3 }, 400);
         return;
     }
 
@@ -201,6 +203,14 @@ function addRoomInfo(button) {
 }
 
 function addHotmlRoomInfo(button) {
+    if (!$('#userId').val()) {
+        const reserveB = $(button).closest('.modal-body').next().find('.reservationButton');
+        reserveB.prev().remove();
+        reserveB.before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><a class="alert-link room-login-alert" data-toggle="modal" data-target="#loginModal"><strong>로그인</strong></a>을 하셔야 선택할 수 있습니다.</div>`);
+        $(button).closest('.modal').animate({ scrollTop: reserveB.offset().top * 3 }, 500);
+        return;
+    }
+
     const roomInfos = $(button).next().children();
     let isGood = true;
     roomInfos.each(function (i) {
@@ -258,6 +268,10 @@ function addHotmlRoomInfo(button) {
         $('#headingRoom').after(html);
         $('#totalPrice').html(`총 결제 금액 : ${totalPrice}원`);
 
+        $('#hotelId').val(hotelId);
+        $('#roomName').val(roomNames.slice(2));
+        $('#totalPrice2').val(totalPrice);
+
         $(`#Modal-${hotelId}`).modal('hide');
 
         window.dispatchEvent(new Event('resize'));
@@ -265,10 +279,20 @@ function addHotmlRoomInfo(button) {
 }
 
 function searchHotelEvent() {
-    if (!$('#searchValueInput').val().replace(/^\s+|\s+$/g, '')) {
+    const searchValueInput = $('#searchValueInput');
+    const searchHotelRate = $('input[name="searchHotelRate"]');
+    const searchMinPrice = $('input[name="searchMinMoney"]');
+    const searchMaxPrice = $('input[name="searchMaxMoney"]');
+    if (!searchValueInput.val().replace(/^\s+|\s+$/g, '')) {
         searchValueInput.focus();
-    $('#searchForm').prev().remove();
-    $('#searchForm').before(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>검색 내용</strong>을 입력해주세요.</div>`)
+        $('#searchForm').prev().remove();
+        $('#searchForm').before(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>검색 내용</strong>을 입력해주세요.</div>`)
+    } else if (!searchHotelRate.val() && !checkValidFloat(searchHotelRate)) {
+        return;
+    } else if (!searchHotelRate.val() && !checkValidFloat(searchMinPrice)) {
+        return;
+    } else if (!searchHotelRate.val() && !checkValidFloat(searchMaxPrice)) {
+        return;
     } else {
         if ($('#searchValueType').val() === 'searchLocation') {
             searchPlaces();
@@ -276,10 +300,38 @@ function searchHotelEvent() {
                 $('#searchForm').submit();
             }, 500);
         } else {
-            $('#searchValueInputHidden').val($('#searchValueInput').val());
+            $('#searchValueInputHidden').val(searchValueInput.val());
             $('#searchForm').submit();
         }
     }
+}
+
+function checkValidNumber(input) {
+    if ($(input).val() && !isValidIntJjw($(input).val(), 1, 20)) {
+        $(input).focus();
+        if (!$(input).closest('.extraSearch').children().last().hasClass('alert')) {
+            $(input).closest('.extraSearch').append(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>비용은 0보다 큰 숫자 값을 입력해주세요. (최대 20자리)</div>`)
+        }
+        return false;
+    }
+    if ($(input).closest('.extraSearch').children().last().hasClass('alert')) {
+        $(input).closest('.extraSearch').children().last().remove();
+    }
+    return true;
+}
+
+function checkValidFloat(input) {
+    if ($(input).val() && !isValidFloatJjw($(input).val(), 2)) {
+        $(input).focus();
+        if (!$(input).closest('.extraSearch').next().hasClass('alert')) {
+            $(input).closest('.extraSearch').after(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>평점은 1 ~ 5 사이의 소수 점 아래 2째 자리 까지 입력 가능합니다.</div>`)
+        }
+        return false;
+    }
+    if ($(input).closest('.extraSearch').next().hasClass('alert')) {
+        $(input).closest('.extraSearch').next().remove();
+    }
+    return true;
 }
 
 function eventRegist() {
@@ -322,10 +374,13 @@ function eventRegist() {
     });
 
     $('.modal').on('shown.bs.modal', function () {
-        $(this).find('.owl-carousel').trigger('next.owl.carousel')
+        $(this).find('.owl-carousel').trigger('prev.owl.carousel');
         setTimeout(() => {
-            $(this).find('.owl-carousel').trigger('prev.owl.carousel')
+            $(this).find('.owl-carousel').trigger('prev.owl.carousel');
         }, 300);
+        setTimeout(() => {
+            $(this).find('.owl-carousel').trigger('prev.owl.carousel');
+        }, 600);
     });
 
     $('.roomSelect').on('click', function () {
@@ -336,6 +391,33 @@ function eventRegist() {
     $('.reservationButton').on('click', function () {
         addHotmlRoomInfo(this);
     });
+
+    $(document).on('click', '.room-login-alert', function () {
+        $(this).closest('.modal').modal('hide');
+    });
+
+    $('#loginBtn').on('click', function () {
+        if (window.location.pathname === '/reservationmall/hotel/searchhotel.mall') {
+            $('#loginIdHidden').val($('#login_id').val());
+            $('#loginPwHidden').val($('#login_pw').val());
+            $('#searchForm').attr('action', '/reservationmall/login/controller.mall');
+            $('#searchForm').submit();
+            return false;
+        }
+    });
+
+    $('input[name="searchHotelRate"]').on('keyup', function () {
+        checkValidFloat(this);
+    });
+
+    $('input[name="searchMinMoney"]').on('keyup', function () {
+        checkValidNumber(this);
+    });
+
+    $('input[name="searchMaxMoney"]').on('keyup', function () {
+        checkValidNumber(this);
+    });
+
 }
 
 $(function () {

@@ -51,7 +51,7 @@
       </div>
     </div>
   </header>
-  
+
   <section id="search" class="dark-bg">
     <div class="container">
       <div class="row">
@@ -77,7 +77,7 @@
           <div class="col-md-7">
             <div class="form-group">
               <label>검색 내용</label>
-              <input type="search" class="form-control input-lg" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput" required>
+              <input type="search" class="form-control input-lg" placeholder="검색하고 싶은 내용을 입력하세요" id="searchValueInput">
               <input type="hidden" name="searchValue" id="searchValueInputHidden">
             </div>
           </div>
@@ -192,19 +192,21 @@
           <div class="col-md-7 collapse extraSearch">
             <div class="form-group">
               <label style="visibility: hidden;">hidden</label>
-              <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="호텔 최소 별점을 입력해주세요">
+              <input type="text" class="form-control input-lg" name="searchHotelRate" placeholder="호텔 평점을 입력해주세요. (1 ~ 5)">
             </div>
           </div>
-          <div class="col-md-6 collapse extraSearch">
-            <div class="form-group">
-              <label>최소 비용</label>
-              <input type="text" class="form-control input-lg" name="searchMinMoney" placeholder="최소 비용을 입력해주세요">
+          <div class="col-md-12 collapse extraSearch">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>최소 비용</label>
+                <input type="text" class="form-control input-lg" name="searchMinMoney" placeholder="최소 비용을 입력해주세요">
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 collapse extraSearch">
-            <div class="form-group">
-              <label>최대 비용</label>
-              <input type="text" class="form-control input-lg" name="searchMaxMoney" placeholder="최대 비용을 입력해주세요">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>최대 비용</label>
+                <input type="text" class="form-control input-lg" name="searchMaxMoney" placeholder="최대 비용을 입력해주세요">
+              </div>
             </div>
           </div>
           <div class="col-md-12">
@@ -228,7 +230,7 @@
           var data = ["${hotel.hotel_name}","${hotel.hotel_address}","${hotel.hotel_phonenum}", "${hotel.hotel_rate}", "${hotel.hotel_info}", "${hotel.hotel_detail}", "${hotel.location_id}", "${hotel.hotel_website}"];
           var key = Number("${hotel.hotel_id}");
             MARKER_SPRITE_POSITION[key] = data;
-         </c:forEach >
+         </c:forEach>
   
           var map = new naver.maps.Map('map', {
           center: new naver.maps.LatLng(37.5233311, 126.9787309),
@@ -644,12 +646,13 @@
   <script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
   <script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
+  <script src="/reservationmall/resources/js/jjw/validator.js"></script>
   <script src="/reservationmall/resources/js/jjw/common.js"></script>
   <!--======== JJW javascript file List =========-->
 
   <!--======== 혜림 javascript file List =========-->
-  
-	<!--======== 혜림 javascript file List =========-->
+
+  <!--======== 혜림 javascript file List =========-->
 </body>
 
 </html>

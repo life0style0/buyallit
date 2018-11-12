@@ -39,9 +39,9 @@ public class TestHotelDao {
 		HotelSearchParam param2 = new HotelSearchParam(null, "강남구", "2018-11-09", "2018-11-10", "1", "0", null, null,
 				null, null);
 		searchResult.add(dao.searchHotelListsByLocation(param2));
-		HotelSearchParam param3 = new HotelSearchParam(null, "강남구", "2018-11-09", "2018-11-10", "1", "0", null, null,
+		HotelSearchParam param3 = new HotelSearchParam(null, "강남", "2018-11-09", "2018-11-10", "1", "0", null, null,
 				null, null);
-		searchResult.add(dao.searchHotelListsByLocation(param3));
+		searchResult.add(dao.searchHotelListsByHotel(param3));
 
 		Set<Integer> hotelIdSetTemp = null;
 		Set<Integer> hotelIdSet = new HashSet<>();
