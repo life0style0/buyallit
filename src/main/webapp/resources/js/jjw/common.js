@@ -115,16 +115,18 @@ function changeRoomNumber2Jjw(element) {
 var ps = new daum.maps.services.Places();
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-
-    var keyword = $('#searchValueInput').val();
+    const searchValueInput = $('#searchValueInput');
+    var keyword = searchValueInput.val();
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+        searchValueInput.focus();
+        $('#searchForm').prev().remove();
+        $('#searchForm').before(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>검색 내용을 입력해주세요.</div>`);
         return false;
+    } else {
+        // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+        ps.keywordSearch(keyword, placesSearchCB);
     }
-
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch(keyword, placesSearchCB);
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -168,18 +170,7 @@ function owlSearch() {
             dots: false,
             autoplay: false,
             autoplayTimeout: 5000,
-            autoplayHoverPause: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 1
-                },
-                1000: {
-                    items: 1
-                }
-            }
+            autoplayHoverPause: true
         });
     });
 }
@@ -193,7 +184,7 @@ function initButtons(button) {
 function addRoomInfo(button) {
     if (!$('#userId').val()) {
         $(button).closest('.modal-body').next().find('.reservationButton').prev().remove();
-        $(button).closest('.modal-body').next().find('.reservationButton').before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><a href="/reservationmall/login/controller.mall" class="alert-link">로그인</a>을 하셔야 선택할 수 있습니다.</div>`);
+        $(button).closest('.modal-body').next().find('.reservationButton').before(`<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><a href="/reservationmall/login/controller.mall" class="alert-link"><strong>로그인</strong></a>을 하셔야 선택할 수 있습니다.</div>`);
         return;
     }
 
@@ -273,6 +264,24 @@ function addHotmlRoomInfo(button) {
     }
 }
 
+function searchHotelEvent() {
+    if (!$('#searchValueInput').val().replace(/^\s+|\s+$/g, '')) {
+        searchValueInput.focus();
+    $('#searchForm').prev().remove();
+    $('#searchForm').before(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>검색 내용</strong>을 입력해주세요.</div>`)
+    } else {
+        if ($('#searchValueType').val() === 'searchLocation') {
+            searchPlaces();
+            setTimeout(() => {
+                $('#searchForm').submit();
+            }, 500);
+        } else {
+            $('#searchValueInputHidden').val($('#searchValueInput').val());
+            $('#searchForm').submit();
+        }
+    }
+}
+
 function eventRegist() {
     $('#roomNumber').on('mousedown', function () {
         $('#roomNumberHidden').val(parseInt(this.value));
@@ -290,16 +299,16 @@ function eventRegist() {
         changeRoomNumber2Jjw(this);
     });
 
-    $('#searchHotelButton').on('click', function () {
+    $('#searchValueInput').on('change', function () {
         if ($('#searchValueType').val() === 'searchLocation') {
             searchPlaces();
         } else {
             $('#searchValueInputHidden').val($('#searchValueInput').val());
         }
+    });
 
-        setTimeout(() => {
-            $('#searchForm').submit();
-        }, 500);
+    $('#searchHotelButton').on('click', function () {
+        searchHotelEvent();
     });
 
     $('#searchExtra').on('click', function () {
@@ -313,8 +322,9 @@ function eventRegist() {
     });
 
     $('.modal').on('shown.bs.modal', function () {
+        $(this).find('.owl-carousel').trigger('next.owl.carousel')
         setTimeout(() => {
-            owl.trigger('prev.owl.carousel');
+            $(this).find('.owl-carousel').trigger('prev.owl.carousel')
         }, 300);
     });
 
@@ -327,8 +337,6 @@ function eventRegist() {
         addHotmlRoomInfo(this);
     });
 }
-
-var owl = $('.owl-carousel');
 
 $(function () {
     eventRegist();

@@ -47,31 +47,9 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label>검색 타입</label> <select class="form-control " name="searchValueType" id="searchValueType">
-								<c:choose>
-									<c:when test="${searchValueType} == 'searchLocation'">
-										<option value="searchLocation" selected>지역</option>
-									</c:when>
-									<c:otherwise>
-										<option value="searchLocation">지역</option>
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${searchValueType} == 'searchHotel'">
-										<option value="searchHotel" selected>호텔 이름</option>
-									</c:when>
-									<c:otherwise>
-										<option value="searchHotel">호텔 이름</option>
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
-									<c:when test="${searchValueType} == 'searchLocation'">
-										<option value="searchLocation" selected>지역</option>
-									</c:when>
-									<c:otherwise>
-										<option value="searchLocation">지역</option>
-									</c:otherwise>
-								</c:choose>
-								<option value="searchHotelType">호텔 타입</option>
+								<option value="searchLocation" ${searchValueType=='searchLocation' ? 'selected' : '' }>지역</option>
+								<option value="searchHotel" ${searchValueType=='searchHotel' ? 'selected' : '' }>호텔 이름</option>
+								<option value="searchHotelType" ${searchValueType=='searchHotelType' ? 'selected' : '' }>호텔 타입</option>
 							</select>
 						</div>
 					</div>
@@ -318,7 +296,7 @@
 			</div>
 		</div>
 		<div class="hidden">
-			<input type="hidden" id="userId" value="${(userId == null) || userId.length == 0 ? '' : userId}">
+			<input type="hidden" id="userId" value="${(userId == null) || userId.length() == 0 ? '' : userId}">
 		</div>
 	</section>
 

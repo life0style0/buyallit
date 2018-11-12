@@ -262,7 +262,6 @@
 											<div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive" alt="portfolio"></div>
 										</div>
 									</div>
-									<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img01" class="img-responsive" />
 									<div class="modal-works">
 										<span>특급호텔</span><span>스파</span><span>찜질방</span>
 									</div>

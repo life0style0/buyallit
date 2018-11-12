@@ -1,6 +1,6 @@
   <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
   
-     <form name="registForm" id="registForm" action="/reservationmall/individual/regist.mall" method="post">
+     <form name="registForm" id="registForm" action="/reservationmall/regist/regist.mall" method="post">
         
           <div class="form-group">
           <label for="exampleInputEmail1">아이디</label> 
@@ -62,9 +62,9 @@
         
         <div class="form-group">
           <label for="exampleInputEmail1">전화번호</label> 
-          <input type="email"
+          <input type="text"
             class="form-control" id="regist_phonnum" name="user_phonenum"
-            placeholder="전화번호를 입력하세요" required="required">
+            placeholder="000-0000-0000 형태" required="required">
           <span class="hiddenAlert" id='regist_phonnumAlert' name="alertGroup" style="display:none; color:red">
             <u>전화번호를 확인해주세요!</u>
           </span>
@@ -75,13 +75,13 @@
           <label for="exampleInputEmail1">이메일</label> 
           <input type="email"
             class="form-control" id="regist_email" name="email"
-            placeholder="이메일을 입력하세요" required="required">
+            placeholder="abc@yogizoa.com 형태" required="required">
           <span class="hiddenAlert" id='regist_emailAlert' name="alertGroup" style="display:none; color:red">
             <u>중복된 이메일입니다</u>
           </span>
         </div>
         
-        <button type="button" class="btn btn-success" id="registSubmitBtn">가입하기</button>
+        <button type="submit" class="btn btn-success" id="registSubmitBtn">가입하기</button>
         <button type="reset" class="btn btn-danger" id="resetBtn">다시 입력</button>
       </form>
     

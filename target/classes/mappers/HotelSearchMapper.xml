@@ -111,7 +111,8 @@ WHERE  room_id NOT IN(SELECT room_id
 GROUP  BY hotel_id, room_name, "room_price", "rate"."price_rate", room_standard_person_number, 
 ROOM_CHILD_MAX_NUMBER, room_info, room_detail, "rate"."food_rate", "rate"."location_rate", 
 "rate"."service_rate", "rate"."clean_rate"
-order by hotel_id, "room_price"
+order by ("rate"."price_rate" + "rate"."food_rate"+"rate"."location_rate"+
+"rate"."service_rate"+"rate"."clean_rate"), "room_price"
 	</select>
 
 	<select id="searchHotelListsByHotel" parameterType="HotelSearchParam" resultType="HotelSearchResult">
@@ -219,7 +220,8 @@ WHERE  room_id NOT IN(SELECT room_id
 GROUP  BY hotel_id, room_name, "room_price", "rate"."price_rate", room_standard_person_number, 
 ROOM_CHILD_MAX_NUMBER, room_info, room_detail, "rate"."food_rate", "rate"."location_rate", 
 "rate"."service_rate", "rate"."clean_rate"
-order by hotel_id, "room_price"
+order by ("rate"."price_rate" + "rate"."food_rate"+"rate"."location_rate"+
+"rate"."service_rate"+"rate"."clean_rate"), "room_price"
 	</select>
 	
 	<select id="getRoomInfo" parameterType="map" resultType="RoomJjw">
