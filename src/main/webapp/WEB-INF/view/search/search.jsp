@@ -6,6 +6,7 @@
 	<script>location.reload();</script>
 </c:if>
 <html>
+
 <head>
 	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 	<meta charset="utf-8">
@@ -32,7 +33,70 @@
 	<link rel="stylesheet" href="/reservationmall/resources/css/jjw/common.css">
 	<!-- JJW css file List -->
 
+	<script type="text/javascript">
+		function paymentProgress() {
+			$('#paymentModal').modal('show');
+			$('#paymentModal').modal('backdrop');
+			var i = 0;
+			var userId = document.getElementById("userId").value;
+			var hotelId = document.getElementById("hotelId").value;
+			var roomName = document.getElementById("roomName").value;
+			var totalPrice2 = document.getElementById("totalPrice2").value;
+			var reservationStartDay = document.getElementById("reservationStartDay").value;
+			var reservationEndDay = document.getElementById("reservationEndDay").value;
 
+			var proInterval = setInterval(function () {
+				i = i + 1
+				document.getElementById("proBar").setAttribute("style", "width:" + i + "%;");
+				$('#proBar').text(i + "%");
+				/* /reservationmall/hotel/payment_proc 
+								
+				
+				*/
+				if (i == 50) {
+					console.log(reservationStartDay);
+					console.log(hotelId);
+					console.log(roomName);
+					/* $.ajax({
+						type : "post",
+						url : '/reservationmall/hotelPaymentCheck.mall',
+						data : {
+							hotel_id : hotel_id,
+							user_id : userId,
+							roomName : roomName,
+						},
+						dataType : "text",
+						success : function(resultType) {
+							if(resultType.trim()=='success'){
+								$("#hotelMapInfo"+hotel_id).text("위시리스트에 등록되었습니다.");
+								setTimeout(function(){
+									$("#hotelMapInfo"+hotel_id).text("");
+								},3000);
+							}else if(resultType.trim()=="exist"){
+								$("#hotelMapInfo"+hotel_id).text("이미 등록된 호텔입니다.");
+								setTimeout(function(){
+									$("#hotelMapInfo"+hotel_id).text("");
+								},3000);
+							}else{
+								$("#hotelMapInfo"+hotel_id).text("등록 실패");
+								setTimeout(function(){
+									$("#hotelMapInfo"+hotel_id).text("");
+								},3000);
+							}
+	
+						},
+						error : function() {
+							console.log('실패');
+						}
+					}); */
+				}
+
+				if (i == 100) {
+					clearInterval(proInterval);
+				}
+			}, 50);
+		}
+	</script>
 
 </head>
 
@@ -306,10 +370,10 @@
 				</div>
 			</div>
 			<div class="panel-footer col-md-12">
-				<form class="row" action method>
+				<form class="row" name="paymentProc">
 					<div class="col-xs-10 col-md-10"><span class="lead" id="totalPrice"></span></div>
 					<div class="col-xs-2 col-md-2">
-						<button type="button" class="btn btn-danger" style="float: right;">결제하기</button>
+						<button type="button" class="btn btn-danger" style="float: right;" onclick="javascript:paymentProgress()">결제하기</button>
 						<div class="hidden">
 							<input type="hidden" id="userId" name="userId" value="${(userId == null) || userId.length() == 0 ? '' : userId}">
 							<input type="hidden" id="hotelId" name="hotelId">
@@ -347,12 +411,15 @@
 									<div class="modal-body">
 										<div role="tabpanel">
 											<ul class="nav nav-tabs" role="tablist">
-												<li role="presentation" class="active"><a href="#home-${hotelInfo.hotelId}" id="home-tab-${hotelInfo.hotelId}" role="tab" data-toggle="tab"
-													 aria-controls="home-${hotelInfo.hotelId}" aria-expanded="true" data-target="#home-${hotelInfo.hotelId}">호텔정보</a></li>
-												<li role="presentation"><a href="#profile-${hotelInfo.hotelId}" role="tab" id="profile-tab-${hotelInfo.hotelId}" data-toggle="tab" aria-controls="profile-${hotelInfo.hotelId}"
-													 data-target="#profile-${hotelInfo.hotelId}">비교분석</a></li>
-												<li role="presentation"><a href="#review-${hotelInfo.hotelId}" role="tab" id="review-tab-${hotelInfo.hotelId}" data-toggle="tab" aria-controls="review-${hotelInfo.hotelId}"
-													 data-target="#review-${hotelInfo.hotelId}">호텔 리뷰</a></li>
+												<li role="presentation" class="active"><a href="#home-${hotelInfo.hotelId}" id="home-tab-${hotelInfo.hotelId}"
+													 role="tab" data-toggle="tab" aria-controls="home-${hotelInfo.hotelId}" aria-expanded="true" data-target="#home-${hotelInfo.hotelId}">호텔정보</a></li>
+												<li role="presentation"><a href="#profile-${hotelInfo.hotelId}" role="tab" id="profile-tab-${hotelInfo.hotelId}"
+													 data-toggle="tab" aria-controls="profile-${hotelInfo.hotelId}" data-target="#profile-${hotelInfo.hotelId}">비교분석</a></li>
+												<li role="presentation"><a href="#review-${hotelInfo.hotelId}" role="tab" id="review-tab-${hotelInfo.hotelId}"
+													 data-toggle="tab" aria-controls="review-${hotelInfo.hotelId}" data-target="#review-${hotelInfo.hotelId}">호텔
+														리뷰</a></li>
+												<li role="presentation"><a href="#locationMap-${hotelInfo.hotelId}" role="tab" id="locationMap-${hotelInfo.hotelId}-tab"
+													 data-toggle="tab" aria-controls="locationMap-${hotelInfo.hotelId}" data-target="#locationMap-${hotelInfo.hotelId}">위치정보</a></li>
 											</ul>
 
 											<!-- 호텔 전체 정보 모달 바디 시작 -->
@@ -427,7 +494,16 @@
 																			</tr>
 																		</thead>
 																		<tbody>
+																			<script>
+																				var roomSize = parseInt("${rooms.value.size()}")
+																			</script>
 																			<c:forEach items="${rooms.value}" var="room" varStatus="roomId">
+																				<!-- hjh -->
+																				<script>
+																					var roomAvg = 0;
+
+																					roomAvg = roomAvg + parseInt("${room.price}");
+																				</script>
 																				<tr>
 																					<th scope="row">${roomId.count}</th>
 																					<td>${room.name}</td>
@@ -468,157 +544,170 @@
 
 													</div>
 												</div>
-
 												<!-- 비교분석 탭 시작 -->
 												<div role="tabpanel" class="tab-pane" id="profile-${hotelInfo.hotelId}" aria-labelledBy="profile-tab-${hotelInfo.hotelId}">
 													<div class="row">
-														<div class="col-md-6">
-															<div class="jumbotron">
-																<div id="map" style="width: 100%; height: 300px;"></div>
-																<script>
-																	var mapOptions = {
-																		center: new naver.maps.LatLng(
-																			37.3595704,
-																			127.105399),
-																		zoom: 10
-																	};
-
-																	var map = new naver.maps.Map(
-																		'map',
-																		mapOptions);
-																</script>
+														<div class="col-md-12">
+															<script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
+															<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
+																<canvas id="canvasRadar${hotel.hotel_id}" style="margin-left: 5px;"></canvas>
 															</div>
+															<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
+																<canvas id="canvasBar${hotel.hotel_id}" style="margin-left: 5px;"></canvas>
+															</div>
+															<script>
+																var graph_hotel_rate = [];
+																graph_hotel_rate.push("${hotelInfo.priceRate}");
+																graph_hotel_rate.push("${hotelInfo.foodRate}");
+																graph_hotel_rate.push("${hotelInfo.serviceRate}");
+																graph_hotel_rate.push("${hotelInfo.cleanRate}");
+																graph_hotel_rate.push("${hotelInfo.locationRate}");
+
+
+																if (graph_hotel_rate[0].length == 0) {
+																	graph_hotel_rate = [0, 0, 0, 0, 0];
+																}
+
+																var target = document
+																	.getElementById(
+																		'canvasRadar${hotel.hotel_id}')
+																	.getContext(
+																		'2d');
+																var targets = document
+																	.getElementById(
+																		'canvasBar${hotel.hotel_id}')
+																	.getContext(
+																		'2d');
+
+																var ChartHelper = {
+																	chartColors: {
+																		red: 'rgb(255, 99, 132)',
+																		orange: 'rgb(255, 159, 64)',
+																		yellow: 'rgb(255, 205, 86)',
+																		green: 'rgb(75, 192, 192)',
+																		blue: 'rgb(54, 162, 235)',
+																		purple: 'rgb(153, 102, 255)',
+																		grey: 'rgb(201, 203, 207)'
+																	}
+																};
+																var color = Chart.helpers.color;
+
+																var data1 = null;
+																var data2 = null;
+																var barChartData = null;
+																var hotelRateAvg = [
+																	("${hotelRateAvg.price_avg}"),
+																	("${hotelRateAvg.food_avg}"),
+																	("${hotelRateAvg.service_avg}"),
+																	("${hotelRateAvg.clean_avg}"),
+																	("${hotelRateAvg.location_avg}")
+																];
+																window.RadarChart = new Chart(
+																	target,
+																	{
+																		type: 'radar',
+																		data: {
+																			labels: [
+																				'가격',
+																				'음식',
+																				'서비스',
+																				'청결',
+																				'위치'],
+																			datasets: [
+																				{
+																					label: "${hotel.hotel_name}",
+																					backgroundColor: color(
+																						ChartHelper.chartColors.blue)
+																						.alpha(
+																							0.5)
+																						.rgbString(),
+																					borderColor: ChartHelper.chartColors.blue,
+																					borderWidth: 1,
+																					data: graph_hotel_rate
+																				},
+																				{
+																					label: '평균값',
+																					backgroundColor: color(
+																						ChartHelper.chartColors.red)
+																						.alpha(
+																							0.5)
+																						.rgbString(),
+																					borderColor: ChartHelper.chartColors.red,
+																					borderWidth: 1,
+																					data: hotelRateAvg
+																				}]
+																		},
+																		option: Chart.defaults.radar
+																	});
+																var data1 = null;
+																var data2 = null;
+																var barChartData = null;
+
+																// todo: data setting
+																data1 = [(roomAvg / roomSize)];
+																data2 = [("${hotelRoomAvg.room_avg}")];
+
+																barChartData = {
+																	labels: ['평균가격'],
+																	datasets: [
+																		{
+																			label: "${hotel.hotel_name}",
+																			backgroundColor: color(
+																				ChartHelper.chartColors.blue)
+																				.alpha(
+																					0.5)
+																				.rgbString(),
+																			borderColor: ChartHelper.chartColors.blue,
+																			borderWidth: 1,
+																			data: data1
+																		},
+																		{
+																			label: '평균가격',
+																			backgroundColor: color(
+																				ChartHelper.chartColors.red)
+																				.alpha(
+																					0.5)
+																				.rgbString(),
+																			borderColor: ChartHelper.chartColors.red,
+																			borderWidth: 1,
+																			data: data2
+																		}]
+																};
+
+																window.BarChart = new Chart(
+																	targets,
+																	{
+																		type: 'bar'
+																		// 옆으로 누운 bar 차트를 쓰실 경우 바꾸시면 됩니다.
+																		//type: 'horizontalBar'
+																		,
+																		data: barChartData,
+																		options: Chart.defaults.bar
+																	});
+															</script>
+
 														</div>
-														<div class="col-md-6">
-															<div class="jumbotron">
-																<script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
-																<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
-																	<canvas id="canvasRadar" style="margin-left: 5px;"></canvas>
-																</div>
-																<div style="border: solid 1px black; width: 100%; height: 30%; margin-bottom: 10px;">
-																	<canvas id="canvasRadar2" style="margin-left: 5px;"></canvas>
-																</div>
+													</div>
+												</div>
+												
+												<!-- 지도 탭 시작 -->
+												<div role="tabpanel" class="tab-pane" id="locationMap-${hotelInfo.hotelId}" aria-labelledBy="locationMap-tab-${hotelInfo.hotelId}">
+													<div class="row">
+														<div class="panel panel-default">
+															<div class="panel-body">
+																<div id="hotelmap${hotel.hotel_id}" style="width: 100%; height: 400px;"></div>
 																<script>
-																	var target = document
-																		.getElementById(
-																			'canvasRadar')
-																		.getContext(
-																			'2d');
-																	var targets = document
-																		.getElementById(
-																			'canvasRadar2')
-																		.getContext(
-																			'2d');
+																	var HOME_PATH = window.HOME_PATH || '.';
 
-																	var ChartHelper = {
-																		chartColors: {
-																			red: 'rgb(255, 99, 132)',
-																			orange: 'rgb(255, 159, 64)',
-																			yellow: 'rgb(255, 205, 86)',
-																			green: 'rgb(75, 192, 192)',
-																			blue: 'rgb(54, 162, 235)',
-																			purple: 'rgb(153, 102, 255)',
-																			grey: 'rgb(201, 203, 207)'
-																		}
-																	};
-																	var color = Chart.helpers.color;
-
-																	var data1 = null;
-																	var data2 = null;
-																	var barChartData = null;
-
-																	window.RadarChart = new Chart(
-																		target,
-																		{
-																			type: 'radar',
-																			data: {
-																				labels: [
-																					'서비스',
-																					'청결도',
-																					'가격',
-																					'시설',
-																					'교통'],
-																				datasets: [
-																					{
-																						label: '신라호텔',
-																						backgroundColor: color(
-																							ChartHelper.chartColors.blue)
-																							.alpha(
-																								0.5)
-																							.rgbString(),
-																						borderColor: ChartHelper.chartColors.blue,
-																						borderWidth: 1,
-																						data: [
-																							3.5,
-																							2.2,
-																							5.0,
-																							4.2,
-																							3.8]
-																					},
-																					{
-																						label: '평균값',
-																						backgroundColor: color(
-																							ChartHelper.chartColors.red)
-																							.alpha(
-																								0.5)
-																							.rgbString(),
-																						borderColor: ChartHelper.chartColors.red,
-																						borderWidth: 1,
-																						data: [
-																							3.2,
-																							3.2,
-																							3.0,
-																							3.2,
-																							3.8]
-																					}]
-																			},
-																			option: Chart.defaults.radar
+																	var hotel = new naver.maps.LatLng("${hotel.hotel_y}", "${hotel.hotel_x}"),
+																		map = new naver.maps.Map('hotelmap${hotel.hotel_id}', {
+																			center: hotel.destinationPoint(0, 300),
+																		}),
+																		marker = new naver.maps.Marker({
+																			map: map,
+																			position: hotel
 																		});
-																	var data1 = null;
-																	var data2 = null;
-																	var barChartData = null;
 
-																	// todo: data setting
-																	data1 = [150000];
-																	data2 = [200000];
-
-																	barChartData = {
-																		labels: ['총가격'],
-																		datasets: [
-																			{
-																				label: '신라호텔',
-																				backgroundColor: color(
-																					ChartHelper.chartColors.blue)
-																					.alpha(
-																						0.5)
-																					.rgbString(),
-																				borderColor: ChartHelper.chartColors.blue,
-																				borderWidth: 1,
-																				data: data1
-																			},
-																			{
-																				label: '평균가격',
-																				backgroundColor: color(
-																					ChartHelper.chartColors.red)
-																					.alpha(
-																						0.5)
-																					.rgbString(),
-																				borderColor: ChartHelper.chartColors.red,
-																				borderWidth: 1,
-																				data: data2
-																			}]
-																	};
-
-																	window.BarChart = new Chart(
-																		targets,
-																		{
-																			type: 'bar'
-																			// 옆으로 누운 bar 차트를 쓰실 경우 바꾸시면 됩니다.
-																			//type: 'horizontalBar'
-																			,
-																			data: barChartData,
-																			options: Chart.defaults.bar
-																		});
 																</script>
 															</div>
 														</div>
@@ -645,6 +734,7 @@
 											</div>
 										</div>
 									</div>
+
 									<div class="modal-footer">
 										<button type="button" class="btn btn-info reservationButton">예약하기</button>
 										<div class="hidden">
@@ -663,6 +753,31 @@
 		</c:forEach>
 	</c:if>
 
+	<div class="modal fade bs-example-modal-lg" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModal-label-2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">결제 진행 중</h4>
+				</div>
+				<div class="modal-footer">
+					<span class="label label-primary">결제 진행률</span>
+					<div class="progress">
+						<div class="progress-bar" id="proBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+						 style="width: 0%;">
+							0%
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
 	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
 	<script src="/reservationmall/resources/js/template/bootstrap.min.js"></script>
 	<script src="/reservationmall/resources/js/template/owl.carousel.min.js"></script>
@@ -676,7 +791,6 @@
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
-	<script src="/reservationmall/resources/js/jjw/validator.js"></script>
 	<script src="/reservationmall/resources/js/jjw/common.js"></script>
 	<!--======== JJW javascript file List =========-->
 </body>

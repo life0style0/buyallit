@@ -51,7 +51,7 @@ public class MybatisReviewDao implements ReviewDao {
 	@Override
 	public List<kr.or.kosta.reservationmall.hotel.dto.Review> getReviewsByHotelId(String hotelId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<kr.or.kosta.reservationmall.hotel.dto.Review> reviews = sqlSession.selectOne(NAMESPACE+"getReviewsByHotelId", hotelId);
+		List<kr.or.kosta.reservationmall.hotel.dto.Review> reviews = sqlSession.selectList(NAMESPACE+"getReviewsByHotelId", hotelId);
 		sqlSession.close();
 		return reviews;
 	}
