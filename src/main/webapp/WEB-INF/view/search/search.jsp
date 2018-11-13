@@ -124,7 +124,6 @@
 							<label>검색 타입</label> <select class="form-control " name="searchValueType" id="searchValueType">
 								<option value="searchLocation" ${searchValueType=='searchLocation' ? 'selected' : '' }>지역</option>
 								<option value="searchHotel" ${searchValueType=='searchHotel' ? 'selected' : '' }>호텔 이름</option>
-								<option value="searchHotelType" ${searchValueType=='searchHotelType' ? 'selected' : '' }>호텔 타입</option>
 							</select>
 						</div>
 					</div>

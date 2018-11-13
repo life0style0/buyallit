@@ -70,7 +70,6 @@
               <select class="form-control input-lg" name="searchValueType" id="searchValueType">
                 <option value="searchLocation">지역</option>
                 <option value="searchHotel">호텔 이름</option>
-                <option value="searchHotelType">호텔 타입</option>
               </select>
             </div>
           </div>
