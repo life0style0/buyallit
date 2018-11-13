@@ -726,57 +726,68 @@
 																	<c:choose>
 																		<c:when test="${userId == review.userId}">
 																			<div class="media-body text-right">
-																				<h4 class="media-heading">
+																				<div class="media-heading text-center">
 																					<span class="label label-info">서비스 : ${review.serviceRate}</span>
 																					<span class="label label-info">가격 : ${review.priceRate}</span>
 																					<span class="label label-info">음식 : ${review.foodRate}</span>
 																					<span class="label label-info">청결도 : ${review.cleanRate}</span>
 																					<span class="label label-info">위치 : ${review.locationRate}</span>
-																				</h4>
-																				${review.content}
+																				</div>
+																				<p>
+																					${review.content}
+																				</p>
+																				<div class="text-right">${review.date}</div>
 																			</div>
 																			<div class="media-right text-center">
 																				<i class="fa fa-user"></i>
 																				${review.userId}
+																				<hr>
+																				<span>좋아요! ${review.helpfulCount}</span>
 																			</div>
 																		</c:when>
 																		<c:otherwise>
 																			<div class="media-left text-center">
 																				<i class="fa fa-user"></i>
 																				${review.userId}
+																				<hr>
+																				<span>좋아요!</span>
 																			</div>
 																			<div class="media-body">
-																				<h4 class="media-heading">
+																				<div class="media-heading text-center">
 																					<span class="label label-info">서비스 : ${review.serviceRate}</span>
 																					<span class="label label-info">가격 : ${review.priceRate}</span>
 																					<span class="label label-info">음식 : ${review.foodRate}</span>
 																					<span class="label label-info">청결도 : ${review.cleanRate}</span>
 																					<span class="label label-info">위치 : ${review.locationRate}</span>
-																				</h4>
-																				${review.content}
+																				</div>
+																				<p>
+																					${review.content}
+																				</p>
+																				<div class="text-right">${review.date}</div>
 																			</div>
 																			<div class="media-right text-center">
+																				<input type="hidden" name="reviewId" value="${review.reviewId}">
 																				<c:choose>
-																					<c:when test="${review.isLiked}">
-																						<button class="btn btn-link"><i class="fas fa-heart"></i></button>
+																					<c:when test="${review.isLiked == true}">
+																						<button class="btn btn-link review-like"><i class="fas fa-heart"></i></button>
 																					</c:when>
 																					<c:otherwise>
-																						<button class="btn btn-link"><i class="far fa-heart"></i></button>
+																						<button class="btn btn-link review-like"><i class="far fa-heart"></i></button>
 																					</c:otherwise>
 																				</c:choose>
 																				<hr>
 																				<c:choose>
 																					<c:when test="${review.isHated}">
-																						<button class="btn btn-link"><i class="fas fa-trash-alt"></i></button>
+																						<button class="btn btn-link review-hate"><i class="fas fa-trash-alt"></i></button>
 																					</c:when>
 																					<c:otherwise>
-																						<button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
+																						<button class="btn btn-link review-hate"><i class="far fa-trash-alt"></i></button>
 																					</c:otherwise>
 																				</c:choose>
 																			</div>
 																		</c:otherwise>
 																	</c:choose>
-																	<c:if test="${reviewStauts.last}">
+																	<c:if test="${reviewStatus.last}">
 																		<hr class="col-md-12">
 																	</c:if>
 																</div>
@@ -845,6 +856,7 @@
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
 	<script src="/reservationmall/resources/js/jjw/common.js"></script>
+	<script src="/reservationmall/resources/js/jjw/review.js"></script>
 	<!--======== JJW javascript file List =========-->
 </body>
 

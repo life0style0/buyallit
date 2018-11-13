@@ -110,7 +110,7 @@ public class HotelServiceImpl implements HotelService {
 		HotelInfo info = null;
 		List<Review> reviews = null;
 		List<String> reviewIds = new ArrayList<>();
-		String reviewIdTemp = "";
+		String reviewIdTemp = null;
 		for (int hotelId : hotelIdSet) {
 			info = new HotelInfo();
 			reviewIdTemp = "";
@@ -135,8 +135,6 @@ public class HotelServiceImpl implements HotelService {
 							if (userId != null) {
 								for (Review review : reviews) {
 									reviewIdTemp += "," + review.getReviewId();
-//									review.setIsLiked(reviewDao.isReviewLiked(review.getReviewId(), userId));
-//									review.setIsHated(reviewDao.isReviewHated(review.getReviewId(), userId));
 								}
 							}
 							info.setReviews(reviews);
@@ -172,7 +170,6 @@ public class HotelServiceImpl implements HotelService {
 				}
 			}
 		}
-
 		return hotelInfos;
 	}
 

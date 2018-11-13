@@ -83,3 +83,17 @@ button .fa-heart, button .fa-trash-alt {
   border-right-color: gainsboro;
   padding: 10px;
 }
+
+.tab-pane .media .media-left, .tab-pane .media .media-right {
+  padding: 10px;
+  padding-top: 20px;
+  width: 15%;
+}
+
+.tab-pane .media-heading .label {
+  font-size: 100%;
+}
+
+.tab-pane .media-body p{
+  margin: 15px;
+}
