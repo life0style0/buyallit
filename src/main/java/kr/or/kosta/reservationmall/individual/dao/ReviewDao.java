@@ -24,4 +24,6 @@ public interface ReviewDao {
 	
 	//리뷰 삭제
 	public void deleteReview(int review_id) throws Exception;
+	
+	public List<kr.or.kosta.reservationmall.hotel.dto.Review> getReviewsByHotelId(String hotelId) throws Exception;
 }

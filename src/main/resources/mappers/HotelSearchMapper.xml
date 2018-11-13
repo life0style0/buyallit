@@ -32,7 +32,9 @@ FROM   (SELECT hotel_id,
 </if>
                AND room_standard_person_number <![CDATA[ >= ]]> #{adultNumber} 
                AND room_child_max_number <![CDATA[ >= ]]> #{childNumber})
-               left outer join (select hotel_id, round(avg(review_price_rate),2) "price_rate", round(avg(review_food_rate),2) "food_rate", round(avg(review_service_rate),2) "service_rate", round(avg(review_clean_rate),2) "clean_rate", round(avg(review_location_rate),2) "location_rate"
+               left outer join (select hotel_id, round(avg(review_price_rate),2) "price_rate",
+                round(avg(review_food_rate),2) "food_rate", round(avg(review_service_rate),2) "service_rate",
+                 round(avg(review_clean_rate),2) "clean_rate", round(avg(review_location_rate),2) "location_rate"
                       from reviews
                       group by hotel_id) "rate"
                using(hotel_id)
@@ -105,6 +107,12 @@ room_id NOT IN(SELECT room_id
                                          #{endDay}  
                                          AND To_char(reservation_start_day, 
                                              'YYYY-MM-DD') <![CDATA[ <= ]]> 
+                                             #{startDay} )
+                                             or (To_char(reservation_end_day, 
+                                         'YYYY-MM-DD') <![CDATA[ <= ]]> 
+                                         #{endDay} 
+                                         AND To_char(reservation_start_day, 
+                                             'YYYY-MM-DD') <![CDATA[ >= ]]> 
                                              #{startDay} ) ))
 GROUP  BY hotel_id, room_name, "room_price", room_standard_person_number, 
 ROOM_CHILD_MAX_NUMBER, room_info, room_detail, "rate"."price_rate", "rate"."food_rate", "rate"."location_rate", 

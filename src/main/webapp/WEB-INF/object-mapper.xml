@@ -58,6 +58,7 @@
 
 	<bean type="service" name="hotelService" class="kr.or.kosta.reservationmall.hotel.service.HotelServiceImpl">
 		<property name="hotelDao" ref="hotelDao"/>
+		<property name="reviewDao" ref="reviewDao"/>
 	</bean>
 	
 	<!-- 정지원 끝 -->

@@ -1,6 +1,8 @@
 package kr.or.kosta.reservationmall.individual.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
@@ -44,6 +46,14 @@ public class MybatisReviewDao implements ReviewDao {
 	@Override
 	public void deleteReview(int review_id) throws Exception {
 		
+	}
+	
+	@Override
+	public List<kr.or.kosta.reservationmall.hotel.dto.Review> getReviewsByHotelId(String hotelId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<kr.or.kosta.reservationmall.hotel.dto.Review> reviews = sqlSession.selectOne(NAMESPACE+"getReviewsByHotelId", hotelId);
+		sqlSession.close();
+		return reviews;
 	}
 }
 

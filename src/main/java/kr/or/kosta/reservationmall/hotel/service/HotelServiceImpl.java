@@ -14,11 +14,13 @@ import kr.or.kosta.reservationmall.hotel.dao.HotelDao;
 import kr.or.kosta.reservationmall.hotel.dto.HotelInfo;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.individual.dao.ReviewDao;
 import kr.or.kosta.reservationmall.room.dto.Room;
 
 public class HotelServiceImpl implements HotelService {
 
 	private HotelDao hotelDao;
+	private ReviewDao reviewDao;
 
 	public HotelDao getHotelDao() {
 		return hotelDao;
@@ -26,6 +28,14 @@ public class HotelServiceImpl implements HotelService {
 
 	public void setHotelDao(HotelDao hotelDao) {
 		this.hotelDao = hotelDao;
+	}
+	
+	public ReviewDao getReviewDao() {
+		return reviewDao;
+	}
+
+	public void setReviewDao(ReviewDao reviewDao) {
+		this.reviewDao = reviewDao;
 	}
 
 	@Override
@@ -116,6 +126,7 @@ public class HotelServiceImpl implements HotelService {
 												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail(),
 												hotelDao.getRoomImages(hotelId, hotelSearchResult.getRoomName())));
 							}
+							info.setReviews(reviewDao.getReviewsByHotelId(String.valueOf(hotelId)));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

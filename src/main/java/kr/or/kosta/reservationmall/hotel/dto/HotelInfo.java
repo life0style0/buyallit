@@ -15,13 +15,15 @@ public class HotelInfo {
 	private String cleanRate;
 	private String locationRate;
 	private Map<Integer, List<Room>> rooms;
+	private List<Review> reviews;
 
 	public HotelInfo() {
 		rooms = new HashMap<>();
+		reviews = new ArrayList<>();
 	}
 
 	public HotelInfo(int hotelId, String priceRate, String foodRate, String serviceRate, String cleanRate,
-			String locationRate, Map<Integer, List<Room>> rooms) {
+			String locationRate, Map<Integer, List<Room>> rooms, List<Review> reviews) {
 		super();
 		this.hotelId = hotelId;
 		this.priceRate = priceRate;
@@ -30,6 +32,7 @@ public class HotelInfo {
 		this.cleanRate = cleanRate;
 		this.locationRate = locationRate;
 		this.rooms = rooms;
+		this.reviews = reviews;
 	}
 
 	public int getHotelId() {
@@ -87,6 +90,14 @@ public class HotelInfo {
 	public void setRooms(Map<Integer, List<Room>> rooms) {
 		this.rooms = rooms;
 	}
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 
 	public void addRooms(int roomNumber, Room room) {
 		if (!rooms.containsKey(roomNumber)) {
@@ -112,7 +123,7 @@ public class HotelInfo {
 	public String toString() {
 		return "HotelInfo [hotelId=" + hotelId + ", priceRate=" + priceRate + ", foodRate=" + foodRate
 				+ ", serviceRate=" + serviceRate + ", cleanRate=" + cleanRate + ", locationRate=" + locationRate
-				+ ", rooms=" + rooms + "]";
+				+ ", rooms=" + rooms + ", reviews=" + reviews + "]";
 	}
 
 }

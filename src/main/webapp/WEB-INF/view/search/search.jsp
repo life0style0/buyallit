@@ -4,7 +4,6 @@
 <c:if test="${sessionScope.refreshPage}">
 	<c:set var="refreshPage" value="${false}" scope="session"/>
 	<script>location.reload();</script>
-<%-- 	<c:remove var="refreshPage" scope="session"/> --%>
 </c:if>
 <html>
 <head>
@@ -349,14 +348,19 @@
 									<div class="modal-body">
 										<div role="tabpanel">
 											<ul class="nav nav-tabs" role="tablist">
-												<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab"
-													 aria-controls="home" aria-expanded="true" data-target="#home">호텔정보</a></li>
-												<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
-													 data-target="#profile">비교분석</a></li>
+												<li role="presentation" class="active"><a href="#home-${hotelInfo.hotelId}" id="home-tab-${hotelInfo.hotelId}" role="tab" data-toggle="tab"
+													 aria-controls="home-${hotelInfo.hotelId}" aria-expanded="true" data-target="#home-${hotelInfo.hotelId}">호텔정보</a></li>
+												<li role="presentation"><a href="#profile-${hotelInfo.hotelId}" role="tab" id="profile-tab-${hotelInfo.hotelId}" data-toggle="tab" aria-controls="profile-${hotelInfo.hotelId}"
+													 data-target="#profile-${hotelInfo.hotelId}">비교분석</a></li>
+												<li role="presentation"><a href="#review-${hotelInfo.hotelId}" role="tab" id="review-tab-${hotelInfo.hotelId}" data-toggle="tab" aria-controls="review-${hotelInfo.hotelId}"
+													 data-target="#review-${hotelInfo.hotelId}">호텔 리뷰</a></li>
 											</ul>
-											<!-- 호텔정보 탭 시작 -->
+											
+											<!-- 호텔 전체 정보 모달 바디 시작 -->
 											<div id="myTabContent" class="tab-content">
-												<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledBy="home-tab">
+
+												<!-- 호텔정보 탭 시작 -->
+												<div role="tabpanel" class="tab-pane fade in active" id="home-${hotelInfo.hotelId}" aria-labelledBy="home-tab-${hotelInfo.hotelId}">
 													<div class="owl-search-${hotelInfo.hotelId} owl-carousel">
 														<c:forEach items="${hotelImages}" var="hotelImage">
 															<c:if test="${hotelImage.key == hotelInfo.hotelId}">
@@ -467,7 +471,7 @@
 												</div>
 
 												<!-- 비교분석 탭 시작 -->
-												<div role="tabpanel" class="tab-pane" id="profile" aria-labelledBy="profile-tab">
+												<div role="tabpanel" class="tab-pane" id="profile-${hotelInfo.hotelId}" aria-labelledBy="profile-tab-${hotelInfo.hotelId}">
 													<div class="row">
 														<div class="col-md-6">
 															<div class="jumbotron">
@@ -617,6 +621,24 @@
 																			options: Chart.defaults.bar
 																		});
 																</script>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<!-- 리뷰 탭 시작 -->
+												<div role="tabpanel" class="tab-pane" id="review-${hotelInfo.hotelId}" aria-labelledBy="review-tab-${hotelInfo.hotelId}">
+													<div class="col-md-12">
+														<div class="media">
+															<div class="media-left">
+																<a href="#">
+																	<img class="media-object" src="..." alt="...">
+																</a>
+																hi!!!
+															</div>
+															<div class="media-body">
+																<h4 class="media-heading">별점 저장!</h4>
+																여기는 내용!
 															</div>
 														</div>
 													</div>

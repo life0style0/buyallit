@@ -372,8 +372,9 @@ function eventRegist() {
     $('.modal').on('show.bs.modal', function () {
         window.dispatchEvent(new Event('resize'));
     });
-
+    
     $('.modal').on('shown.bs.modal', function () {
+        // window.dispatchEvent(new Event('resize'));
         $(this).find('.owl-carousel').trigger('prev.owl.carousel');
         setTimeout(() => {
             $(this).find('.owl-carousel').trigger('prev.owl.carousel');

@@ -1,44 +1,40 @@
-package kr.or.kosta.reservationmall.review.domain;
+package kr.or.kosta.reservationmall.hotel.dto;
 
 public class Review {
-	
-	private String id;
+
+	private String userId;
 	private String content;
 	private String date;
 	private String serviceRate;
+	private String priceRate;
 	private String foodRate;
 	private String cleanRate;
 	private String locationRate;
 	private String helpfulCount;
-	private String reportCount;
-	private String hotelId;
-	private String userId;
-	
+
 	public Review() {
 	}
-	
-	public Review(String id, String content, String date, String serviceRate, String foodRate, String cleanRate,
-			String locationRate, String helpfulCount, String reportCount, String hotelId, String userId) {
+
+	public Review(String userId, String content, String date, String serviceRate, String priceRate, String foodRate,
+			String cleanRate, String locationRate, String helpfulCount) {
 		super();
-		this.id = id;
+		this.userId = userId;
 		this.content = content;
 		this.date = date;
 		this.serviceRate = serviceRate;
+		this.priceRate = priceRate;
 		this.foodRate = foodRate;
 		this.cleanRate = cleanRate;
 		this.locationRate = locationRate;
 		this.helpfulCount = helpfulCount;
-		this.reportCount = reportCount;
-		this.hotelId = hotelId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getContent() {
@@ -63,6 +59,14 @@ public class Review {
 
 	public void setServiceRate(String serviceRate) {
 		this.serviceRate = serviceRate;
+	}
+
+	public String getPriceRate() {
+		return priceRate;
+	}
+
+	public void setPriceRate(String priceRate) {
+		this.priceRate = priceRate;
 	}
 
 	public String getFoodRate() {
@@ -97,36 +101,11 @@ public class Review {
 		this.helpfulCount = helpfulCount;
 	}
 
-	public String getReportCount() {
-		return reportCount;
-	}
-
-	public void setReportCount(String reportCount) {
-		this.reportCount = reportCount;
-	}
-
-	public String getHotelId() {
-		return hotelId;
-	}
-
-	public void setHotelId(String hotelId) {
-		this.hotelId = hotelId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", content=" + content + ", date=" + date + ", serviceRate=" + serviceRate
-				+ ", foodRate=" + foodRate + ", cleanRate=" + cleanRate + ", locationRate=" + locationRate
-				+ ", helpfulCount=" + helpfulCount + ", reportCount=" + reportCount + ", hotelId=" + hotelId
-				+ ", userId=" + userId + "]";
+		return "Review [userId=" + userId + ", content=" + content + ", date=" + date + ", serviceRate=" + serviceRate
+				+ ", priceRate=" + priceRate + ", foodRate=" + foodRate + ", cleanRate=" + cleanRate + ", locationRate="
+				+ locationRate + ", helpfulCount=" + helpfulCount + "]";
 	}
 
 }

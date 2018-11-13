@@ -48,4 +48,18 @@
 		WHERE  review_id = #{value} 
 	</select>
 	
+	<select id="getReviewsByHotelId" parameterType="string" resultType="ReviewJjw">
+SELECT user_id "userId",
+	   review_content "content", 
+       review_date "date", 
+       review_service_rate "serviceRate", 
+       review_food_rate "foodRate", 
+       review_clean_rate "cleanRate", 
+       review_location_rate "locationRate", 
+       review_price_rate "priceRate", 
+       review_helpful_count "helpfulCount"
+FROM   reviews 
+WHERE  hotel_id = #{value} and review_report_count <![CDATA[ <= ]]> 10
+	</select>
+	
 </mapper>
