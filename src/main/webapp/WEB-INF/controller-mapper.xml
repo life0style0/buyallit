@@ -22,6 +22,7 @@
 	<bean type="controller" name="/individual/reservationList" class="kr.or.kosta.reservationmall.individual.controller.ReservationListController" />
 	<bean type="controller" name="/individual/cancellationRes" class="kr.or.kosta.reservationmall.individual.controller.CancellationResController" />
 	<bean type="controller" name="/individual/writeReview" class="kr.or.kosta.reservationmall.individual.controller.WriteReviewController" />
+	<bean type="controller" name="/individual/readReview" class="kr.or.kosta.reservationmall.individual.controller.ReadReviewController" />
 	
 	<!-- 송주현 끝 -->
 	
@@ -33,12 +34,14 @@
 	<!-- 이혜림 시작 -->
 	<bean type="controller" name="/article/controller" class="kr.or.kosta.reservationmall.board.controller.ArticleController" />
 	<bean type="controller" name="/board/controller" class="kr.or.kosta.reservationmall.board.controller.BoardController" />
+	<bean type="controller" name="/note/controller" class="kr.or.kosta.reservationmall.note.controller.NoteController" />
 	
 	<!-- 이혜림 끝 -->
 	
 	<!-- 허재혁 시작 -->
 	<bean type="controller" name="/login/controller" class="kr.or.kosta.reservationmall.login.controller.LoginController" />
 	<bean type="controller" name="/admin/main_board" class="kr.or.kosta.reservationmall.admin.controller.AdminController" />
+	<bean type="controller" name="/wishlist" class="kr.or.kosta.reservationmall.individual.controller.AddWishlistController" />
 	<!-- 허재혁 끝 -->
 	
 	

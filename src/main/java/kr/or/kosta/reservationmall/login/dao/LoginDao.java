@@ -14,5 +14,7 @@ public interface LoginDao {
 	
 	public boolean checkLogin_hjh(String id, String passwd) throws Exception;
 	
+	public boolean isWithdrawal_sjh(String id) throws Exception;
+	
 	
 }

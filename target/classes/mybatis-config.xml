@@ -14,7 +14,7 @@
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Hotel" alias="Hotel"/>
 		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.Rooms" alias="Rooms"/>
 		<typeAlias type="kr.or.kosta.reservationmall.board.dto.Article" alias="Article"/>
-		<typeAlias type="kr.or.kosta.reservationmall.board.dto.Notes" alias="Notes"/>
+		<typeAlias type="kr.or.kosta.reservationmall.note.dto.Notes" alias="Notes"/>
 
 		<!-- 지원 추가 -->
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam" alias="HotelSearchParam"/>
@@ -22,6 +22,19 @@
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.Review" alias="ReviewJjw"/>
 		<typeAlias type="kr.or.kosta.reservationmall.room.dto.Room" alias="RoomJjw"/>
 		<!-- 지원 추가 -->
+		
+		<!-- 재혁 추가 -->
+		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.GraphMonthUse" alias="GraphMonthUse"/>
+		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.GraphPriceReserve" alias="GraphPriceReserve"/>
+		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.GraphHotelUse" alias="GraphHotelUse"/>
+		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.GraphInfo" alias="GraphInfo"/>
+		<typeAlias type="kr.or.kosta.reservationmall.admin.dto.StatisticsInfo" alias="StatisticsInfo"/>
+		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.Wishlist" alias="Wishlist"/>
+		<!-- 2018-11-12 추가 -->
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelRateAvg" alias="HotelRateAvg"/>
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelRoomAvg" alias="HotelRoomAvg"/>
+		<!-- 재혁 추가 -->
+		
 		
 		<!-- 주현 추가 -->
 		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.ReservationInfo" alias="ReservationInfo"/>
@@ -66,6 +79,8 @@
 		<!-- 재혁 -->
 		<mapper resource="mappers/LoginMapper.xml"  />
 		<mapper resource="mappers/AdminMapper.xml"  />
+		<mapper resource="mappers/MyWishlistMapper.xml"  />
+		<mapper resource="mappers/StatisMapper.xml"  /><!-- 2018-11 12추가 -->
 		
 		<!-- 혜림 -->
 		<mapper resource="mappers/ArticleMapper.xml"  />

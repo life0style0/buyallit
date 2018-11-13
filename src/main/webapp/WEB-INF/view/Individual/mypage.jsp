@@ -55,119 +55,16 @@ System.out.println("끝");
 		<link href="/reservationmall/resources/css/template/style.css" rel="stylesheet">
 	
     <!-- 주현 css 추가  -->
-    <!--  
-  	<link href="/reservationmall/resources/css/sjh/style.css" rel="stylesheet">
-    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/reservationmall/resources/css/sjh/star-rating.css" rel="stylesheet">
     <!-- 주현 css 추가  -->
      
-		<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="/reservationmall/resources/js/sjh/star-rating.js"></script>
     
-    <!-- 
-		<script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
-     -->
      
     <!-- 주현 js 추가  -->
-    <script type="text/javascript">
-    
-    $(function(){ 
-        $('ul.nav-tabs a').click(function (e) { //부트스트랩 탭메뉴
-          e.preventDefault()
-          $(this).tab('show')
-        })
-        
-        if($('#logoutBtn') != null){ // 로그아웃
-        	$('#logoutBtn').on('click',function(){
-        		var d = new Date();
-        	    var expires = "expires=" + d.toGMTString();
-        	    document.cookie = 'loginId' + "=" + '' + ";" + expires + ";path=/";
-        	    location.href='/reservationmall/index.jsp';
-        	});
-        } 
-        
-        if($('#withdrawalMOpenBtn') != null){ // 회원 탈퇴
-          $('#withdrawalMOpenBtn').click(function(){
-        	  
-        	  $('#withdrawalBtn').on('click',function(){
-        		  console.log('탈퇴 버튼 클릭');
-        		  var userId= '<%=loginId%>';
-        		  console.log(userId);
-        		  
-        		  $.ajax({
-        			  data: {
-        				'userId' :   userId
-        			  },
-        			  url:"/reservationmall/individual/withdrawal.mall",
-        			  success: function(data){
-        				 // alert('탈퇴성공');
-        				 data= data.trim();
-        				 if(data=='withdrawalSuccess'){
-        					 var d = new Date();
-        	        	     var expires = "expires=" + d.toGMTString();
-        					 document.cookie = 'loginId' + "=" + '' + ";" + expires + ";path=/";
-        					 $('#withdrawal-confirm-Modal').modal();
-        				 } else if(data == 'withdrawalFail'){
-        					 alert('from server : withdrawalFail');
-        				 }
-        			  }, 
-        			  error: function(){
-        				 alert('서버로부터 전송 에러');
-        			  }
-        		  });
-        	  });
-        	  $('#withdrawal-Modal').modal();
-          })
-        }
-        
-        if($('button[name=write-reviewOpenBtn]') != null){ //리뷰 쓰기 버튼
-        	$('button[name=write-reviewOpenBtn]').on('click',function(){
-        		//alert('리뷰 쓰기 버튼');
-        		
-        		var writeReviewId= $(this).context.value;
-        		var hotelName= $(this).parents('.section-text').find('[name="res_hotel_name"]').text();
-        		var roomName= $(this).parents('.section-text').find('[name="res_room_name"]').text();
-        		var checkin= $(this).parents('.section-text').find('[name="res_start_day"]').text();
-        		var checkout= $(this).parents('.section-text').find('[name="res_end_day"]').text();
-        		
-        		$('#modal-write-review-id').html(writeReviewId);
-        		$('#write-review-hotel-name').html(hotelName);
-        		$('#write-review-room-name').html(roomName);
-        		$('#write-review-checkin').html(checkin);
-        		$('#write-review-checkout').html(checkout);
-        		$('#write-review_res_id').attr('value',writeReviewId);
-        		
-        		
-        	//$('#write-review-Modal').modal();
-        	});
-        }
-        
-        if($('button[name=cancellationOpenBtn]') != null){ //예약 취소 버튼
-        	$('button[name=cancellationOpenBtn]').on('click',function(){
-        		
-        		var cancellationId= $(this).context.value;
-        		var hotelName= $(this).parents('.section-text').find('[name="res_hotel_name"]').text();
-        		var roomName= $(this).parents('.section-text').find('[name="res_room_name"]').text();
-        		var checkin= $(this).parents('.section-text').find('[name="res_start_day"]').text();
-        		var checkout= $(this).parents('.section-text').find('[name="res_end_day"]').text();
-        		console.log(cancellationId);
-        
-        		
-        		$('#modal-cancellation-id').html(cancellationId);
-        		$('#cancellation-hotel-name').html(hotelName);
-        		$('#cancellation-room-name').html(roomName);
-        		$('#cancellation-checkin').html(checkin);
-        		$('#cancellation-checkout').html(checkout);
-        		$('#cancellation_res_id').attr('value',cancellationId);
-        		
-        		
-        		//$('#cancellation-Modal').modal();
-        		
-        		$('#cancellationBtn').on('click',function(){
-        			$('#cancellationForm').submit();
-        		});
-        	});
-        }
-    })
-    </script>
+    <script type="text/javascript" src="/reservationmall/resources/js/sjh/common.js"></script>
     
     <c:choose>
       <c:when test="${requestScope.editUserResult eq 'trying'}">    
@@ -177,6 +74,13 @@ System.out.println("끝");
         $(function(){ 
         	$('#edit-result').html('개인정보 수정되었습니다');
         	$('#edit-confirm-Modal').modal();
+        	
+        /* 	$('#edit-confirm-Modal-close').on('click',function(){
+        		location.href='/reservationmall/individual/mypage.mall';
+        	}); */
+        	$('#edit-confirm-Modal').on('hidden.bs.modal', function (e) {
+        		location.href='/reservationmall/individual/mypage.mall';
+        	});
         })
         </script>
       </c:when>
@@ -185,16 +89,29 @@ System.out.println("끝");
         $(function(){ 
           $('#edit-result').html('개인정보 수정 실패했습니다');
           $('#edit-confirm-Modal').modal();
+          
+          /* $('#edit-confirm-Modal-close').on('click',function(){
+      		location.href='/reservationmall/individual/mypage.mall';
+      	
+          }); */
+          $('#edit-confirm-Modal').on('hidden.bs.modal', function (e) {
+      		location.href='/reservationmall/individual/mypage.mall';
+          });
         })
         </script>
+        <c:set value="${requestScope.editUserResult}" var="trying"/> 
       </c:when>
       <c:when test="${requestScope.cancellationRes eq 'success'}">
         <script type="text/javascript">
         $(function(){ 
           $('#cancellation-result').html('예약 취소되었습니다');
           
-          $('#cancellation-confirm-Modal-close').on('click',function(){
+         /*  $('#cancellation-confirm-Modal-close').on('click',function(){
         	  location.href='/reservationmall/individual/mypage.mall';
+          }); */
+          
+          $('#cancellation-confirm-Modal').on('hidden.bs.modal', function (e) {
+        		location.href='/reservationmall/individual/mypage.mall';
           });
           
           $('#cancellation-confirm-Modal').modal();
@@ -206,11 +123,32 @@ System.out.println("끝");
         $(function(){ 
           $('#cancellation-result').html('예약 취소 실패입니다');
           
-          $('#cancellation-confirm-Modal-close').on('click',function(){
+         /*  $('#cancellation-confirm-Modal-close').on('click',function(){
         	  location.href='/reservationmall/individual/mypage.mall';
+          }); */
+          
+          $('#cancellation-confirm-Modal').on('hidden.bs.modal', function (e) {
+      		location.href='/reservationmall/individual/mypage.mall';
           });
           
           $('#cancellation-confirm-Modal').modal();
+        })
+        </script>
+      </c:when>
+      <c:when test="${requestScope.writingReviewRes eq 'success'}">
+        <script type="text/javascript">
+        $(function(){ 
+          $('#writing-result').html('리뷰가 등록되었습니다');
+          
+         /*  $('#writing-review-confirm-Modal-close').on('click',function(){
+            location.href='/reservationmall/individual/mypage.mall';
+          }); */
+          
+          $('#writing-review-confirm-Modal').on('hidden.bs.modal', function (e) {
+      		location.href='/reservationmall/individual/mypage.mall';
+          });
+          
+          $('#writing-review-confirm-Modal').modal();
         })
         </script>
       </c:when>
@@ -430,6 +368,13 @@ System.out.println("끝");
                                     <span class="text-danger">취소된 예약</span>
                                   </c:when>
                                   
+                                  <c:when test="${reservationInfo.reservation_status==300}">
+                                  <%--리뷰 쓴 예약인 경우--%>
+                                    <button type="button" class="btn btn-primary" name="reading-reviewOpenBtn"
+                                    data-toggle="modal"  data-target="#reading-review-Modal"
+                                    value="${reservationInfo.reservation_id}">리뷰읽기</button>
+                                  </c:when>
+                                  
                                   <c:otherwise>
                                   </c:otherwise>
           
@@ -493,23 +438,24 @@ System.out.println("끝");
                     
                     <!-- 호텔 이미지 시작-->
 					<div class="col-md-5">
-						<div class="owl-portfolio owl-carousel">
-							<div class="item">
-								<div class="owl-portfolio-item">
-                                <img src="resources/images/template/demo/portfolio-7.jpg" class="img-responsive" alt="portfolio">
+					<div class="owl-search-sjh2 owl-carousel">
+            
+                        <c:forEach items="${requestScope.resHotelImages}" var="reshotelImage">
+                          <c:if test="${reshotelImage.key == reservationInfo.hotel_id}">
+                          
+                          <c:forEach items="${reshotelImage.value}" var="hotelImage">
+                            <div class="item">
+                             <div class="owl-search-item">
+                            <img src="/reservationmall/resources/images/${hotelImage}" 
+                            alt="/reservationmall/resources/images/template/demo/image_main.jpg"
+                            class="img-responsive" />
                             </div>
-							</div>
-							<div class="item">
-								<div class="owl-portfolio-item">
-                                <img src="resources/images/template/demo/portfolio-8.jpg" class="img-responsive" alt="portfolio">
                             </div>
-							</div>
-							<div class="item">
-								<div class="owl-portfolio-item">
-                                <img src="resources/images/template/demo/portfolio-9.jpg" class="img-responsive" alt="portfolio">
-                            </div>
-							</div>
-						</div>
+                          </c:forEach>
+                            
+                          </c:if>
+                        </c:forEach>
+					</div>
 					</div>
                     <!-- 호텔 이미지 끝-->
                     
@@ -517,6 +463,11 @@ System.out.println("끝");
                 <div style="height:50px"></div>
         </c:forEach>
         </c:when>
+        <c:otherwise>
+          <div class="row bg-info">
+            예약 내역이 없습니다 
+          </div>
+        </c:otherwise>
         </c:choose>
         
 			</div>
@@ -526,365 +477,250 @@ System.out.println("끝");
     <!--  예약 내역 조회 끝 -->
 
 
-    <!-- 위시리스트 시작 -->
-    <section id="wishlist" class="dark-bg">
-    <div class="container"> 
-       
-       <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="section-title">
-              <h2> 위시리스트 </h2>
-              <p>A creative  of ll be amazed.</p>
-            </div>
+ 
+  <!-- 위시리스트 시작 -->
+  <section id="wishlist" class="dark-bg">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>위시리스트</h2>
           </div>
         </div>
+      </div>
 
-            
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="owl-partners owl-carousel">
 
-              <div class="item ot-portfolio-item">
-                <figure class="effect-bubba">
-                  <img src="/reservationmall/resources/images/template/demo/portfolio-1.jpg" alt="img02" class="img-responsive" />
-                  <figcaption>
-                    <h2>1 메이필드호텔</h2>
-                    <p>Branding, Design</p>
-                    <a href="#" data-toggle="modal"  data-target="#Modal-1">View more</a>
-                  </figcaption>
-                </figure>
-              </div>
-              
-              <div class="item ot-portfolio-item">
-                <figure class="effect-bubba">
-                  <img src="/reservationmall/resources/images/template/demo/portfolio-2.jpg" alt="img02" class="img-responsive" />
-                  <figcaption>
-                    <h2>2 Startup Framework</h2>
-                    <p>Branding, Web Design</p>
-                    <a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-                  </figcaption>
-                </figure>
-              </div>
-              
-              <div class="item ot-portfolio-item ">
-                <figure class="effect-bubba">
-                  <img src="/reservationmall/resources/images/template/demo/portfolio-3.jpg" alt="img02" class="img-responsive" />
-                  <figcaption>
-                    <h2>3 Lamp & Velvet</h2>
-                    <p>Branding, Web Design</p>
-                    <a href="#" data-toggle="modal" data-target="#Modal-3">View more</a>
-                  </figcaption>
-                </figure>
-              </div>
-              
-              <div class="item ot-portfolio-item">
-                <figure class="effect-bubba">
-                  <img src="resources/images/template/demo/portfolio-4.jpg" alt="img02" class="img-responsive" />
-                  <figcaption>
-                    <h2>4 Smart Name</h2>
-                    <p>Branding, Design</p>
-                    <a href="#" data-toggle="modal" data-target="#Modal-4">View more</a>
-                  </figcaption>
-                </figure>
-              </div>
-              
-              <div class="item ot-portfolio-item">
-                <figure class="effect-bubba">
-                  <img src="resources/images/template/demo/portfolio-5.jpg" alt="img02" class="img-responsive" />
-                  <figcaption>
-                    <h2>5 Fast People</h2>
-                    <p>Branding, Web Design</p>
-                    <a href="#" data-toggle="modal" data-target="#Modal-5">View more</a>
-                  </figcaption>
-                </figure>
-              </div>
-              
-               <div class="item ot-portfolio-item">
-                <figure class="effect-bubba">
-                  <img src="resources/images/template/demo/portfolio-5.jpg" alt="img02" class="img-responsive" />
-                  <figcaption>
-                    <h2>6 Fast People</h2>
-                    <p>Branding, Web Design</p>
-                    <a href="#" data-toggle="modal" data-target="#Modal-5">View more</a>
-                  </figcaption>
-                </figure>
-              </div>
-              
-            </div>
-              
-          </div>
-        </div> <!--  row  -->
+      <div class="row">
+        <div class="owl-search-sjh owl-carousel">
 
-      </div> <!--  end container  -->
-    </section> 
-    <!-- 위시리스트 끝 -->
+          <c:forEach items="${applicationScope.hotelList}" var="hotel">
+            <c:forEach items="${requestScope.wishlistIds}" var="wishlistId" varStatus="hotelnum">
+              <c:if test="${wishlistId == hotel.hotel_id}">
+                <c:forEach items="${wishHotelImages}" var="hotelImage">
+                  <c:if test="${hotelImage.key == wishlistId}">
+                    <!-- start portfolio item -->
+                    <!--  <div class="item ot-portfolio-item">   -->
+                    
+                    <div class="item">
+                   
+                      <div class="owl-search-item">
+                      <a data-toggle="modal" data-target="#Modal-${wishlistId}" class="hotelInfoLink">
+                        <figure class="effect-bubba">
+                        
+                          <img src="/reservationmall/resources/images/${hotelImage.value[0]}" 
+                          alt="/reservationmall/resources/images/template/demo/image_main.jpg"
+                          class="img-responsive"/>
+                          <figcaption>
+                            <h2>${hotel.hotel_name}</h2>
+                            <p>${hotel.hotel_rate}</p>
+                              
+                          </figcaption>
+                        </figure>
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <!-- end portfolio item -->
+                  </c:if>
+                </c:forEach>
+              </c:if>
+            </c:forEach>
+          </c:forEach>
 
-    
-    
-		<p id="back-top">
-			<a href="#top"><i class="fa fa-angle-up"></i></a>
-		</p>
-		<jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
-
-		<!-- Modal for portfolio item 1 -->
-		<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="Modal-label-1">Dean & Letter</h4>
-					</div>
-					<div class="modal-body">
-						<img src="resources/images/template/demo/portfolio-1.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Modal for portfolio item 2 -->
-		<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" aria-labelledby="Modal-label-2">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="Modal-label-2">Startup Framework</h4>
-					</div>
-					<div class="modal-body">
-						<img src="/reservationmall/resources/images/template/demo/portfolio-2.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Modal for portfolio item 3 -->
-		<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog" aria-labelledby="Modal-label-3">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="Modal-label-3">Lamp & Velvet</h4>
-					</div>
-					<div class="modal-body">
-						<img src="/reservationmall/resources/images/template/demo/portfolio-3.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Modal for portfolio item 4 -->
-		<div class="modal fade" id="Modal-4" tabindex="-1" role="dialog" aria-labelledby="Modal-label-4">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="Modal-label-4">Smart Name</h4>
-					</div>
-					<div class="modal-body">
-						<img src="/reservationmall/resources/images/template/demo/portfolio-4.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Modal for portfolio item 5 -->
-		<div class="modal fade" id="Modal-5" tabindex="-1" role="dialog" aria-labelledby="Modal-label-5">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="Modal-label-5">Fast People</h4>
-					</div>
-					<div class="modal-body">
-						<img src="/reservationmall/resources/images/template/demo/portfolio-5.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-    
-        <!--  개인정보 수정 결과 모달  -->
-         <div class="modal fade" id="edit-confirm-Modal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title"> 개인정보 수정 </h4>
-              </div>
-              <div class="modal-body">
-                <p id="edit-result">   </p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
         </div>
+      </div>
+      <!--  row  -->
+
+    </div>
+    <!--  end container  -->
+  </section>
+  <!-- 위시리스트 끝 -->
+
+
+
+  <p id="back-top">
+    <a href="#top"><i class="fa fa-angle-up"></i></a>
+  </p>
+  <jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
+ 
+  <c:forEach items="${applicationScope.hotelList}" var="hotel">
+    <c:forEach items="${requestScope.wishlistIds}" var="wishlistId" varStatus="hotelnum">
+      <c:choose>
+        <c:when test="${wishlistId == hotel.hotel_id}">
+          <div class="modal fade bs-example-modal-lg" id="Modal-${wishlistId}" tabindex="-1" role="dialog"
+            aria-labelledby="Modal-label-${wishlistId}">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <!-- hotel infomation  -->
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="Modal-label-${wishlistId}">${hotel.hotel_name}</h4>
+                </div> <!-- modal-header -->
+                <div class="modal-body">
+                  <div role="tabpanel">
+                    <!-- 호텔정보 탭 시작 -->
+                      
+                        <div class="owl-search-${wishlistId} owl-carousel">
+                          <c:forEach items="${requestScope.wishHotelImages}" var="hotelImage">
+                            <c:if test="${hotelImage.key == wishlistId}">
+                              <c:forEach items="${hotelImage.value}" var="imageDirectory">
+                                <div class="item text-center">
+                                  <div class="owl-search-item">
+                                    <img class="owl-lazy" data-src="/reservationmall/resources/images/${imageDirectory}"
+                                      alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+                                  </div>
+                                </div>
+                              </c:forEach>
+                            </c:if>
+                          </c:forEach>
+                        </div>
+                        <div class="col-md-12" id="hotelHtml">
+                          <div class="col-md-1"></div>
+                          <div class="col-md-10 text-center">
+                            <c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
+                              <span><span class="label label-info">${detail}</span></span>
+                            </c:forTokens>
+                          </div>
+                          <div class="col-md-1"></div>
+                          <div class="col-md-12">
+                            <p>호텔 등급 : ${hotel.hotel_rate}</p>
+                            <p>호텔 전화번호 : ${hotel.hotel_phonenum}</p>
+                            <p>호텔 웹사이트 : ${hotel.hotel_website}</p>
+                            <p>호텔 주소 : ${hotel.hotel_address}</p>
+                            <p>소개글 : ${hotel.hotel_info}</p>
+                          </div>
+                          <div class="col-md-12">
+                          <form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm">
+                          <div>
+                            <input type="hidden" name="searchValueType" value="searchHotel"> 
+                            <input type="hidden" name="searchValue" value="${hotel.hotel_name}">
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>입실 날짜</label>
+                              <div class='input-group date datetimepicker1'>
+                                <input type='text' class="form-control " name="searchStartDay" /> <span class="input-group-addon">
+                                  <span class="fa fa-calendar"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>퇴실 날짜</label>
+                              <div class='input-group date datetimepicker2'>
+                                <input type='text' class="form-control " name="searchEndDay" /> <span class="input-group-addon">
+                                  <span class="fa fa-calendar"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>일정</label>
+                              <div class='input-group date'>
+                                <div class="betweenDay" style="margin-bottom: 12px;">
+                                  <strong>1박 2일</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>객실 수</label> 
+                              <select class="form-control " id="roomNumber2" name="searchRoomNumber">
+                                <option selected>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                              </select> 
+                              <input type="hidden" id="roomNumberHidden">
+                            </div>
+                          </div>
+                          <div class="col-md-12" id="roomNumberAnchor">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>어른 수</label> <select class="form-control" name="searchAdultNumber">
+                                  <option>1</option>
+                                  <option selected>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                  <option>6</option>
+                                  <option>7</option>
+                                  <option>8</option>
+                                  <option>9</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>아이 수</label> <select class="form-control" name="searchChildNumber">
+                                  <option selected>0</option>
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                  <option>6</option>
+                                  <option>7</option>
+                                  <option>8</option>
+                                  <option>9</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <input type="submit" value="검색" class="form-control btn-success" id="searchHotelButton">
+                          </div>
+                          <div class="col-md-6">
+                            <input type="button" value="close" class="form-control btn btn-warning" data-dismiss="modal">
+                           </div>
+                        </form>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                </div> <!-- modal-footer -->
+              </div>
+            </div>
+          </div>
+        </c:when>
+      </c:choose>
+    </c:forEach>
+  </c:forEach>
+    
         <!--  개인정보 수정 결과 모달  -->
+        <jsp:include page="/WEB-INF/view/individual/edit-confirm-Modal.jsp"></jsp:include>
         
         <!--  회원 탈퇴 모달  -->
-         <div class="modal fade" id="withdrawal-Modal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title"> 회원 탈퇴 </h4>
-              </div>
-              <div class="modal-body">
-                <p> 탈퇴하시겠습니까?  </p>
-              </div>
-              <div class="modal-footer">
-              <button type="button" id="withdrawalBtn" class="btn btn-danger" data-dismiss="modal" >탈퇴하기</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 회원 탈퇴 모달  -->
+        <jsp:include page="/WEB-INF/view/individual/withdrawal-Modal.jsp"></jsp:include>
         
         <!--  회원 탈퇴 성공 모달  -->
-         <div class="modal fade" id="withdrawal-confirm-Modal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title"> 회원 탈퇴 </h4>
-              </div>
-              <div class="modal-body">
-                <p> 탈퇴되었습니다  </p>
-              </div>
-              <div class="modal-footer">
-                <a class="btn btn-default" href="/reservationmall/"> 메인으로 </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 회원 탈퇴 성공 모달  -->
+        <jsp:include page="/WEB-INF/view/individual/withdrawal-confirm-Modal.jsp"></jsp:include>
     
         <!-- 리뷰쓰기 모달 -->
-        <div class="modal fade" id="write-review-Modal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title"> 리뷰 쓰기 </h4>
-              </div>
-              <div class="modal-body">
-                <p class="row">
-                  예약 번호 
-                  <span id="modal-write-review-id"> </span>
-                </p>
-                <p class="row">
-                  <span id="write-review-hotel-name" class="alert alert-info"> </span>
-                  <span id="write-review-room-name" class="alert alert-info"> </span>
-                </p>
-                <p class="row">
-                  체크인 
-                  <span id="write-review-checkin" class="badge"> </span>
-                  체크아웃  
-                  <span id="write-review-checkout" class="badge"> </span>
-                </p>
-                <p> 리뷰 쓰기 </p>
-                <div>
-                  <form id="writeReviewForm" action="/reservationmall/individual/writeReview.mall" method="post">
-                    <input type="hidden" id="write-review_res_id" name="write-review_res_id" value=""/>
-                    <textarea id="write-review-text" class="form-control" rows="10"
-                    placeholder="여기에 리뷰를 작성하세요.."></textarea>
-                  </form>
-                </div> 
-              <div class="modal-footer">
-                <button type="button" id="write-reviewBtn" class="btn btn-primary" data-dismiss="modal" >리뷰쓰기</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-        <!-- 리뷰쓰기 모달 -->
+        <jsp:include page="/WEB-INF/view/individual/write-review-Modal.jsp"></jsp:include>
+        
+        <!--  리뷰쓰기 결과 모달  -->
+        <jsp:include page="/WEB-INF/view/individual/writing-review-confirm-Modal.jsp"></jsp:include>
+        
+        <!-- 리뷰읽기 모달 -->
+        <jsp:include page="/WEB-INF/view/individual/reading-review-Modal.jsp"></jsp:include>
         
         <!-- 예약취소 모달 -->
-        <div class="modal fade" id="cancellation-Modal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title"> 예약취소 </h4>
-              </div>
-              <div class="modal-body">
-                <p class="row">
-                  예약 번호 
-                  <span id="modal-cancellation-id"> </span>
-                </p>
-                <p class="row">
-                  <span id="cancellation-hotel-name" class="alert alert-info"> </span>
-                  <span id="cancellation-room-name" class="alert alert-info"> </span>
-                </p>
-                <p class="row">
-                  체크인 :
-                  <span id="cancellation-checkin" class="badge"> </span>
-                  & 체크아웃 : 
-                  <span id="cancellation-checkout" class="badge"> </span>
-                </p>
-                <p> 예약 취소 하시겠습니까? </p>
-              </div>
-              <div class="modal-footer">
-                <form id="cancellationForm" action="/reservationmall/individual/cancellationRes.mall" method="post">
-                  <input type="hidden" id="cancellation_res_id" name="cancellation_res_id" value=""/>
-                  <button type="button" id="cancellationBtn" class="btn btn-danger" data-dismiss="modal" >취소하기</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 예약취소 모달 -->
+        <jsp:include page="/WEB-INF/view/individual/cancellation-modal.jsp"></jsp:include>
      
         <!--  예약취소 확인 모달  -->
-         <div class="modal fade" id="cancellation-confirm-Modal" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title"> 예약 취소 </h4>
-              </div>
-              <div class="modal-body">
-                <p id="cancellation-result">   </p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="cancellation-confirm-Modal-close" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--  예약취소 확인  모달  -->
-     
+        <jsp:include page="/WEB-INF/view/individual/cancellation-confirm-Modal.jsp"></jsp:include>
+        
 
 		<!-- Bootstrap core JavaScript
 			================================================== -->
@@ -898,9 +734,21 @@ System.out.println("끝");
 		<script src="/reservationmall/resources/js/template/SmoothScroll.min.js"></script>
 		<script src="/reservationmall/resources/js/template/mooz.themes.scripts.js"></script>
 	  
-      <!--  송주현 스크립트 추가  -->
-      <script type="text/javascript" src="/reservationmall/resources/js/sjh/editUserInfo.js"></script>
-      <!--  송주현 스크립트 추가  -->
+        <!--  송주현 스크립트 추가  -->
+        <script type="text/javascript" src="/reservationmall/resources/js/sjh/editUserInfo.js"></script>
+        <script type="text/javascript" src="/reservationmall/resources/js/sjh/myCarousel.js"></script>
+        
+        <!--  송주현 스크립트 추가  -->
   
+       <!--======== 위시리스트를 위한 JJW javascript file List =========-->
+      <link rel="stylesheet" href="/reservationmall/resources/css/jjw/bootstrap-datetimepicker.css">
+      <script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
+      <script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
+      <script src="/reservationmall/resources/js/jjw/common.js"></script>
+      <!--======== 위시리스트를 위한 JJW javascript file List =========-->
+      
+      <!--  송주현 스크립트 추가  -->
+      <script type="text/javascript" src="/reservationmall/resources/js/sjh/jjwCommon.js"></script>
   </body>
 </html>

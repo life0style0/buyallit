@@ -25,6 +25,9 @@ if(cookies != null) {
 loginCheck = request.getParameter("loginCheck");
 %>
 
+<!-- css for Hyerim -->
+<link href="resources/css/lhr/hyerim.css" rel="stylesheet">
+
 <script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -52,7 +55,7 @@ loginCheck = request.getParameter("loginCheck");
 				</li>
                
 				<li>
-					<a class="page-scroll" href="#faq">FAQ</a>
+					<a class="page-scroll" href="#statisInfo">통계정보</a>
 				</li>
 				<li>
 					<a class="page-scroll" href="#contact">Contact</a>
@@ -101,123 +104,45 @@ loginCheck = request.getParameter("loginCheck");
 	<!-- /.container-fluid -->
 </nav>
 
-<style>
-#customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    cursor: pointer;
-}
 
-#customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    cursor: pointer;
-    text-align: center;
-}
-
-#customers tr:nth-child(even){background-color: #f2f2f2;
-cursor: pointer;
-text-align: center;
-}
-
-#customers tr:hover {background-color: #ddd;
-cursor: pointer;
-text-align: center;
-}
-
-#customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color:  #0085A1;
-    color: white;
-    text-align: center;
-}
-
-#padding {
-  padding-top: 20px;
-    padding-bottom: 12px;
-  
-}
-
-* {
-    box-sizing: border-box;
-}
-</style>
 <!-- 혜림 모달 -->
- <div class="modal fade" id="notice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">YOGIZOA Notice</h4>
-          
-        <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel" >공지사항</h4>
-        </div>
- 
-     <table class="research" id="customers">
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody id="abcd">
-      
-         <!-- 
-        <script>
-        $(".article").on("click",function(){
-        var obj = $(this);
-        obj.hide();
-        obj.next().show();
-        obj.parent().parent().next().show();
-        });
-        </script>
-       
-       <script type="text/javascript">
-      function myFunction() {
-      var x = document.getElementById("myDIV");
-      if (x.style.display === "none") {
-      x.style.display = "block";
-      } else {
-      x.style.display = "none";
-      }
-      }
-      </script> -->
-        
-        </tbody>
-      </table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <!-- 스크립트 : 게시판 토글 형식으로 내용 인출하기
-        tr_visible 클릭 시, 토글 창 보여주기 
-        
- <script>
-  $('.tr_visible a').click(function(){
-    alert("나와라ㅏ!!!! ");
-    $(this).parent().parent().nextUntil('.tr_visible').toggle();
-    return false;
-  });
-  </script>-->
-    
-    
-       <div class="modal-footer" style="padding: 4px;">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div class="modal fade" id="notice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">YOGIZOA Notice</h4>
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">공지사항</h4>
         </div>
-    
-  </div>
+        <table class="table table-bordered" id="customers">
+          <thead>
+            <tr>
+              <th style="width: 8%;">번호</th>
+              <th>제목</th>
+              <th style="width: 11%;">작성자</th>
+              <th>작성일</th>
+              <th style="width: 11%;">조회수</th>
+              <th>상세보기</th>
+            </tr>
+          </thead>
+          <tbody id="abcd">
+            <!-- ajox통신을 통해 데이터 추가 -->
+          </tbody>
+        </table>
+        <div class="modal-footer" style="padding: 4px;">
+          <button type="button" class="btn btn-default"
+            data-dismiss="modal">Close</button>
+        </div>
+
       </div>
     </div>
-    
- </div>
-  <!-- 모달 for 공지사항 혜림 수정 끝  -->
-
+  </div>
+</div>
+<!-- 모달 for 공지사항 혜림 수정 끝  -->
 
  <!-- Modal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"

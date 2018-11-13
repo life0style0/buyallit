@@ -1,9 +1,6 @@
 package kr.or.kosta.reservationmall.admin.dto;
 
-import java.util.ArrayList;
-
 public class Hotel {
-
 	private String hotel_id;
 	private String hotel_name;
 	private String hotel_address;

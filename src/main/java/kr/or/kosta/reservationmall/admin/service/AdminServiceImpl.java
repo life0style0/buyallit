@@ -3,10 +3,15 @@ package kr.or.kosta.reservationmall.admin.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.or.kosta.reservationmall.admin.dao.AdminDao;
+import kr.or.kosta.reservationmall.admin.dto.GraphHotelUse;
+import kr.or.kosta.reservationmall.admin.dto.GraphMonthUse;
+import kr.or.kosta.reservationmall.admin.dto.GraphPriceReserve;
 import kr.or.kosta.reservationmall.admin.dto.Hotel;
 import kr.or.kosta.reservationmall.admin.dto.Rooms;
+import kr.or.kosta.reservationmall.admin.dto.StatisticsInfo;
 import kr.or.kosta.reservationmall.login.dao.LoginDao;
 
 
@@ -38,7 +43,31 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Hotel> getHotelList() throws Exception {
 		return adminDao.getHotelList();
 	}
-	
+
+	@Override
+	public StatisticsInfo getStatisticsInfo() throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.getStatisticsInfo();
+	}
+
+	@Override
+	public ArrayList<GraphMonthUse> getGraphMonthUse() throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.getGraphMonthUse();
+	}
+
+	@Override
+	public ArrayList<GraphPriceReserve> getGraphPriceReserve() throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.getGraphPriceReserve();
+	}
+
+	@Override
+	public ArrayList<GraphHotelUse> getGraphHotelUse() throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.getGraphHotelUse();
+	}
+
 	
 
 }

@@ -25,7 +25,7 @@ if(cookies != null) {
 loginCheck = request.getParameter("loginCheck");
 %>
 
-<script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
+<script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->

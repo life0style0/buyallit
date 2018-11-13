@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,7 @@
 	<title>관리자 모드</title>
 	<!-- Bootstrap core CSS -->
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	
 	<!-- Custom styles for this template -->
 	<link href="/reservationmall/resources/css/template/owl.carousel.css" rel="stylesheet">
 	<link href="/reservationmall/resources/css/template/owl.theme.default.min.css"  rel="stylesheet">
@@ -24,7 +26,10 @@
 	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="/reservationmall/resources/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=aba8nx_n3O9CvAauIsql&amp;submodules=panorama,geocoder,drawing,visualization"></script>
-
+	
+	<!-- 허재혁추가 -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<!-- 허재혁 추가 -->
 	<script>
 	$(function () {
 	  $("#home-tab").on("click", function(e){
@@ -44,7 +49,46 @@
 		  
 		  $("#roomInfo").tab('show');
 	  });
+	  
+	  console.log("${hotelInfos}");
+
 	});
+	function addWisiList(hotel_id, user_id) {
+			$.ajax({
+				type : "get",
+				url : "likeUphjh",
+				data : {
+					hotel_id : hotel_id,
+					user_id : user_id
+				},
+				dataType : "json",
+				success : function(resultType) {
+					if(resultType=="true"){
+						setTimeInte
+					}
+
+				},
+				error : function() {
+					location.href = "listindexhjh";
+				}
+			});
+
+		} else {
+			checkLike.className = 'icon fa-heart-o';
+			$.ajax({
+				type : "get",
+				url : "likeDownhjh?board_no=" + board_no + "&mem_id=" + mem_id,
+				dataType : "json",
+				success : function(cnt) {
+					$("#icon" + board_no).text(cnt);
+				},
+				error : function() {
+					location.href = "listindexhjh";
+				}
+			});
+		}
+	}
+	
 	</script>
 </head>
 <body>
@@ -61,6 +105,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row row-0-gutter">
 				<!-- start portfolio item -->
 				<div class="col-md-4 col-0-gutter">
@@ -240,7 +285,7 @@
 					<!-- hotel infomation  -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="Modal-label-1">신라호텔</h4>
+						<h4 class="modal-title" id="Modal-label-1">신라호텔</h4><i class="far fa-heart">위시리스트 수 1</i>
 					</div>
 					<div class="modal-body">
 						<div role="tabpanel">
@@ -262,6 +307,7 @@
 											<div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive" alt="portfolio"></div>
 										</div>
 									</div>
+									<img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img01" class="img-responsive" />
 									<div class="modal-works">
 										<span>특급호텔</span><span>스파</span><span>찜질방</span>
 									</div>

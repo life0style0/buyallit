@@ -63,3 +63,23 @@ img .right-block {
   font-size: 30px;
   padding: 3px 50px;
 }
+
+.fa.fa-user {
+  font-size: 50px;
+}
+
+button .fa-heart, button .fa-trash-alt {
+  font-size: 30px;
+}
+
+.media-right hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tab-pane .media .media-left, .tab-pane .media .media-body {
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: gainsboro;
+  padding: 10px;
+}

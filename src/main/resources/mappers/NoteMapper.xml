@@ -7,12 +7,13 @@
 	
 	<!-- 전체게시물 조회 -->
 	<select id="listAll_hr" resultType="Notes" >
-	SELECT 		note_id  		AS "id", 
-       			user_id			AS "userId", 
-       			note_question	AS "question", 
-       			note_answer		AS "answer", 
-       			TO_CHAR(note_date, 'YYYY/MM/DD')	AS "date",
-       			note_checked 	AS "checked"
+	SELECT 		note_id  		AS "note_id", 
+       			user_id			AS "user_id", 
+       			note_question	AS "note_question", 
+       			note_answer		AS "note_answer", 
+       			TO_CHAR(note_date, 'YYYY/MM/DD')	AS "note_date",
+       			note_email		AS "note_email",
+       			note_checked 	AS "note_checked"
 	FROM   		notes
 	</select>
 	
@@ -22,15 +23,12 @@
            	 	(note_id, 
              	user_id, 
              	note_question, 
-             	note_answer, 
-             	note_date, 
-             	note_checked) 
+             	note_email, 
+             	note_date) 
 	VALUES     (note_id_seq.nextval, 
             	#{user_id}, 
             	#{note_question}, 
-            	#{note_answer},
-            	TO_DATE(#{note_date},'YYYY-MM-DD'), 
-            	#{note_checked} )
+            	#{note_email}, 
+            	TO_CHAR(SYSDATE,'YYYY/MM/DD'))
 	</insert>
-	
 </mapper>

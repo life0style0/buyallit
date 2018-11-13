@@ -15,7 +15,6 @@ import kr.or.kosta.reservationmall.login.service.LoginServiceImpl;
 
 /**
  * /user/list.mall에 대한 요청 처리 컨트롤러
- * 
  * @author 김기정
  *
  */
@@ -27,30 +26,31 @@ public class LoginController implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		ModelAndView mav = new ModelAndView();
-
-		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
-		loginService = (LoginService) factory.getBean(LoginServiceImpl.class);
-
+		
+		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
+		loginService = (LoginService)factory.getBean(LoginServiceImpl.class);
+		
 		boolean check = false;
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
 		String rememId = request.getParameter("rememId");
-
+		
+		
 		String url = request.getParameter("daoType");
-		switch (url) {
+		switch(url) {
 		case "checkLogin":
 			try {
-				check = loginService.checkLogin_hjh(user_id, user_pw);
+				check = loginService.checkLogin_hjh(user_id, user_pw);	
 			} catch (Exception e) {
 				throw new ServletException("UserService.list() 예외 발생", e);
 			}
-			if (check) {
-				if (rememId != null) {
+			if(check) {
+				if(rememId != null) {
 					Cookie remember = new Cookie("rememId", user_id);
 					remember.setPath("/");
-					remember.setMaxAge(7 * 24 * 60 * 60);// 아이디 저장 시 일주일간 쿠키 보관
+					remember.setMaxAge(7*24*60*60);//아이디 저장 시 일주일간 쿠키 보관
 					response.addCookie(remember);
-				} else {
+				}else {
 					Cookie remember = new Cookie("rememId", "");
 					remember.setPath("/");
 					response.addCookie(remember);
@@ -59,15 +59,15 @@ public class LoginController implements Controller {
 				cookie.setPath("/");
 				cookie.setMaxAge(-1);
 				response.addCookie(cookie);
-
+				
 				mav.addObject("loginCheck", "success");
-
-			} else {
+				
+			}else {
 				mav.addObject("loginCheck", "fail");
 			}
-
-			mav.setView("redirect:/reservationmall/index.jsp");
-			return mav;
+				
+				mav.setView("redirect:/reservationmall/index.jsp");
+			    return mav;
 		case "hotelSearch":
 			try {
 				check = loginService.checkLogin_hjh(user_id, user_pw);
@@ -104,9 +104,11 @@ public class LoginController implements Controller {
 			mav.setView("/hotel/searchhotel.mall");
 			return mav;
 		default:
-			return null;
+				return null;
 		}
 
 	}
+	
+	
 
 }

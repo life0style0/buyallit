@@ -23,7 +23,7 @@
 	<link href="/reservationmall/resources/css/template/style.css" rel="stylesheet">
 	<link href="/reservationmall/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script type="text/javascript" src="/reservationmall/resources/js/common/jquery-3.3.1.js"></script>
-	<script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
+
 
 
     <!-- 송주현 스크립트 추가 -->

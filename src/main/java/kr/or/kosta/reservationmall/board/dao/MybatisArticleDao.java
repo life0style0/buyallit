@@ -83,8 +83,11 @@ public class MybatisArticleDao implements ArticleDao {
 
 	@Override
 	public void increaseHitCount_hr(String id) throws Exception {
-		// TODO Auto-generated method stub
-		
+		//조회수 증가 메서드
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.update(NAMESPACE+"increaseHitCount_hr");
+		sqlSession.commit();
+		sqlSession.close();
 	}
 	
 }

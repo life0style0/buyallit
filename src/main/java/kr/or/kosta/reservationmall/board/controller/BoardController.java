@@ -19,8 +19,8 @@ import kr.or.kosta.reservationmall.login.service.LoginService;
 import kr.or.kosta.reservationmall.login.service.LoginServiceImpl;
 
 /**
- * /user/list.mall에 대한 요청 처리 컨트롤러
- * @author 김기정
+ * 게시판 활용을 위한 컨트롤러 설정
+ * @author 이혜림
  *
  */
 public class BoardController implements Controller {

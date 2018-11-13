@@ -24,8 +24,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 	//리뷰 작성
 	@Override
-	public void writeReview(Review review) throws Exception {
-		reviewDao.writeReview(review);
+	public void writeReview(int reservation_id, Review review) throws Exception {
+		reviewDao.writeReview(reservation_id, review);
 	}
 
 	//리뷰 조회
@@ -38,6 +38,12 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteReview(int review_id) throws Exception {
 		reviewDao.deleteReview(review_id);
+	}
+
+	//예약번호로 리뷰 조회
+	@Override
+	public Review searchReviewByResId(int reservation_id) throws Exception {
+		return reviewDao.searchReviewByResId(reservation_id);
 	}
 
 }

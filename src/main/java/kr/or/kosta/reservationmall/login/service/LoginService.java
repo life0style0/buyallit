@@ -15,6 +15,9 @@ public interface LoginService {
 	/**회워 로그인**/
 	public Boolean checkLogin_hjh(String id, String pw) throws Exception;
 	
+	//탈퇴회원 검사
+	public Boolean isWithdrawal_sjh(String id) throws Exception;
+	
 
 
 }

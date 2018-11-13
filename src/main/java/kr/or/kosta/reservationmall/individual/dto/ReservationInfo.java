@@ -15,6 +15,7 @@ public class ReservationInfo {
 	
 	private int reservation_id; //예약번호 
 	private String hotel_name; //호텔이름
+	private int hotel_id; //호텔이름
 	
 	private int reservation_status; //예약상태
 	private String reservation_start_day; //체크인 
@@ -38,15 +39,14 @@ public class ReservationInfo {
 		super();
 	}
 
-	
-
-	public ReservationInfo(int reservation_id, String hotel_name, int reservation_status, String reservation_start_day,
-			String reservation_end_day, String hotel_address, String room_name, int room_standard_person_number,
-			int room_child_max_number, int total_price, String payment_day, String payment_type,
-			String payment_cancellation_day, int start_day_check, int end_day_check) {
+	public ReservationInfo(int reservation_id, String hotel_name, int hotel_id, int reservation_status,
+			String reservation_start_day, String reservation_end_day, String hotel_address, String room_name,
+			int room_standard_person_number, int room_child_max_number, int total_price, String payment_day,
+			String payment_type, String payment_cancellation_day, int start_day_check, int end_day_check) {
 		super();
 		this.reservation_id = reservation_id;
 		this.hotel_name = hotel_name;
+		this.hotel_id = hotel_id;
 		this.reservation_status = reservation_status;
 		this.reservation_start_day = reservation_start_day;
 		this.reservation_end_day = reservation_end_day;
@@ -182,24 +182,29 @@ public class ReservationInfo {
 		return start_day_check;
 	}
 
-
-
 	public void setStart_day_check(int start_day_check) {
 		this.start_day_check = start_day_check;
 	}
 
-
-	@Override
-	public String toString() {
-		return "ReservationInfo [reservation_id=" + reservation_id + ", hotel_name=" + hotel_name
-				+ ", reservation_status=" + reservation_status + ", reservation_start_day=" + reservation_start_day
-				+ ", reservation_end_day=" + reservation_end_day + ", hotel_address=" + hotel_address + ", room_name="
-				+ room_name + ", room_standard_person_number=" + room_standard_person_number
-				+ ", room_child_max_number=" + room_child_max_number + ", total_price=" + total_price + ", payment_day="
-				+ payment_day + ", payment_type=" + payment_type + ", payment_cancellation_day="
-				+ payment_cancellation_day + ", start_day_check=" + start_day_check + ", end_day_check=" + end_day_check
-				+ "]";
+	public int getHotel_id() {
+		return hotel_id;
 	}
 
+	public void setHotel_id(int hotel_id) {
+		this.hotel_id = hotel_id;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "ReservationInfo [reservation_id=" + reservation_id + ", hotel_name=" + hotel_name + ", hotel_id="
+				+ hotel_id + ", reservation_status=" + reservation_status + ", reservation_start_day="
+				+ reservation_start_day + ", reservation_end_day=" + reservation_end_day + ", hotel_address="
+				+ hotel_address + ", room_name=" + room_name + ", room_standard_person_number="
+				+ room_standard_person_number + ", room_child_max_number=" + room_child_max_number + ", total_price="
+				+ total_price + ", payment_day=" + payment_day + ", payment_type=" + payment_type
+				+ ", payment_cancellation_day=" + payment_cancellation_day + ", start_day_check=" + start_day_check
+				+ ", end_day_check=" + end_day_check + "]";
+	}
 	
 }

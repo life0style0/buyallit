@@ -21,10 +21,9 @@ import kr.or.kosta.reservationmall.common.controller.ModelAndView;
 import kr.or.kosta.reservationmall.common.factory.XMLObjectFactory;
 import kr.or.kosta.reservationmall.login.service.LoginService;
 import kr.or.kosta.reservationmall.login.service.LoginServiceImpl;
-
 /**
- * /user/list.mall에 대한 요청 처리 컨트롤러
- * @author 김기정
+ * 전체 공지사항 리스트 인출을 위한 컨트롤러 설정
+ * @author 이혜림
  *
  */
 public class ArticleController implements Controller {
@@ -40,9 +39,15 @@ public class ArticleController implements Controller {
 		articleService = (ArticleService)factory.getBean(ArticleServiceImpl.class);
 
 		List <Article> list= null;
-		 
+	
 		try {
 			list = articleService.listAll_hr();
+			for (Article article : list) {
+				
+				String articleId = article.getId();
+				System.out.println("아티클 아이디 들어오니?? 확인 " + articleId);
+				articleService.increaseHitCount_hr(articleId);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,28 +55,24 @@ public class ArticleController implements Controller {
 		PrintWriter out = null;
 		String result = "";
 		for (Article article : list) {
-			result += 	"	<tr class='accordion'>" + 
-						"  		 <th scope='row'><a href='#'>View More</a>"+article.getId()+"</th>\r\n" + 
+			result += 	"	<tr class='tr_visible' >" + 
+						"  		 <td scope='row'>"+article.getId()+"</td>\r\n" + 
 						"   	 <td>"+article.getTitle()+ 	  "</td>\r\n"+ 
 						"    	 <td>"+article.getUserId()+	  "</td>\r\n" + 
 						"    	 <td>"+article.getDate()+	  "</td>\r\n" + 
 						"    	 <td>"+article.getHitCount()+ "</td>\r\n" +
+						"    	 <td><button name='myhide' class='btn btn-primary' type='button'>상세보기</button></td>\r\n" +
 						"	</tr>\r\n"+ 
-						"<tr>\r\n" + 
-						"   <td colspan='5'>"+article.getContents()+ "</td>\r\n" + 
+						"	<tr name='conts' style='display:none;'>\r\n" + 
+						"  		 <td scope='row' colspan='6'>"+article.getContents()+"</td>\r\n" + 
 						"	</tr>";
 		}
-		
 		try {
 		out = response.getWriter();
 		out.println(result);
 		}catch(IOException e) {
 		
 		}
-		
 		return null;
-		
 	}
-	
-
 }

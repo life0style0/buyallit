@@ -22,6 +22,7 @@ public class Review {
 	private int review_report_count;
 	
 	private int hotel_id;
+	private int reservation_id;
 	private String user_id;
 	
 	
@@ -29,9 +30,11 @@ public class Review {
 	public Review() {
 	}
 	
+	
+
 	public Review(int review_id, String review_content, String review_date, int review_service_rate,
 			int review_food_rate, int review_clean_rate, int review_location_rate, int review_price_rate,
-			int review_helpful_count, int review_report_count, int hotel_id, String user_id) {
+			int review_helpful_count, int review_report_count, int hotel_id, int reservation_id, String user_id) {
 		super();
 		this.review_id = review_id;
 		this.review_content = review_content;
@@ -44,8 +47,11 @@ public class Review {
 		this.review_helpful_count = review_helpful_count;
 		this.review_report_count = review_report_count;
 		this.hotel_id = hotel_id;
+		this.reservation_id = reservation_id;
 		this.user_id = user_id;
 	}
+
+
 
 	public int getReview_id() {
 		return review_id;
@@ -143,14 +149,31 @@ public class Review {
 		this.user_id = user_id;
 	}
 
+
+	
+	
+	public int getReservation_id() {
+		return reservation_id;
+	}
+
+
+
+	public void setReservation_id(int reservation_id) {
+		this.reservation_id = reservation_id;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Review [review_id=" + review_id + ", review_content=" + review_content + ", review_date=" + review_date
 				+ ", review_service_rate=" + review_service_rate + ", review_food_rate=" + review_food_rate
 				+ ", review_clean_rate=" + review_clean_rate + ", review_location_rate=" + review_location_rate
 				+ ", review_price_rate=" + review_price_rate + ", review_helpful_count=" + review_helpful_count
-				+ ", review_report_count=" + review_report_count + ", hotel_id=" + hotel_id + ", user_id=" + user_id
-				+ "]";
+				+ ", review_report_count=" + review_report_count + ", hotel_id=" + hotel_id + ", reservation_id="
+				+ reservation_id + ", user_id=" + user_id + "]";
 	}
+
+
 	
 }

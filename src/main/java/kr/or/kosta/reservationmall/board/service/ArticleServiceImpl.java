@@ -23,6 +23,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void create_hr(Article article) throws Exception {
+		//게시판 등록
+		articleDao.create_hr(article);
 	}
 
 	@Override
@@ -32,16 +34,19 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void update_hr(Article article) throws Exception {
-		
+		//게시판 수정
+		articleDao.update_hr(article);
 	}
 
 	@Override
 	public void delete_hr(String id) throws Exception {
-		
+		//게시물 삭제
+		articleDao.delete_hr(id);
 	}
 
 	@Override
 	public List<Article> listAll_hr() throws Exception {
+		//전체 리스트 인출
 		return articleDao.listAll_hr();
 	}
 
@@ -72,7 +77,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void increaseHitCount_hr(String id) throws Exception {
-		
+		//카운트 증가
+		articleDao.increaseHitCount_hr(id);
 	}
 	
 

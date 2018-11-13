@@ -46,6 +46,13 @@
 		WHERE  user_id = #{value}
 	</delete>
 	
+	<!-- 탈퇴 회원으로 업데이트 -->
+	<update id="setWithdrawal" parameterType="String">
+		UPDATE users 
+		SET    user_rate = -9 
+		WHERE  user_id = #{value}
+	</update>
+	
 	<!-- 아이디로 회원 찾기 -->
 	<select id="searchById" parameterType="String" resultType="User">
 		SELECT user_id "user_id", 

@@ -20,7 +20,9 @@
 	<title>관리자 모드</title>
 	<!-- Bootstrap core CSS -->
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous">
 	<!-- Custom styles for this template -->
 	<link href="/reservationmall/resources/css/template/owl.carousel.css" rel="stylesheet">
 	<link href="/reservationmall/resources/css/template/owl.theme.default.min.css" rel="stylesheet">
@@ -689,7 +691,7 @@
 														</div>
 													</div>
 												</div>
-												
+
 												<!-- 지도 탭 시작 -->
 												<div role="tabpanel" class="tab-pane" id="locationMap-${hotelInfo.hotelId}" aria-labelledBy="locationMap-tab-${hotelInfo.hotelId}">
 													<div class="row">
@@ -716,18 +718,55 @@
 
 												<!-- 리뷰 탭 시작 -->
 												<div role="tabpanel" class="tab-pane" id="review-${hotelInfo.hotelId}" aria-labelledBy="review-tab-${hotelInfo.hotelId}">
-													<div class="col-md-12">
-														<div class="media">
-															<div class="media-left">
-																<a href="#">
-																	<img class="media-object" src="..." alt="...">
-																</a>
-																hi!!!
-															</div>
-															<div class="media-body">
-																<h4 class="media-heading">별점 저장!</h4>
-																여기는 내용!
-															</div>
+													<div class="row">
+														<div class="col-md-12">
+															<c:forEach items="${hotelInfo.reviews}" var="review" varStatus="reviewStatus">
+																<div class="media">
+																	<hr>
+																	<c:choose>
+																		<c:when test="${userId == review.userId}">
+																			<div class="media-body text-right">
+																				<h4 class="media-heading">
+																					<span class="label label-info">서비스 : ${review.serviceRate}</span>
+																					<span class="label label-info">가격 : ${review.priceRate}</span>
+																					<span class="label label-info">음식 : ${review.foodRate}</span>
+																					<span class="label label-info">청결도 : ${review.cleanRate}</span>
+																					<span class="label label-info">위치 : ${review.locationRate}</span>
+																				</h4>
+																				${review.content}
+																			</div>
+																			<div class="media-right text-center">
+																				<i class="fa fa-user"></i>
+																				${review.userId}
+																			</div>
+																		</c:when>
+																		<c:otherwise>
+																			<div class="media-left text-center">
+																				<i class="fa fa-user"></i>
+																				${review.userId}
+																			</div>
+																			<div class="media-body">
+																				<h4 class="media-heading">
+																					<span class="label label-info">서비스 : ${review.serviceRate}</span>
+																					<span class="label label-info">가격 : ${review.priceRate}</span>
+																					<span class="label label-info">음식 : ${review.foodRate}</span>
+																					<span class="label label-info">청결도 : ${review.cleanRate}</span>
+																					<span class="label label-info">위치 : ${review.locationRate}</span>
+																				</h4>
+																				${review.content}
+																			</div>
+																			<div class="media-right text-center">
+																				<button class="btn btn-link"><i class="far fa-heart"></i></button>
+																				<hr>
+																				<button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
+																			</div>
+																		</c:otherwise>
+																	</c:choose>
+																	<c:if test="${reviewStauts.last}">
+																		<hr class="col-md-12">
+																	</c:if>
+																</div>
+															</c:forEach>
 														</div>
 													</div>
 												</div>

@@ -21,5 +21,9 @@
 		WHERE user_id=#{user_id}
 	</select>
 	
-		
+	<select id="checkWithdrawal" parameterType="String" resultType="int">
+		SELECT user_rate
+		FROM users
+		WHERE user_id=#{user_id}
+	</select>	
 </mapper>

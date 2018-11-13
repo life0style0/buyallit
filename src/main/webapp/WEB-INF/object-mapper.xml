@@ -49,6 +49,14 @@
 		<property name="reviewDao" ref="reviewDao"/>
 	</bean>
 	
+	<!-- 1112 추가 -->
+	<bean type="dao" name="getWishlistDao" class="kr.or.kosta.reservationmall.individual.dao.MybatisGetWishlistDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean type="service" name="getWishlistService" class="kr.or.kosta.reservationmall.individual.service.GetWishlistServiceImpl">
+		<property name="getWishlistDao" ref="getWishlistDao"/>
+	</bean>
+	
 	<!-- 송주현 끝 -->
 	
 	<!-- 정지원 시작 -->
@@ -56,6 +64,7 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 
+	<!-- 1113 변경 -->
 	<bean type="service" name="hotelService" class="kr.or.kosta.reservationmall.hotel.service.HotelServiceImpl">
 		<property name="hotelDao" ref="hotelDao"/>
 		<property name="reviewDao" ref="reviewDao"/>
@@ -80,8 +89,15 @@
 		<property name="BoardDao" ref="BoardDao"/>
 	</bean>
 	
-	<!-- 이혜림 끝 -->
+	<bean type="dao" name="NoteDao" class="kr.or.kosta.reservationmall.note.dao.MybatisNoteDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
 	
+	<bean type="service" name="NoteService" class="kr.or.kosta.reservationmall.note.service.NoteServiceImpl">
+		<property name="NoteDao" ref="NoteDao"/>
+	</bean>
+	
+	<!-- 이혜림 끝 -->
 	<!-- 허재혁 시작 -->
 	<bean type="dao" name="loginDao" class="kr.or.kosta.reservationmall.login.dao.MybatisLoginDao">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
@@ -99,6 +115,25 @@
 	<bean type="service" name="adminService" class="kr.or.kosta.reservationmall.admin.service.AdminServiceImpl">
 		<property name="adminDao" ref="adminDao"/>
 	</bean>
+	
+	<bean type="dao" name="addWishlistDao" class="kr.or.kosta.reservationmall.individual.dao.MybatisAddWishlistDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean type="service" name="addWishlistService" class="kr.or.kosta.reservationmall.individual.service.AddWishlistServiceImpl">
+		<property name="addWishlistDao" ref="addWishlistDao"/>
+	</bean>
+	<!-- 허재혁 2018-11-12 추가 -->
+	<bean type="dao" name="hotelStatisDao" class="kr.or.kosta.reservationmall.hotel.dao.MybatisHotelStatisDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean type="service" name="hotelStatisService" class="kr.or.kosta.reservationmall.hotel.service.HotelStatisServiceImpl">
+		<property name="hotelStatisDao" ref="hotelStatisDao"/>
+	</bean>
+	
+	<!-- 허재혁 2018-11-12 추가 -->
+	
 	<!-- 허재혁 끝 -->
 	
 	

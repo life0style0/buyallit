@@ -22,6 +22,11 @@ public class LoginServiceImpl implements LoginService {
 		return loginDao.checkLogin_hjh(id, pw);
 	}
 
+	@Override
+	public Boolean isWithdrawal_sjh(String id) throws Exception {
+		return loginDao.isWithdrawal_sjh(id);
+	}
+
 
 }
 

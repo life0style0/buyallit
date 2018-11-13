@@ -17,10 +17,13 @@ import kr.or.kosta.reservationmall.login.dto.User;
 public interface ReviewDao {
 	
 	//리뷰 작성
-	public void writeReview(Review review) throws Exception;
+	public void writeReview(int reservation_id, Review review) throws Exception;
 	
 	//리뷰 조회
 	public Review searchReviewById(int review_id) throws Exception;
+
+	//예약번호로 리뷰 조회
+	public Review searchReviewByResId(int reservation_id) throws Exception;
 	
 	//리뷰 삭제
 	public void deleteReview(int review_id) throws Exception;
