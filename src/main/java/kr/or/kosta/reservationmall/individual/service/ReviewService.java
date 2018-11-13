@@ -36,4 +36,6 @@ public interface ReviewService {
 	public void deleteLikeReview(String reviewId, String userId) throws Exception;
 
 	public void deleteHateReview(String reviewId, String userId) throws Exception;
+	
+	public String getReviewCountById(String reviewId) throws Exception;
 }

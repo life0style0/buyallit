@@ -453,7 +453,7 @@
 														<div class="col-md-12">
 															<p>호텔 등급 : ${hotel.hotel_rate}</p>
 															<p>호텔 전화번호 : ${hotel.hotel_phonenum}</p>
-															<p>호텔 웹사이트 : ${hotel.hotel_website}</p>
+															<p>호텔 웹사이트 : <a href="${hotel.hotel_website}" target="_blank">${hotel.hotel_website}</a></p>
 															<p>호텔 주소 : ${hotel.hotel_address}</p>
 															<p>소개글 : ${hotel.hotel_info}</p>
 														</div>
@@ -742,7 +742,8 @@
 																				<i class="fa fa-user"></i>
 																				${review.userId}
 																				<hr>
-																				<span>좋아요! ${review.helpfulCount}</span>
+																				<span>좋아요!</span>
+																				<div class="label-large"><span class="label label-default">${review.helpfulCount}</span></div>
 																			</div>
 																		</c:when>
 																		<c:otherwise>
@@ -751,6 +752,7 @@
 																				${review.userId}
 																				<hr>
 																				<span>좋아요!</span>
+																				<div class="label-large"><span class="label label-default">${review.helpfulCount}</span></div>
 																			</div>
 																			<div class="media-body">
 																				<div class="media-heading text-center">

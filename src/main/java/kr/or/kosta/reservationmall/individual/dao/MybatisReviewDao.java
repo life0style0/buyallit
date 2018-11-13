@@ -148,4 +148,13 @@ public class MybatisReviewDao implements ReviewDao {
 		}
 		sqlSession.close();
 	}
+	
+	@Override
+	public String getReviewCountById(String reviewId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		String count = null;
+		count = sqlSession.selectOne(NAMESPACE + "getReviewCountById", reviewId);
+		sqlSession.close();
+		return count;
+	}
 }

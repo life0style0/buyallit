@@ -97,3 +97,7 @@ button .fa-heart, button .fa-trash-alt {
 .tab-pane .media-body p{
   margin: 15px;
 }
+
+.label-large {
+  font-size: 150%;
+}

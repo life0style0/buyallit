@@ -36,4 +36,5 @@ public interface HotelService {
 	public List<String> getRoomImages(int hotelId, String roomName) throws Exception;
 	
 	public List<HotelInfo> getHotelInfos(Map<String, Object> paramMap, String userId) throws Exception;
+
 }

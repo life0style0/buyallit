@@ -1,11 +1,8 @@
 package kr.or.kosta.reservationmall.individual.service;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
-import kr.or.kosta.reservationmall.individual.dao.ReservationDao;
 import kr.or.kosta.reservationmall.individual.dao.ReviewDao;
-import kr.or.kosta.reservationmall.individual.dto.ReservationInfo;
 import kr.or.kosta.reservationmall.individual.dto.Review;
 
 public class ReviewServiceImpl implements ReviewService {
@@ -72,6 +69,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteHateReview(String reviewId, String userId) throws Exception {
 		reviewDao.deleteHateReview(reviewId, userId);
+	}
+	
+	@Override
+	public String getReviewCountById(String reviewId) throws Exception {
+		return reviewDao.getReviewCountById(reviewId);
 	}
 
 }

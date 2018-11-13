@@ -41,4 +41,5 @@ public interface ReviewDao {
 	
 	public void deleteHateReview(String reviewId, String userId) throws Exception;
 	
+	public String getReviewCountById(String reviewId) throws Exception;
 }

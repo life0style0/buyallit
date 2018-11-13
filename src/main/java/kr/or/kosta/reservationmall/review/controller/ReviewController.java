@@ -33,7 +33,7 @@ public class ReviewController implements Controller {
 		String type = request.getParameter("type");
 		String reviewId = request.getParameter("reviewId");
 		String userId = request.getParameter("userId");
-		String result = "false";
+		String count = null;
 		try {
 			if (type != null && type.equals("like")) {
 				if (reviewService.isReviewLiked(reviewId, userId).size() >= 1) {
@@ -41,14 +41,14 @@ public class ReviewController implements Controller {
 				} else {
 					reviewService.likeReview(reviewId, userId);
 				}
-				result = "true";
+				count = reviewService.getReviewCountById(reviewId);
+				System.out.println(count);
 			} else if (type != null && type.equals("hate")) {
 				if (reviewService.isReviewHated(reviewId, userId).size() >= 1) {
 					reviewService.deleteHateReview(reviewId, userId);
 				} else {
 					reviewService.hateReview(reviewId, userId);
 				}
-				result = "true";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,7 +56,11 @@ public class ReviewController implements Controller {
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();
-			out.println(result);
+			if(count == null) {
+				out.println("0");
+			} else {
+				out.print(count);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

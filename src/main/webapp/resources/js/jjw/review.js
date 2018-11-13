@@ -21,6 +21,9 @@ function sendServer(button) {
         success: function (data) {
             $(button).children().toggleClass('far');
             $(button).children().toggleClass('fas');
+            if ($(button).hasClass('review-like')) {
+                $(button).closest('.media').find('.label-large').children().eq(0).text(data);
+            }
         },
         error: function (xhr, statusText) {
             alert("(" + xhr.status + ", " + statusText + ")");

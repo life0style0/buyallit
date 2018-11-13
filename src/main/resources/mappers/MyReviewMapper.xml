@@ -95,7 +95,7 @@
 
 	<select id="getReviewsByHotelId" parameterType="string" resultType="ReviewJjw">
 SELECT review_id "reviewId",
-       Count(review_id)     "helpfulCount", 
+       Count(review_count_id)     "helpfulCount", 
        rr.user_id           "userId", 
        review_content       "content", 
        to_char(review_date,'YYYY"년" MM"월" DD"일"')          "date", 
@@ -120,7 +120,7 @@ GROUP  BY review_id, rr.user_id,
           review_clean_rate, 
           review_location_rate, 
           review_price_rate
-ORDER BY Count(review_id) desc
+ORDER BY Count(review_count_id) desc
 	</select>
 
 	<select id="isReviewLiked" parameterType="map" resultType="string">
@@ -172,5 +172,12 @@ WHERE  review_id = #{reviewId}
        AND user_id = #{userId}
        AND review_count_type = 'N' 
 	</delete>
+	
+	<select id="getReviewCountById" parameterType="string" resultType="string">
+SELECT Count(review_count_id) "count" 
+FROM   review_counts 
+WHERE  review_id = #{value} 
+       AND review_count_type = 'Y'	
+	</select>
 	
 </mapper>

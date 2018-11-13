@@ -370,11 +370,11 @@ function eventRegist() {
     });
 
     $('.modal').on('show.bs.modal', function () {
-        window.dispatchEvent(new Event('resize'));
+        // window.dispatchEvent(new Event('resize'));
     });
     
     $('.modal').on('shown.bs.modal', function () {
-        // window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('resize'));
         $(this).find('.owl-carousel').trigger('prev.owl.carousel');
         setTimeout(() => {
             $(this).find('.owl-carousel').trigger('prev.owl.carousel');
@@ -382,6 +382,12 @@ function eventRegist() {
         setTimeout(() => {
             $(this).find('.owl-carousel').trigger('prev.owl.carousel');
         }, 600);
+    });
+
+    $('[id^="locationMap-"').on('click', function () {
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 300);
     });
 
     $('.roomSelect').on('click', function () {

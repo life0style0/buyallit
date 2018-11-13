@@ -26,7 +26,7 @@ loginCheck = request.getParameter("loginCheck");
 %>
 
 <!-- css for Hyerim -->
-<link href="resources/css/lhr/hyerim.css" rel="stylesheet">
+<link href="/reservationmall/resources/css/lhr/hyerim.css" rel="stylesheet">
 
 <script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
