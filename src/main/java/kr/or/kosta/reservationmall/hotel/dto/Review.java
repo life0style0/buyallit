@@ -2,6 +2,7 @@ package kr.or.kosta.reservationmall.hotel.dto;
 
 public class Review {
 
+	private String reviewId;
 	private String userId;
 	private String content;
 	private String date;
@@ -11,13 +12,17 @@ public class Review {
 	private String cleanRate;
 	private String locationRate;
 	private String helpfulCount;
+	private boolean isLiked;
+	private boolean isHated;
 
 	public Review() {
 	}
 
-	public Review(String userId, String content, String date, String serviceRate, String priceRate, String foodRate,
-			String cleanRate, String locationRate, String helpfulCount) {
+	public Review(String reviewId, String userId, String content, String date, String serviceRate, String priceRate,
+			String foodRate, String cleanRate, String locationRate, String helpfulCount, boolean isLiked,
+			boolean isHated) {
 		super();
+		this.reviewId = reviewId;
 		this.userId = userId;
 		this.content = content;
 		this.date = date;
@@ -27,6 +32,24 @@ public class Review {
 		this.cleanRate = cleanRate;
 		this.locationRate = locationRate;
 		this.helpfulCount = helpfulCount;
+		this.isLiked = isLiked;
+		this.isHated = isHated;
+	}
+
+	public String getReviewId() {
+		return reviewId;
+	}
+
+	public void setReviewId(String reviewId) {
+		this.reviewId = reviewId;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+
+	public void setHated(boolean isHated) {
+		this.isHated = isHated;
 	}
 
 	public String getUserId() {
@@ -101,11 +124,28 @@ public class Review {
 		this.helpfulCount = helpfulCount;
 	}
 
+	public boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setIsLiked(boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+
+	public boolean getIsHated() {
+		return isHated;
+	}
+
+	public void setIsHated(boolean isHated) {
+		this.isHated = isHated;
+	}
+
 	@Override
 	public String toString() {
-		return "Review [userId=" + userId + ", content=" + content + ", date=" + date + ", serviceRate=" + serviceRate
-				+ ", priceRate=" + priceRate + ", foodRate=" + foodRate + ", cleanRate=" + cleanRate + ", locationRate="
-				+ locationRate + ", helpfulCount=" + helpfulCount + "]";
+		return "Review [reviewId=" + reviewId + ", userId=" + userId + ", content=" + content + ", date=" + date
+				+ ", serviceRate=" + serviceRate + ", priceRate=" + priceRate + ", foodRate=" + foodRate
+				+ ", cleanRate=" + cleanRate + ", locationRate=" + locationRate + ", helpfulCount=" + helpfulCount
+				+ ", isLiked=" + isLiked + ", isHated=" + isHated + "]";
 	}
 
 }

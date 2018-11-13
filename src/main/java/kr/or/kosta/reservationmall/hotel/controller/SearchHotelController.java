@@ -36,12 +36,13 @@ public class SearchHotelController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
 		hotelService = (HotelService) factory.getBean(HotelServiceImpl.class);
 		Map<String, Object> paramMap = new HashMap<>();
-
+		String userId = null;
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("loginId")) {
 					request.setAttribute("userId", cookie.getValue());
+					userId = cookie.getValue();
 					break;
 				}
 			}
@@ -71,7 +72,7 @@ public class SearchHotelController implements Controller {
 
 		List<HotelInfo> hotelInfos = null;
 		try {
-			hotelInfos = hotelService.getHotelInfos(paramMap);
+			hotelInfos = hotelService.getHotelInfos(paramMap, userId);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

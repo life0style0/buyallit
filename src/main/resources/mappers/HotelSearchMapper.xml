@@ -254,7 +254,7 @@ SELECT image_directory "imageDirectory"
 FROM   images 
 WHERE  room_id IN (SELECT room_id 
                    FROM   rooms 
-                   WHERE  hotel_id = ${hotelId}
+                   WHERE  hotel_id = #{hotelId}
                           AND room_name = #{roomName})
 	</select>
 	

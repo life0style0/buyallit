@@ -94,33 +94,52 @@
 	</update>
 
 	<select id="getReviewsByHotelId" parameterType="string" resultType="ReviewJjw">
-SELECT user_id "userId",
-	   review_content "content", 
-       review_date "date", 
-       review_service_rate "serviceRate", 
-       review_food_rate "foodRate", 
-       review_clean_rate "cleanRate", 
+SELECT review_id "reviewId",
+       Count(review_id)     "reviewHelpfulCount", 
+       rr.user_id           "userId", 
+       review_content       "content", 
+       review_date          "date", 
+       review_service_rate  "serviceRate", 
+       review_food_rate     "foodRate", 
+       review_clean_rate    "cleanRate", 
        review_location_rate "locationRate", 
-       review_price_rate "priceRate", 
-       review_helpful_count "helpfulCount"
-FROM   reviews 
-WHERE  hotel_id = #{value} and review_report_count 		<![CDATA[ <= ]]> 10
+       review_price_rate    "priceRate" 
+FROM   reviews rr 
+       left outer join review_counts USING(review_id) 
+WHERE  hotel_id = #{value}
+       AND review_id NOT IN (SELECT review_id 
+                         FROM   review_counts 
+                         WHERE  review_count_type = 'N' 
+                         GROUP  BY review_id 
+                         HAVING Count(review_count_id) <![CDATA[ > ]]> 10) 
+GROUP  BY review_id, rr.user_id, 
+          review_content, 
+          review_date, 
+          review_service_rate, 
+          review_food_rate, 
+          review_clean_rate, 
+          review_location_rate, 
+          review_price_rate
 	</select>
 
-	<select id="isReviewLiked" parameterType="map" resultType="int">
-SELECT Count(review_count_id) 
+	<select id="isReviewLiked" parameterType="map" resultType="string">
+SELECT review_id "reviewId"
 FROM   review_counts 
-WHERE  review_id = #{reviewId} 
+WHERE  review_id in (${reviewId})
        AND user_id = #{userId}
-       AND review_count_type = 'Y' 
+       AND review_count_type = 'Y'
+group by review_id
+having Count(review_count_id) <![CDATA[ >= ]]> 1
 	</select>
 
-	<select id="isReviewHated" parameterType="map" resultType="int">
-SELECT Count(review_count_id) 
+	<select id="isReviewHated" parameterType="map" resultType="string">
+SELECT review_id "reviewId"
 FROM   review_counts 
-WHERE  review_id = #{reviewId}  
+WHERE  review_id in (${reviewId})
        AND user_id = #{userId}
        AND review_count_type = 'N'
+group by review_id
+having Count(review_count_id) <![CDATA[ >= ]]> 1
 	</select>
 
 	<insert id="likeReview" parameterType="map">
@@ -138,5 +157,19 @@ VALUES     (review_count_id_seq.NEXTVAL,
             #{reviewId}, 
             #{userId})	
 	</insert>
+	
+	<delete id="deleteLikeReview" parameterType="map">
+DELETE FROM review_counts 
+WHERE  review_id = #{reviewId} 
+       AND user_id = #{userId}
+       AND review_count_type = 'Y' 
+	</delete>
+
+	<delete id="deleteHateReview" parameterType="map">
+DELETE FROM review_counts 
+WHERE  review_id = #{reviewId} 
+       AND user_id = #{userId}
+       AND review_count_type = 'Y' 
+	</delete>
 	
 </mapper>

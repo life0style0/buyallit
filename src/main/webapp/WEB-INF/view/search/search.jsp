@@ -756,9 +756,23 @@
 																				${review.content}
 																			</div>
 																			<div class="media-right text-center">
-																				<button class="btn btn-link"><i class="far fa-heart"></i></button>
+																				<c:choose>
+																					<c:when test="${review.isLiked}">
+																						<button class="btn btn-link"><i class="fas fa-heart"></i></button>
+																					</c:when>
+																					<c:otherwise>
+																						<button class="btn btn-link"><i class="far fa-heart"></i></button>
+																					</c:otherwise>
+																				</c:choose>
 																				<hr>
-																				<button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
+																				<c:choose>
+																					<c:when test="${review.isHated}">
+																						<button class="btn btn-link"><i class="fas fa-trash-alt"></i></button>
+																					</c:when>
+																					<c:otherwise>
+																						<button class="btn btn-link"><i class="far fa-trash-alt"></i></button>
+																					</c:otherwise>
+																				</c:choose>
 																			</div>
 																		</c:otherwise>
 																	</c:choose>

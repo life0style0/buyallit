@@ -14,6 +14,7 @@ import kr.or.kosta.reservationmall.hotel.dao.HotelDao;
 import kr.or.kosta.reservationmall.hotel.dto.HotelInfo;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchParam;
 import kr.or.kosta.reservationmall.hotel.dto.HotelSearchResult;
+import kr.or.kosta.reservationmall.hotel.dto.Review;
 import kr.or.kosta.reservationmall.individual.dao.ReviewDao;
 import kr.or.kosta.reservationmall.room.dto.Room;
 
@@ -29,7 +30,7 @@ public class HotelServiceImpl implements HotelService {
 	public void setHotelDao(HotelDao hotelDao) {
 		this.hotelDao = hotelDao;
 	}
-	
+
 	public ReviewDao getReviewDao() {
 		return reviewDao;
 	}
@@ -73,7 +74,7 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.getRoomImages(hotelId, roomName);
 	}
 
-	public List<HotelInfo> getHotelInfos(Map<String, Object> paramMap) throws Exception {
+	public List<HotelInfo> getHotelInfos(Map<String, Object> paramMap, String userId) throws Exception {
 		List<List<HotelSearchResult>> searchResult = new ArrayList<>();
 		HotelSearchParam hotelSearchParam = null;
 		for (int i = 1; i <= Integer.parseInt((String) paramMap.get("RoomNumber")); i++) {
@@ -107,8 +108,12 @@ public class HotelServiceImpl implements HotelService {
 		}
 		List<HotelInfo> hotelInfos = new ArrayList<>();
 		HotelInfo info = null;
+		List<Review> reviews = null;
+		List<String> reviewIds = new ArrayList<>();
+		String reviewIdTemp = "";
 		for (int hotelId : hotelIdSet) {
 			info = new HotelInfo();
+			reviewIdTemp = "";
 			info.setHotelId(hotelId);
 			for (int i = 0; i < searchResult.size(); i++) {
 				for (HotelSearchResult hotelSearchResult : searchResult.get(i)) {
@@ -126,7 +131,15 @@ public class HotelServiceImpl implements HotelService {
 												hotelSearchResult.getPrice(), hotelSearchResult.getRoomDetail(),
 												hotelDao.getRoomImages(hotelId, hotelSearchResult.getRoomName())));
 							}
-							info.setReviews(reviewDao.getReviewsByHotelId(String.valueOf(hotelId)));
+							reviews = reviewDao.getReviewsByHotelId(String.valueOf(hotelId));
+							if (userId != null) {
+								for (Review review : reviews) {
+									reviewIdTemp += "," + review.getReviewId();
+//									review.setIsLiked(reviewDao.isReviewLiked(review.getReviewId(), userId));
+//									review.setIsHated(reviewDao.isReviewHated(review.getReviewId(), userId));
+								}
+							}
+							info.setReviews(reviews);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -136,7 +149,30 @@ public class HotelServiceImpl implements HotelService {
 			if (info.getRooms().size() > 0) {
 				hotelInfos.add(info);
 			}
+			reviewIds.add(reviewIdTemp);
 		}
+
+		List<String> isReviewLikes = null;
+		List<String> isReviewHates = null;
+		HotelInfo hotelInfo = null;
+		String reviewId = null;
+		if (userId != null) {
+			for (int i = 0; i < hotelInfos.size(); i++) {
+				reviewId = reviewIds.get(i).substring(1);
+				isReviewLikes = reviewDao.isReviewLiked(reviewId, userId);
+				isReviewHates = reviewDao.isReviewHated(reviewId, userId);
+				hotelInfo = hotelInfos.get(i);
+				for (Review review : hotelInfo.getReviews()) {
+					if (isReviewLikes.contains(review.getReviewId())) {
+						review.setIsLiked(true);
+					}
+					if (isReviewHates.contains(review.getReviewId())) {
+						review.setIsHated(true);
+					}
+				}
+			}
+		}
+
 		return hotelInfos;
 	}
 
