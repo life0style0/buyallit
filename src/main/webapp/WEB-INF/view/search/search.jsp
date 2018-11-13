@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <c:if test="${sessionScope.refreshPage}">
-	<c:set var="refreshPage" value="${false}" scope="session"/>
+	<c:set var="refreshPage" value="${false}" scope="session" />
 	<script>location.reload();</script>
 </c:if>
 <html>
@@ -37,8 +37,7 @@
 </head>
 
 <body>
-<%@ include file="/WEB-INF/view/main/main_top.jsp" %>
-<%-- 	<jsp:include page="/WEB-INF/view/main/main_top.jsp"></jsp:include> --%>
+	<jsp:include page="/WEB-INF/view/main/main_top.jsp"></jsp:include>
 	<header>
 		<div class="container invisible">
 			hidden value for layout
@@ -355,7 +354,7 @@
 												<li role="presentation"><a href="#review-${hotelInfo.hotelId}" role="tab" id="review-tab-${hotelInfo.hotelId}" data-toggle="tab" aria-controls="review-${hotelInfo.hotelId}"
 													 data-target="#review-${hotelInfo.hotelId}">호텔 리뷰</a></li>
 											</ul>
-											
+
 											<!-- 호텔 전체 정보 모달 바디 시작 -->
 											<div id="myTabContent" class="tab-content">
 
@@ -625,7 +624,7 @@
 														</div>
 													</div>
 												</div>
-												
+
 												<!-- 리뷰 탭 시작 -->
 												<div role="tabpanel" class="tab-pane" id="review-${hotelInfo.hotelId}" aria-labelledBy="review-tab-${hotelInfo.hotelId}">
 													<div class="col-md-12">
