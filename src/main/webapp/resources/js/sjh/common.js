@@ -1,5 +1,5 @@
     
-    $(function(){ 
+$(function(){ 
         $('ul.nav-tabs a').click(function (e) { //부트스트랩 탭메뉴
           e.preventDefault()
           $(this).tab('show')
@@ -101,7 +101,9 @@
             				$('#readReviewForm input[name="review_clean_rate"]').attr('value',data.review_clean_rate);
             				$('#readReviewForm input[name="review_location_rate"]').removeAttr('value');
             				$('#readReviewForm input[name="review_location_rate"]').attr('value',data.review_location_rate);
-            				  
+            				
+            				$('#readReviewForm span[name="review_helpful_count"]').html(data.review_helpful_count);
+            				
             				var readRatingList= $('#readReviewForm span[name="star-rating"]');
             				readStarRating(readRatingList);
             				
@@ -139,4 +141,121 @@
         		});
         	});
         }
-    })
+        
+        if($('div[name="my-reservation"]') != null){ 
+        	//예약 내역 리스트 더보기 버튼 구현
+        	var myResList=  $('div[name="my-reservation"]');
+        	var myResBlank=  $('div[name="res-blank"]');
+        	var myResListLen=  $('div[name="my-reservation"]').length;
+        	var viewStart=$('#view-more-res').attr('value');
+        	$('#view-more-res').css('display','none'); //더보기 버튼 숨기기
+        	
+        	if(viewStart==0){ //최초 실행
+        		//console.log(myResList);
+        		
+        		myResList.each(function(i,val){
+        			
+            		if( myResListLen < 3){
+            			if(myResListLen== i){
+            				return false;
+            			}
+            		}else{ //예약내역 4개 이상
+            			if(i >= 3){
+            				$(myResList[i]).css('display','none');
+            				$(myResBlank[i]).css('display','none');
+            			}
+            		}
+            	}); //each 종료
+        		
+        		
+        		if(myResListLen >4){ //예약내역 4개 이상
+        			$('#view-more-res').css('display','block'); //더보기 버튼 보이기
+        			$('#view-more-res').removeAttr('value');
+    				$('#view-more-res').attr('value',Number(viewStart)+3);
+    				$('#view-more-res').on('click',viewMoreRes);
+        		}
+        	}
+        }
+        
+        
+        if($('input[name="delete-wishlist-btn"]')!=null){ //위시리스트에서 제거
+        	$('input[name="delete-wishlist-btn"]').each(function(i,val){
+        		
+        		$(val).on('click',function(){
+        			var hotel_id= $(val).closest('div').find('input[name="wishlist-hotel_id"]').attr('value');
+        			var user_id= $(val).closest('div').find('input[name="wishlist-user_id"]').attr('value');
+
+        			$.ajax({
+            			data: {
+            				'hotel_id' :   hotel_id,
+            				'user_id' : user_id
+            			},
+            			//dataType : 'json',
+            			url:"/reservationmall/individual/deleteWishlist.mall",
+            			success: function(data){
+            				if(data.trim() == 'success'){
+            					$('#deleteWishlist-result').html('위시리스트에서 제거되었습니다');
+            				} else if (data.trim() == 'fail'){
+            					$('#deleteWishlist-result').html('위시리스트에서 제거 실패');
+            				}
+            				$('#deleteWishlist-confirm-Modal').on('hidden.bs.modal', function (e) {
+            		      		location.href='/reservationmall/individual/mypage.mall';
+            		     	});
+            				$('#deleteWishlist-confirm-Modal').modal('show');
+            			 }, 
+            			 error: function(){
+            				 alert('서버로부터 전송 에러');
+            			 }
+            		  });
+        		})
+        	});
+        }
+})
+    
+    function viewMoreRes(){
+    	
+    	var myResList=  $('div[name="my-reservation"]');
+    	var myResBlank=  $('div[name="res-blank"]');
+    	var myResListLen=  $('div[name="my-reservation"]').length;
+    	var viewStart=$('#view-more-res').attr('value');
+    	
+    	//console.log("! len :"+myResListLen);
+    	//console.log("! viewStart: "+viewStart);
+    	
+    	if(myResListLen >= viewStart){
+    		myResList.each(function(i,val){
+    			
+    		//	console.log("i : "+i);
+    		//	console.log("! "+Number(Number(i)+Number(viewStart)));
+    			
+    			if(Number(i)+Number(viewStart) >= myResListLen){
+    				$('#view-more-res').css('display','none'); //더보기 버튼 숨기기
+    				return false;
+    			} 
+    			
+    			$(myResList[Number(i)+Number(viewStart)]).css('display','block');
+    			$(myResBlank[Number(i)+Number(viewStart)]).css('display','block');
+    			
+    			if(3+Number(viewStart) >= myResListLen){
+					$('#view-more-res').css('display','none'); //더보기 버튼 숨기기
+				} 
+
+				if (i == 2) {
+				//	console.log("%% i : "+i);
+				//	console.log("%%! " + Number(Number(i) + Number(viewStart)));
+					
+    				$('#view-more-res').removeAttr('value');
+					$('#view-more-res').attr('value', Number(viewStart) + 3);
+					
+    				return false;
+				}
+				
+				
+        	});
+    	}
+		
+		setTimeout(() => {
+			window.dispatchEvent(new Event('resize'));
+		}, 100);
+		//console.log($('#view-more-res').attr('value'));
+    }

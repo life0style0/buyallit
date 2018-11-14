@@ -28,7 +28,6 @@ public class MybatisNoteDao implements NoteDao {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		if(sqlSession.insert(NAMESPACE + "create_hr",note) > 0) {
 		sqlSession.commit();
-
 		}
 		sqlSession.close();
 	}

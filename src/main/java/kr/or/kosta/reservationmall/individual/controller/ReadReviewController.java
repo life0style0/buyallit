@@ -1,8 +1,6 @@
 package kr.or.kosta.reservationmall.individual.controller;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +15,6 @@ import kr.or.kosta.reservationmall.common.factory.XMLObjectFactory;
 import kr.or.kosta.reservationmall.individual.dto.Review;
 import kr.or.kosta.reservationmall.individual.service.ReviewService;
 import kr.or.kosta.reservationmall.individual.service.ReviewServiceImpl;
-import kr.or.kosta.reservationmall.individual.service.UserService;
-import kr.or.kosta.reservationmall.individual.service.UserServiceImpl;
-import kr.or.kosta.reservationmall.login.dto.User;
 
 /**
  * 회원 탈퇴 처리 
@@ -34,7 +29,6 @@ public class ReadReviewController implements Controller {
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
-		ModelAndView mav = new ModelAndView();
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		reviewService = (ReviewService)factory.getBean(ReviewServiceImpl.class);
 		
@@ -64,7 +58,6 @@ public class ReadReviewController implements Controller {
             
             jObj.put("review_content", content);
 			jObj.put("review_date", review.getReview_date());
-			
 			jObj.put("review_service_rate", review.getReview_service_rate());
 			jObj.put("review_food_rate", review.getReview_food_rate());
 			jObj.put("review_clean_rate", review.getReview_clean_rate());

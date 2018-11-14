@@ -16,8 +16,12 @@ import kr.or.kosta.reservationmall.common.controller.Controller;
 import kr.or.kosta.reservationmall.common.controller.ModelAndView;
 import kr.or.kosta.reservationmall.common.factory.XMLObjectFactory;
 import kr.or.kosta.reservationmall.hotel.dto.HotelInfo;
+import kr.or.kosta.reservationmall.hotel.dto.HotelRateAvg;
+import kr.or.kosta.reservationmall.hotel.dto.HotelRoomAvg;
 import kr.or.kosta.reservationmall.hotel.service.HotelService;
 import kr.or.kosta.reservationmall.hotel.service.HotelServiceImpl;
+import kr.or.kosta.reservationmall.hotel.service.HotelStatisService;
+import kr.or.kosta.reservationmall.hotel.service.HotelStatisServiceImpl;
 
 /**
  * hello.mall 요청에 대한 처리 클래스
@@ -27,6 +31,7 @@ import kr.or.kosta.reservationmall.hotel.service.HotelServiceImpl;
  */
 public class SearchHotelController implements Controller {
 	private HotelService hotelService;
+	private HotelStatisService hotelStatisService;
 	Logger logger = Logger.getLogger(Controller.class);
 
 	@Override
@@ -35,6 +40,7 @@ public class SearchHotelController implements Controller {
 		ModelAndView mav = new ModelAndView();
 		XMLObjectFactory factory = (XMLObjectFactory) request.getServletContext().getAttribute("objectFactory");
 		hotelService = (HotelService) factory.getBean(HotelServiceImpl.class);
+		hotelStatisService = (HotelStatisService) factory.getBean(HotelStatisServiceImpl.class);
 		Map<String, Object> paramMap = new HashMap<>();
 		String userId = null;
 		Cookie[] cookies = request.getCookies();
@@ -69,7 +75,9 @@ public class SearchHotelController implements Controller {
 				}
 			}
 		}
-
+		//허재혁 수정 2018-11-12 통계관련
+		HotelRateAvg hotelRateAvg = new HotelRateAvg();
+		HotelRoomAvg hotelRoomAvg = new HotelRoomAvg();
 		List<HotelInfo> hotelInfos = null;
 		try {
 			hotelInfos = hotelService.getHotelInfos(paramMap, userId);
@@ -98,6 +106,18 @@ public class SearchHotelController implements Controller {
 			request.removeAttribute("refreshPage");
 			request.getSession().setAttribute("refreshPage", true);
 		}
+		
+
+		try {
+			hotelRateAvg = hotelStatisService.getHotelRateAvg();
+			hotelRoomAvg = hotelStatisService.getHotelRoomAvg();
+			mav.addObject("hotelRateAvg", hotelRateAvg);
+			mav.addObject("hotelRoomAvg", hotelRoomAvg);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 		mav.setView("/WEB-INF/view/search/search.jsp");
 		return mav;

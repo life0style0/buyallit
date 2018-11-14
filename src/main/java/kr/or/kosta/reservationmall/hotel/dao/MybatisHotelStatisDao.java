@@ -24,7 +24,9 @@ public class MybatisHotelStatisDao implements HotelStatisDao {
 	public HotelRateAvg getHotelRateAvg() throws Exception {
 		HotelRateAvg hotelRateAvg = new HotelRateAvg();
 		SqlSession sqlSession = sqlSessionFactory.openSession();
+		System.out.println("여기오니?1");
 		hotelRateAvg = sqlSession.selectOne(NAMESPACE + "getHotelRateAvg");
+		System.out.println("여기오니?2");
 		sqlSession.close();
 		return hotelRateAvg;
 	}
@@ -33,7 +35,9 @@ public class MybatisHotelStatisDao implements HotelStatisDao {
 	public HotelRoomAvg getHotelRoomAvg() throws Exception {
 		HotelRoomAvg hotelRoomAvg = new HotelRoomAvg();
 		SqlSession sqlSession = sqlSessionFactory.openSession();
+		System.out.println("여기오니?1ravg");
 		hotelRoomAvg = sqlSession.selectOne(NAMESPACE + "getHotelRoomAvg");
+		System.out.println("여기오니?ravg");
 		sqlSession.close();
 		return hotelRoomAvg;
 	}

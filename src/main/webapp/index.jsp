@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="utf-8">
 
@@ -13,8 +14,7 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon.ico">
-  <title>Java - 아름다운 추억을 코딩하세요</title>
+  <title>YogiZoa - 아름다운 추억을 코딩하세요</title>
   <!-- Bootstrap core CSS -->
   <link href="/reservationmall/resources/css/template/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -30,10 +30,14 @@
   <!-- JJW css file List -->
 
   <!-- hjh 존 -->
-  <script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=aba8nx_n3O9CvAauIsql&amp;submodules=panorama,geocoder,drawing,visualization"></script>
   <script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
   <!-- hjh 존 -->
+  
+  <!-- lhr 존 -->
+  <link href="/reservationmall/resources/css/lhr/modalForNotes.css" rel="stylesheet">
+  <!-- lhr 존 -->
+  
 </head>
 
 <body id="page-top">
@@ -45,14 +49,13 @@
     <div class="container">
       <div class="slider-container">
         <div class="intro-text">
-          <div class="intro-lead-in">Java에 어서오세요!</div>
+          <div class="intro-lead-in">YogiZoa에 어서오세요!</div>
           <div class="intro-heading">당신에게 포근함을 느낄 수 있는 휴식을 제공합니다.</div>
-          <a href="#main" class="page-scroll btn btn-xl">Tell Me More</a>
         </div>
       </div>
     </div>
   </header>
-
+  
   <section id="search" class="dark-bg">
     <div class="container">
       <div class="row">
@@ -218,6 +221,8 @@
     <!-- /.container -->
   </section>
 
+
+
   <section id="navermap" class="light-bg">
     <div class="container">
       <div id="map" style="width:100%;height:600px;"></div>
@@ -230,8 +235,9 @@
           var data = ["${hotel.hotel_name}","${hotel.hotel_address}","${hotel.hotel_phonenum}", "${hotel.hotel_rate}", "${hotel.hotel_info}", "${hotel.hotel_detail}", "${hotel.location_id}", "${hotel.hotel_website}"];
           var key = Number("${hotel.hotel_id}");
             MARKER_SPRITE_POSITION[key] = data;
-         </c:forEach>
-  
+         </c:forEach >
+  			
+  			
           var map = new naver.maps.Map('map', {
           center: new naver.maps.LatLng(37.5233311, 126.9787309),
           zoom: 10
@@ -242,36 +248,46 @@
 
 
         for (var hotel_no in MARKER_SPRITE_POSITION) {
-          console.log(hotel_no);
-          var address = MARKER_SPRITE_POSITION[hotel_no][1];
-          naver.maps.Service.geocode({
-            address: address
-          }, function (status, response) {
-            if (status === naver.maps.Service.Status.ERROR) {
-              return alert('Something Wrong!');
-            }
-            var item = response.result.items[0];
+          	var address = MARKER_SPRITE_POSITION[hotel_no][1];
+         	 naver.maps.Service.geocode({
+           		 address: address
+          		}, function (status, response) {
+            		if (status === naver.maps.Service.Status.ERROR) {
+             			return alert('Something Wrong!');
+            		}
+            	var item = response.result.items[0];
 
-            var position = new naver.maps.LatLng(
-              item.point.y,
-              item.point.x);
+            	var position = new naver.maps.LatLng(
+             		item.point.y,
+              		item.point.x);
 
-            var marker = new naver.maps.Marker({
-              map: map,
-              position: position,
-              title: item.address
-            });
-            markers.push(marker);
-          });
-          console.log(MARKER_SPRITE_POSITION[hotel_no][7]);
-          var contentString = [
+            	var marker = new naver.maps.Marker({
+              		map: map,
+              		position: position,
+              		title: item.address
+            	});
+            	markers.push(marker);
+          	});
+          	var contentString = [
             '<div class="iw_inner">',
-            '   <h3>' + MARKER_SPRITE_POSITION[hotel_no][0] + '</h3>',
-            '   <p>' + MARKER_SPRITE_POSITION[hotel_no][1] + '<br />',
-            '       <img src="resources/images/template/demo/portfolio-7.jpg" width="55" height="55" alt="' + MARKER_SPRITE_POSITION[hotel_no][0] + '" class="thumb" /><br />',
-            '       홈페이지 : <a href="' + MARKER_SPRITE_POSITION[hotel_no][7] + '">' + MARKER_SPRITE_POSITION[hotel_no][7] + '</a><br>' + MARKER_SPRITE_POSITION[hotel_no][2] + ' | ' + MARKER_SPRITE_POSITION[hotel_no][3] + '<br />',
-            '      ' + MARKER_SPRITE_POSITION[hotel_no][4] + '',
-            '   </p>',
+            '<div class="modal-dialog" role="document">',
+            '	<div class="modal-content">',
+   			'		<div class="modal-header">',
+            '   		<h3>' + MARKER_SPRITE_POSITION[hotel_no][0] + '</h3>',
+            '		</div>',
+            '		<div class="modal-body">',
+            '   		<p>' + MARKER_SPRITE_POSITION[hotel_no][1] + '<br />',
+            '      	 	홈페이지 : <a href="' + MARKER_SPRITE_POSITION[hotel_no][7] + '">' + MARKER_SPRITE_POSITION[hotel_no][7] + '</a><br>' + MARKER_SPRITE_POSITION[hotel_no][2] + ' | ' + MARKER_SPRITE_POSITION[hotel_no][3] + '<br />',
+            '      	' + MARKER_SPRITE_POSITION[hotel_no][4] + '',
+            '   	</p>',
+            '		</div>',
+            '		<div class="modal-footer">',
+            '			<div id="hotelMapInfo' + hotel_no + '" style="color:blue;"></div>',
+            '			<span class="label label-primary" onclick="javascript:searchHotel('+ "'"+MARKER_SPRITE_POSITION[hotel_no][0]+ "'"+')">검색하기</span>',
+			'			<span class="label label-success" onclick="javascript:addWishList('+ "'"+hotel_no+ "'"+ ')">위시리스트에 담기</span>',
+            '		</div>',
+            '	</div>',
+            '	</div>',
             '</div>'
           ].join('');
 
@@ -283,9 +299,6 @@
 
         };
 
-        function getGeocode(address) {
-
-        }
 
 
         naver.maps.Event.addListener(map, 'idle', function () {
@@ -392,7 +405,7 @@
     </div><!-- end container -->
   </section>
 
-
+ 
   <section id="faq" class="dark-bg short-section stats-bar">
     <div class="container text-center">
       <div class="row">
@@ -425,291 +438,258 @@
   </section>
 
 
-
-  <!-- 혜림 Q&A 쪽지보내기 폼 수정 시작 -->
-  <section id="contact" class="dark-bg">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <div class="section-title">
-            <h2>Contact Us</h2>
-            <p>요기조아에 대한 고객 여러분들의 문의사항을 보내주세요. 문의주신 내용의 답변은 업무일 기준으로 <br>24시간 내에 쪽지함으로 발송되며 카카오 알림톡으로 처리결과를 발송해 드립니다.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="section-text">
-            <h4>Our Business Office</h4>
-            <p>서울특별시 금천구 가산디지털 1로 151(가산동 371-47) 이노플랙스 1차 YOGIZOA 본사</p>
-            <p><i class="fa fa-phone"></i> +82 010 6555 22125</p>
-            <p><i class="fa fa-envelope"></i> mail@YOGIZOA.com</p>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="section-text">
-            <h4>Business Hours</h4>
-            <p><i class="fa fa-clock-o"></i> <span class="day">주중:</span><span>9am to 8pm</span></p>
-            <p><i class="fa fa-clock-o"></i> <span class="day">토요일:</span><span>9am to 2pm</span></p>
-            <p><i class="fa fa-clock-o"></i> <span class="day">일요일:</span><span>Closed</span></p>
-          </div>
-        </div>
+<section id="contact" class="dark-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="section-title">
+					<h2>Contact Us</h2>
+					<p>요기조아에 대한 고객 여러분들의 문의사항을 보내주세요. 문의주신 내용의 답변은 업무일 기준으로 
+                        <br>24시간 내에 쪽지함으로 발송되며 카카오 알림톡으로 처리결과를 발송해 드립니다.
+                        <br>쪽지 보내기 기능은 로그인 후 이용 가능합니다. </p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="section-text">
+					<h4>Our Business Office</h4>
+					<p>서울특별시 금천구 가산디지털 1로 151(가산동 371-47) 이노플랙스 1차 YOGIZOA 본사</p>
+					<p><i class="fa fa-phone"></i> +82 010 6555 22125</p>
+					<p><i class="fa fa-envelope"></i> mail@YOGIZOA.com</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="section-text">
+					<h4>Business Hours</h4>
+					<p><i class="fa fa-clock-o"></i> <span class="day">주중:</span><span>9am to 8pm</span></p>
+					<p><i class="fa fa-clock-o"></i> <span class="day">토요일:</span><span>9am to 2pm</span></p>
+					<p><i class="fa fa-clock-o"></i> <span class="day">일요일:</span><span>Closed</span></p>
+				</div>
+			</div>
         <div class="col-md-6">
-          <form name="sendNotes" id="sendNotes" action="/reservation/notes/controller.mall" method="post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="아이디 입력 *" id="name" name="user_id" required=""
-                    data-validation-required-message="Please enter your name.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="email" class="form-control" placeholder="이메일 입력 *" id="email" name="user_email" required=""
-                    data-validation-required-message="Please enter your email address.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <textarea class="form-control" placeholder="문의사항 입력 *" id="message" name="user_message" required=""
-                    data-validation-required-message="Please enter a message."></textarea>
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12 text-center">
-                <div id="success"></div>
-                <button type="submit" class="btn" id="sendnote">Send Message</button>
-              </div>
-            </div>
-          </form>
+        
+        
+        <jsp:include page="/WEB-INF/view/note/send_note.jsp"></jsp:include>
+        
+        
+       
         </div>
-
-        <!-- 혜림 Q&A 쪽지보내기 폼 수정 끝? -->
-
-      </div>
-    </div>
-  </section>
-  <!-- 혜림 Q&A 쪽지보내기 폼 수정 끝 -->
-
+        <!-- 혜림 Q&A 쪽지보내기 폼 수정 END -->
+        
+        
+	</div>
+	</div>
+	</section>
   <p id="back-top">
     <a href="#top"><i class="fa fa-angle-up"></i></a>
   </p>
+  <!-- bottom 고정 -->
   <jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
 
-  <!-- Modal for portfolio item 1 -->
   <div class="modal fade bs-example-modal-lg" id="graphMonth" tabindex="-1" role="dialog" aria-labelledby="graphMonth-label-2">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">월별 예약 현황</h4>
-          </div>
-          <div class="modal-body">
-            
-          <div id="container" style="border: solid 1px black; width: 100%; 
-        height: 300px; margin-bottom: 10px;">
-                <canvas id="canvasGraphInfo" style="margin-left: 5px;"></canvas>
-      </div>
-      <script>
-      var month_raw = [];
-      var month_column = [];
-      var color_list_month = []
-      var color = Chart.helpers.color;
-      <c:set var="graphInfo" value="${graphInfo}"/>
-       <c:forEach items='${graphInfo.month_use}' var='month'>
-         month_raw.push("${month.reserve_month}");
-         month_column.push("${month.reserve_count}");
-         color_list_month.push(color('rgb(' +Math.ceil(Math.random( )*255) + ',' +Math.ceil(Math.random( )*255) + ','+ Math.ceil(Math.random( )*255) + ')').alpha(0.5).rgbString());
-       </c:forEach>
-       
-      var targetGraphInfo = document.getElementById('canvasGraphInfo').getContext('2d');
-      var ChartHelper = {
-                chartColors: {
-                    red: 'rgb(255, 99, 132)'
-                    , orange: 'rgb(255, 159, 64)'
-                    , yellow: 'rgb(255, 205, 86)'
-                    , green: 'rgb(75, 192, 192)'
-                    , blue: 'rgb(54, 162, 235)'
-                    , purple: 'rgb(153, 102, 255)'
-                    , grey: 'rgb(201, 203, 207)'
-                }
-            };
-      
-        
-            var data1 = null;
-            var data2 = null;
-            var barChartData = null;
-      
-      window.BarChart = new Chart(targetGraphInfo, {
-          type: 'bar',
-          data: {
-              labels: month_raw,
-              datasets: [
-                    {
-                        label: "월별이용 고객"
-                        , backgroundColor: color_list_month
-                        , borderColor: ChartHelper.chartColors.blue
-                        , borderWidth: 1
-                        , data: month_column
-                    }]
-          },
-          option : Chart.defaults.bar
-      });
-      
-      </script>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-  
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">월별 예약 현황</h4>
+        </div>
+        <div class="modal-body">
+          
+			  <div id="container" style="border: solid 1px black; width: 100%; 
+			height: 300px; margin-bottom: 10px;">
+			        <canvas id="canvasGraphInfo" style="margin-left: 5px;"></canvas>
+		</div>
+		<script>
+		var month_raw = [];
+		var month_column = [];
+		var color_list_month = []
+		var color = Chart.helpers.color;
+		<c:set var="graphInfo" value="${graphInfo}"/>
+		 <c:forEach items='${graphInfo.month_use}' var='month'>
+		 	month_raw.push("${month.reserve_month}");
+		 	month_column.push("${month.reserve_count}");
+		 	color_list_month.push(color('rgb(' +Math.ceil(Math.random( )*255) + ',' +Math.ceil(Math.random( )*255) + ','+ Math.ceil(Math.random( )*255) + ')').alpha(0.5).rgbString());
+		 </c:forEach>
+		 
+		var targetGraphInfo = document.getElementById('canvasGraphInfo').getContext('2d');
+		var ChartHelper = {
+	            chartColors: {
+	                red: 'rgb(255, 99, 132)'
+	                , orange: 'rgb(255, 159, 64)'
+	                , yellow: 'rgb(255, 205, 86)'
+	                , green: 'rgb(75, 192, 192)'
+	                , blue: 'rgb(54, 162, 235)'
+	                , purple: 'rgb(153, 102, 255)'
+	                , grey: 'rgb(201, 203, 207)'
+	            }
+	        };
+		
+	        var data1 = null;
+	        var data2 = null;
+	        var barChartData = null;
+		
+		window.BarChart = new Chart(targetGraphInfo, {
+		    type: 'bar',
+		    data: {
+		        labels: month_raw,
+		        datasets: [
+	                {
+	                    label: "월별이용 고객"
+	                    , backgroundColor: color_list_month
+	                    , borderColor: ChartHelper.chartColors.blue
+	                    , borderWidth: 1
+	                    , data: month_column
+	                }]
+		    },
+		    option : Chart.defaults.bar
+		});
+		
+		</script>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-    </div>
-    
-    <div class="modal fade bs-example-modal-lg" id="graphHotel" tabindex="-1" role="dialog" aria-labelledby="graphHotel-label-2">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">구별 예약 현황</h4>
-          </div>
-          <div class="modal-body">
-            
-          <div id="container" style="border: solid 1px black; width: 100%; 
-        height: 300px; margin-bottom: 10px;">
-                <canvas id="canvasGraphHotel" style="margin-left: 5px;"></canvas>
-      </div>
-      <script>
-      var hotel_raw = [];
-      var hotel_column = [];
-      var color_list = []
-      var color = Chart.helpers.color;
-      <c:set var="graphInfo" value="${graphInfo}"/>
-       <c:forEach items='${graphInfo.hotel_use}' var='hotel'>
-         hotel_raw.push("${hotel.hotel_name}");
-         hotel_column.push("${hotel.hotel_count}");
-         color_list.push(color('rgb(' +Math.ceil(Math.random( )*255) + ',' +Math.ceil(Math.random( )*255) + ','+ Math.ceil(Math.random( )*255) + ')').alpha(0.5).rgbString());
-       </c:forEach>
-       
-       
-      var targetGraphHotel = document.getElementById('canvasGraphHotel').getContext('2d');
-      var ChartHelper = {
-                chartColors: {
-                    red: 'rgb(255, 99, 132)'
-                    , orange: 'rgb(255, 159, 64)'
-                    , yellow: 'rgb(255, 205, 86)'
-                    , green: 'rgb(75, 192, 192)'
-                    , blue: 'rgb(54, 162, 235)'
-                    , purple: 'rgb(153, 102, 255)'
-                    , grey: 'rgb(201, 203, 207)'
-                }
-            };
-      var color = Chart.helpers.color;
-          var data1 = null;
-          var data2 = null;
-          var barChartData = null;
-      
-      window.PieChart = new Chart(targetGraphHotel, {
-          type: 'pie',
-          data: {
-              labels: hotel_raw,
-              datasets: [
-                    {
-                        label: hotel_raw,
-                        backgroundColor:
-                        color_list
-                       , borderColor: ChartHelper.chartColors.red
-                        , borderWidth: 1
-                        , data: hotel_column
-                    }]
-          },
-          option : Chart.defaults.pie
-      });
-      
-      </script>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+  </div>
+  </div>
   
+  <div class="modal fade bs-example-modal-lg" id="graphHotel" tabindex="-1" role="dialog" aria-labelledby="graphHotel-label-2">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">구별 예약 현황</h4>
+        </div>
+        <div class="modal-body">
+          
+			  <div id="container" style="border: solid 1px black; width: 100%; 
+			height: 300px; margin-bottom: 10px;">
+			        <canvas id="canvasGraphHotel" style="margin-left: 5px;"></canvas>
+		</div>
+		<script>
+		var hotel_raw = [];
+		var hotel_column = [];
+		var color_list = []
+		var color = Chart.helpers.color;
+		<c:set var="graphInfo" value="${graphInfo}"/>
+		 <c:forEach items='${graphInfo.hotel_use}' var='hotel'>
+		 	hotel_raw.push("${hotel.hotel_name}");
+		 	hotel_column.push("${hotel.hotel_count}");
+		 	color_list.push(color('rgb(' +Math.ceil(Math.random( )*255) + ',' +Math.ceil(Math.random( )*255) + ','+ Math.ceil(Math.random( )*255) + ')').alpha(0.5).rgbString());
+		 </c:forEach>
+		 
+		 
+		var targetGraphHotel = document.getElementById('canvasGraphHotel').getContext('2d');
+		var ChartHelper = {
+	            chartColors: {
+	                red: 'rgb(255, 99, 132)'
+	                , orange: 'rgb(255, 159, 64)'
+	                , yellow: 'rgb(255, 205, 86)'
+	                , green: 'rgb(75, 192, 192)'
+	                , blue: 'rgb(54, 162, 235)'
+	                , purple: 'rgb(153, 102, 255)'
+	                , grey: 'rgb(201, 203, 207)'
+	            }
+	        };
+		var color = Chart.helpers.color;
+        var data1 = null;
+        var data2 = null;
+        var barChartData = null;
+		
+		window.PieChart = new Chart(targetGraphHotel, {
+		    type: 'pie',
+		    data: {
+		        labels: hotel_raw,
+		        datasets: [
+	                {
+	                    label: hotel_raw,
+	                    backgroundColor:
+	                    color_list
+	                 	, borderColor: ChartHelper.chartColors.red
+	                    , borderWidth: 1
+	                    , data: hotel_column
+	                }]
+		    },
+		    option : Chart.defaults.pie
+		});
+		
+		</script>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-    </div>
-    
-    <div class="modal fade bs-example-modal-lg" id="graphPriceReserve" tabindex="-1" role="dialog" aria-labelledby="graphHotel-label-2">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">총 예약금액 구간별 고객수</h4>
-          </div>
-          <div class="modal-body">
-            
-          <div id="container" style="border: solid 1px black; width: 100%; 
-        height: 300px; margin-bottom: 10px;">
-                <canvas id="canvasGraphPriceReserve" style="margin-left: 5px;"></canvas>
-      </div>
-      <script>
-      var price_raw = [];
-      var price_column = [];
-      var color = Chart.helpers.color;
-      <c:set var="graphInfo" value="${graphInfo}"/>
-       <c:forEach items='${graphInfo.price_reserve}' var='price'>
-         price_raw.push("${price.pay_divde}");
-         price_column.push("${price.pay_count}");
-       </c:forEach>
-       
-       
-      var targetGraphPriceReserve = document.getElementById('canvasGraphPriceReserve').getContext('2d');
-      var ChartHelper = {
-                chartColors: {
-                    red: 'rgb(255, 99, 132)'
-                    , orange: 'rgb(255, 159, 64)'
-                    , yellow: 'rgb(255, 205, 86)'
-                    , green: 'rgb(75, 192, 192)'
-                    , blue: 'rgb(54, 162, 235)'
-                    , purple: 'rgb(153, 102, 255)'
-                    , grey: 'rgb(201, 203, 207)'
-                }
-            };
-      var color = Chart.helpers.color;
-          var data1 = null;
-          var data2 = null;
-          var barChartData = null;
-      
-      window.LineChart = new Chart(targetGraphPriceReserve, {
-          type: 'line',
-          data: {
-              labels: price_raw,
-              datasets: [
-                    {
-                        label: '총 예약금액 구간별 고객수',
-                        backgroundColor:
-                        color(ChartHelper.chartColors.blue).alpha(0.5).rgbString()
-                       , borderColor: ChartHelper.chartColors.red
-                        , borderWidth: 1
-                        , data: price_column
-                    }]
-          },
-          option : Chart.defaults.line
-      });
-      
-      </script>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+  </div>
+  </div>
   
+  <div class="modal fade bs-example-modal-lg" id="graphPriceReserve" tabindex="-1" role="dialog" aria-labelledby="graphHotel-label-2">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">총 예약금액 구간별 고객수</h4>
         </div>
+        <div class="modal-body">
+			  <div id="container" style="border: solid 1px black; width: 100%; height: 300px; margin-bottom: 10px;">
+			        <canvas id="canvasGraphPriceReserve" style="margin-left: 5px;"></canvas>
+			  </div>
+		<script>
+		var price_raw = [];
+		var price_column = [];
+		var color = Chart.helpers.color;
+		<c:set var="graphInfo" value="${graphInfo}"/>
+		 <c:forEach items='${graphInfo.price_reserve}' var='price'>
+		 	price_raw.push("${price.pay_divde}");
+		 	price_column.push("${price.pay_count}");
+		 </c:forEach>
+		 
+		 
+		var targetGraphPriceReserve = document.getElementById('canvasGraphPriceReserve').getContext('2d');
+		var ChartHelper = {
+	            chartColors: {
+	                red: 'rgb(255, 99, 132)'
+	                , orange: 'rgb(255, 159, 64)'
+	                , yellow: 'rgb(255, 205, 86)'
+	                , green: 'rgb(75, 192, 192)'
+	                , blue: 'rgb(54, 162, 235)'
+	                , purple: 'rgb(153, 102, 255)'
+	                , grey: 'rgb(201, 203, 207)'
+	            }
+	        };
+		var color = Chart.helpers.color;
+        var data1 = null;
+        var data2 = null;
+        var barChartData = null;
+		
+		window.LineChart = new Chart(targetGraphPriceReserve, {
+		    type: 'line',
+		    data: {
+		        labels: price_raw,
+		        datasets: [
+	                {
+	                    label: '총 예약금액 구간별 고객수',
+	                    backgroundColor:
+	                    color(ChartHelper.chartColors.blue).alpha(0.5).rgbString()
+	                 	, borderColor: ChartHelper.chartColors.red
+	                    , borderWidth: 1
+	                    , data: price_column
+	                }]
+		    },
+		    option : Chart.defaults.line
+		});
+		
+		</script>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
       </div>
     </div>
-    </div>
+  </div>
+  
+  
 
   <!-- Bootstrap core JavaScript
 			================================================== -->
@@ -725,13 +705,20 @@
   <script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
   <script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
-  <script src="/reservationmall/resources/js/jjw/validator.js"></script>
   <script src="/reservationmall/resources/js/jjw/common.js"></script>
   <!--======== JJW javascript file List =========-->
 
-  <!--======== 혜림 javascript file List =========-->
-
-  <!--======== 혜림 javascript file List =========-->
+  <!--======== LHR 혜림 javascript file List =========-->
+  <!-- 게시판에 정보 보내기 위한 자바 스크립트  게시판 버튼 클릭 시 ajax 전달  -->
+  <script type="text/javascript" src="/reservationmall/resources/js/lhr/article_toggle.js"></script>
+  <!-- 쪽지보내기 위한 ajax전달  -->
+  <script type="text/javascript" src="/reservationmall/resources/js/lhr/common.js"></script>
+  <script type="text/javascript" src="/reservationmall/resources/js/lhr/note_resultModal.js"></script>
+  <!-- 쪽지 전송 성공 확인을 위한 모달  -->
+  <jsp:include page="/WEB-INF/view/note/add-note-Modal.jsp"></jsp:include>
+  <!-- 쪽지 전송 실패 확인을 위한 모달  -->
+  <jsp:include page="/WEB-INF/view/note/add-note-fail-Modal.jsp"></jsp:include>
+  <!--======== LHR javascript file List =========-->
 </body>
 
 </html>

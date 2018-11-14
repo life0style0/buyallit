@@ -162,13 +162,13 @@ System.out.println("끝");
 		<jsp:include page="/WEB-INF/view/individual/mypage_top.jsp"></jsp:include>
         
 		<!-- Header -->
-		<section id="my-info" class="dark-bg">
+		<section id="my-info" class="bg-info">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
 							<h2> 개인정보 조회/수정/탈퇴 </h2>
-							<p>A creative  of ll be amazed.</p>
+							<p> 개인정보를 조회, 수정 또는 회원 탈퇴 가능 </p>
 						</div>
 					</div>
 				</div>
@@ -177,9 +177,9 @@ System.out.println("끝");
         <!-- 개인정보 조회/수정/탈퇴 탭메뉴 -->
     <div class="container">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#first">개인정보 조회</a></li>
-        <li><a href="#second"> 개인정보 수정 </a></li>
-        <li><a href="#third"> 탈퇴</a></li>
+        <li class="active"><a href="#first"><h4>개인정보 조회</h4></a></li>
+        <li><a href="#second"> <h4>개인정보 수정</h4> </a></li>
+        <li><a href="#third"> <h4>탈퇴 </h4></a></li>
       </ul>
       <br>
     </div>
@@ -195,37 +195,69 @@ System.out.println("끝");
        <div style="height:50px"></div>
       <div id="ww">
       <div class="container">
-          <div class="form-group">
-            <label for="exampleInputEmail1">아이디</label> 
-            <div> ${user.user_id} </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">아이디</label>
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_id} </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">이름</label> 
-            <div> ${user.user_name}  </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">이름</label> 
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_name}  </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">나이</label> 
-            <div> ${user.user_age} </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">나이</label> 
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_age} </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">주소</label> 
-            <div> ${user.user_address} </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">주소</label> 
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_address} </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">전화번호</label> 
-            <div> ${user.user_phonenum} </div>
+           <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">전화번호</label> 
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_phonenum} </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">이메일</label> 
-            <div> ${user.user_email} </div>
+           <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">이메일</label> 
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_email} </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">등급</label> 
-            <div> ${user.user_rate} </div>
+           <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="exampleInputEmail1">등급</label> 
+            </div>
+            <div class="col-md-8">
+               <div> ${user.user_rate} </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">가입일</label> 
-            <div> ${user.user_regdate} </div>
+           <div class="col-md-12">
+            <div class="col-md-4">
+               <label for="exampleInputEmail1">가입일</label> 
+            </div>
+            <div class="col-md-8">
+                <div> ${user.user_regdate} </div>
+            </div>
           </div>
           
       </div>
@@ -266,7 +298,7 @@ System.out.println("끝");
       <div id="ww">
       <div class="container">
         <div class="row">
-          <button type="button" class="btn btn-danger" id="withdrawalMOpenBtn">탈퇴하기</button>
+          <button type="button" class="btn btn-danger center-block" id="withdrawalMOpenBtn">탈퇴하기</button>
         </div>
       </div>
       <!-- /container -->
@@ -288,7 +320,7 @@ System.out.println("끝");
           <div class="col-lg-12 text-center">
             <div class="section-title">
               <h2> 예약내역 조회 및 취소 </h2>
-              <p>A creative  of ll be amazed.</p>
+              <p> 회원님의 예약 내역을 보여드립니다 </p>
             </div>
           </div>
         </div>
@@ -299,20 +331,20 @@ System.out.println("끝");
         
           <c:choose>
             <c:when test="${reservationInfo.reservation_status==200}">
-              <div class="row bg-info">
+              <div class="row bg-info" name="my-reservation" id="my-res-${status.count}" >
             </c:when>
         
             <c:when test="${reservationInfo.reservation_status==400}">
-              <div class="row bg-danger">
+              <div class="row bg-danger" name="my-reservation" id="my-res-${status.count}" >
             </c:when>
                                       
             <c:otherwise>
-              <div class="row bg-info">
+              <div class="row bg-info" name="my-reservation" id="my-res-${status.count}" >
             </c:otherwise>
           </c:choose>
 				
-                    <div style="height:20px"></div>
-					<div class="col-md-7">
+                <div style="height:20px"></div>
+			    <div class="col-md-7">
 						<div class="section-text">
 							<h3> 
                               호텔이름 : 
@@ -434,38 +466,39 @@ System.out.println("끝");
                             </div>
 						</div>
                         <div style="height:20px"></div>
-					</div>
+				</div>
                     
-                    <!-- 호텔 이미지 시작-->
-					<div class="col-md-5">
-					<div class="owl-search-sjh2 owl-carousel">
-            
-                        <c:forEach items="${requestScope.resHotelImages}" var="reshotelImage">
-                          <c:if test="${reshotelImage.key == reservationInfo.hotel_id}">
-                          
-                          <c:forEach items="${reshotelImage.value}" var="hotelImage">
-                            <div class="item">
-                             <div class="owl-search-item">
+                <!-- 호텔 이미지 시작-->
+			    <div class="col-md-5">
+				  <div class="owl-search-sjh2 owl-carousel">
+                    <c:forEach items="${requestScope.resHotelImages}" var="reshotelImage">
+                      <c:if test="${reshotelImage.key == reservationInfo.hotel_id}">
+                      <c:forEach items="${reshotelImage.value}" var="hotelImage">
+                        <div class="item">
+                          <div class="owl-search-item">
                             <img src="/reservationmall/resources/images/${hotelImage}" 
                             alt="/reservationmall/resources/images/template/demo/image_main.jpg"
                             class="img-responsive" />
-                            </div>
-                            </div>
-                          </c:forEach>
-                            
-                          </c:if>
-                        </c:forEach>
-					</div>
-					</div>
-                    <!-- 호텔 이미지 끝-->
-                    
+                          </div>
+                        </div>
+                      </c:forEach>
+                      </c:if>
+                    </c:forEach>
+				  </div>
 				</div>
-                <div style="height:50px"></div>
+                <!-- 호텔 이미지 끝-->
+                     
+				</div> <!-- 예약내역 조회 1칸 끝 -->
+                <div name="res-blank" style="height:30px"></div>
+                
         </c:forEach>
+                <button class="form-control btn-primary" 
+                id="view-more-res" value="0"> 더보기 </button>
+               
         </c:when>
         <c:otherwise>
           <div class="row bg-info">
-            예약 내역이 없습니다 
+            <h2>예약 내역이 없습니다 </h2>
           </div>
         </c:otherwise>
         </c:choose>
@@ -486,47 +519,58 @@ System.out.println("끝");
         <div class="col-lg-12 text-center">
           <div class="section-title">
             <h2>위시리스트</h2>
+            <p> 위시리스트에 담은 호텔 </p>
           </div>
         </div>
       </div>
 
-
       <div class="row">
         <div class="owl-search-sjh owl-carousel">
-
-          <c:forEach items="${applicationScope.hotelList}" var="hotel">
-            <c:forEach items="${requestScope.wishlistIds}" var="wishlistId" varStatus="hotelnum">
-              <c:if test="${wishlistId == hotel.hotel_id}">
-                <c:forEach items="${wishHotelImages}" var="hotelImage">
-                  <c:if test="${hotelImage.key == wishlistId}">
-                    <!-- start portfolio item -->
-                    <!--  <div class="item ot-portfolio-item">   -->
-                    
-                    <div class="item">
-                   
-                      <div class="owl-search-item">
-                      <a data-toggle="modal" data-target="#Modal-${wishlistId}" class="hotelInfoLink">
-                        <figure class="effect-bubba">
-                        
-                          <img src="/reservationmall/resources/images/${hotelImage.value[0]}" 
-                          alt="/reservationmall/resources/images/template/demo/image_main.jpg"
-                          class="img-responsive"/>
-                          <figcaption>
-                            <h2>${hotel.hotel_name}</h2>
-                            <p>${hotel.hotel_rate}</p>
-                              
-                          </figcaption>
-                        </figure>
-                        </a>
+          
+          <c:choose>
+            <c:when test="${not empty requestScope.wishlistIds}">
+              <c:forEach items="${applicationScope.hotelList}" var="hotel">
+              <c:forEach items="${requestScope.wishlistIds}" var="wishlistId" varStatus="hotelnum">
+                <c:if test="${wishlistId == hotel.hotel_id}">
+                  <c:forEach items="${wishHotelImages}" var="hotelImage">
+                    <c:if test="${hotelImage.key == wishlistId}">
+                      
+                      <div class="item">
+                        <div class="owl-search-item">
+                        <a data-toggle="modal" data-target="#Modal-${wishlistId}" class="hotelInfoLink">
+                          <figure class="effect-bubba">
+                            <img src="/reservationmall/resources/images/${hotelImage.value[0]}" 
+                            alt="/reservationmall/resources/images/template/demo/image_main.jpg"
+                            class="img-responsive"/>
+                            <figcaption>
+                              <h2>${hotel.hotel_name}</h2>
+                              <p>${hotel.hotel_rate}</p>
+                            </figcaption>
+                          </figure>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <!-- end portfolio item -->
-                  </c:if>
-                </c:forEach>
-              </c:if>
-            </c:forEach>
-          </c:forEach>
+                      
+                    </c:if>
+                  </c:forEach>
+                </c:if>
+              </c:forEach>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+            <div class="item">
+            <div class="owl-search-item">
+             <!--  
+                <figure class="effect-bubba">
+                  <figcaption> -->
+                  <h2 class="dark-bg"> 위시리스트가 없습니다 </h2>
+                 <!--  </figcaption>
+                </figure>
+                -->
+            </div> 
+            </div>
+            </c:otherwise>
+          </c:choose>
 
         </div>
       </div>
@@ -539,13 +583,86 @@ System.out.println("끝");
 
 
 
+  <!-- 최근본호텔  시작 -->
+  <section id="lastviews" class="dark-bg">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>최근 본 호텔</h2>
+            <p> 최근 조회한 호텔 3가지 </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="owl-search-sjh owl-carousel">
+
+          <c:choose>
+            <c:when test="${not empty requestScope.lastList}">
+              <c:forEach items="${applicationScope.hotelList}" var="hotel">
+              <c:forEach items="${requestScope.lastList}" var="lastview" varStatus="hotelnum">
+                <c:if test="${lastview.hotel_id == hotel.hotel_id}">
+                  <c:forEach items="${requestScope.lastHotelImages}" var="hotelImage">
+                    <c:if test="${hotelImage.key == lastview.hotel_id}">
+                      <div class="item">
+                     
+                        <div class="owl-search-item">
+                        <a data-toggle="modal" data-target="#Modal-${lastview.hotel_id}" class="hotelInfoLink">
+                          <figure class="effect-bubba">
+                          
+                            <img src="/reservationmall/resources/images/${hotelImage.value[0]}" 
+                            alt="/reservationmall/resources/images/template/demo/image_main.jpg"
+                            class="img-responsive"/>
+                            <figcaption>
+                              <h2>${hotel.hotel_name}</h2>
+                              <p>${hotel.hotel_rate}</p>
+                                
+                            </figcaption>
+                          </figure>
+                          </a>
+                        </div>
+                      </div>
+  
+                    </c:if>
+                  </c:forEach>
+                </c:if>
+              </c:forEach>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+            <div class="item">
+            <div class="owl-search-item">
+             <!--  
+                <figure class="effect-bubba">
+                  <figcaption> -->
+                  <h2 class="dark-bg"> 최근 본 항목이 없습니다 </h2>
+                 <!--  </figcaption>
+                </figure>
+                -->
+            </div> 
+            </div>
+            </c:otherwise>
+          </c:choose>
+
+        </div>
+      </div>
+      <!--  row  -->
+
+    </div>
+    <!--  end container  -->
+  </section>
+  <!-- 최근본호텔 끝 -->
+
   <p id="back-top">
     <a href="#top"><i class="fa fa-angle-up"></i></a>
   </p>
   <jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
  
+ <!-- 위시리스트 상세조회 모달 -->
+<c:forEach items="${requestScope.wishlistIds}" var="wishlistId" varStatus="hotelnum">
   <c:forEach items="${applicationScope.hotelList}" var="hotel">
-    <c:forEach items="${requestScope.wishlistIds}" var="wishlistId" varStatus="hotelnum">
       <c:choose>
         <c:when test="${wishlistId == hotel.hotel_id}">
           <div class="modal fade bs-example-modal-lg" id="Modal-${wishlistId}" tabindex="-1" role="dialog"
@@ -578,7 +695,7 @@ System.out.println("끝");
                             </c:if>
                           </c:forEach>
                         </div>
-                        <div class="col-md-12" id="hotelHtml">
+                        <div class="col-md-12">
                           <div class="col-md-1"></div>
                           <div class="col-md-10 text-center">
                             <c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
@@ -594,7 +711,7 @@ System.out.println("끝");
                             <p>소개글 : ${hotel.hotel_info}</p>
                           </div>
                           <div class="col-md-12">
-                          <form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm">
+                          <form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm-wishlist-${hotelnum.count}">
                           <div>
                             <input type="hidden" name="searchValueType" value="searchHotel"> 
                             <input type="hidden" name="searchValue" value="${hotel.hotel_name}">
@@ -603,7 +720,8 @@ System.out.println("끝");
                             <div class="form-group">
                               <label>입실 날짜</label>
                               <div class='input-group date datetimepicker1'>
-                                <input type='text' class="form-control " name="searchStartDay" /> <span class="input-group-addon">
+                                <input type='text' class="form-control " name="searchStartDay" /> 
+                                  <span class="input-group-addon">
                                   <span class="fa fa-calendar"></span>
                                 </span>
                               </div>
@@ -613,7 +731,8 @@ System.out.println("끝");
                             <div class="form-group">
                               <label>퇴실 날짜</label>
                               <div class='input-group date datetimepicker2'>
-                                <input type='text' class="form-control " name="searchEndDay" /> <span class="input-group-addon">
+                                <input type='text' class="form-control " name="searchEndDay" /> 
+                                  <span class="input-group-addon">
                                   <span class="fa fa-calendar"></span>
                                 </span>
                               </div>
@@ -632,7 +751,7 @@ System.out.println("끝");
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>객실 수</label> 
-                              <select class="form-control " id="roomNumber2" name="searchRoomNumber">
+                              <select class="form-control " id="roomNumber-wishlist-${hotelnum.count}" name="searchRoomNumber">
                                 <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -640,10 +759,176 @@ System.out.println("끝");
                                 <option>5</option>
                                 <option>6</option>
                               </select> 
-                              <input type="hidden" id="roomNumberHidden">
+                              <input type="hidden" id="roomNumberHidden-wishlist-${hotelnum.count}">
                             </div>
                           </div>
-                          <div class="col-md-12" id="roomNumberAnchor">
+                          <div class="col-md-12" id="roomNumberAnchor-wishlist-${hotelnum.count}">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>어른 수</label> <select class="form-control" name="searchAdultNumber">
+                                  <option>1</option>
+                                  <option selected>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                  <option>6</option>
+                                  <option>7</option>
+                                  <option>8</option>
+                                  <option>9</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>아이 수</label> <select class="form-control" name="searchChildNumber">
+                                  <option selected>0</option>
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                  <option>6</option>
+                                  <option>7</option>
+                                  <option>8</option>
+                                  <option>9</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <input type="submit" value="검색" class="form-control btn-success" id="searchHotelButton-wishlist-${hotelnum.count}">
+                          </div>
+                          <div class="col-md-4">
+                            <input type="hidden" name="wishlist-hotel_id" value="${hotel.hotel_id}">
+                            <input type="hidden" name="wishlist-user_id" value="${requestScope.user.user_id}">
+                            <input type="button" name="delete-wishlist-btn" value="위시리스트에서 제거" 
+                            class="form-control btn btn-danger" >
+                          </div>
+                          <div class="col-md-4">
+                            <input type="button" value="close" class="form-control btn btn-warning" data-dismiss="modal">
+                          </div>
+                        </form>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                </div> <!-- modal-footer -->
+              </div>
+            </div>
+          </div>
+        </c:when>
+      </c:choose>
+    </c:forEach>
+    
+  </c:forEach>
+  <!-- 위시리스트 상세조회 모달 끝 -->
+  
+  
+  
+ <!-- 최근본호텔 상세조회 모달 -->
+  <c:forEach items="${requestScope.lastList}" var="lastview" varStatus="hotelnum">
+    <c:forEach items="${applicationScope.hotelList}" var="hotel">
+      <c:choose>
+        <c:when test="${lastview.hotel_id == hotel.hotel_id}">
+          <div class="modal fade bs-example-modal-lg" id="Modal-${lastview.hotel_id}" tabindex="-1" role="dialog"
+            aria-labelledby="Modal-label-${lastview.hotel_id}">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <!-- hotel infomation  -->
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="Modal-label-${lastview.hotel_id}">${hotel.hotel_name}</h4>
+                </div> <!-- modal-header -->
+                <div class="modal-body">
+                  <div role="tabpanel">
+                    <!-- 호텔정보 탭 시작 -->
+                      
+                        <div class="owl-search-${lastview.hotel_id} owl-carousel">
+                          <c:forEach items="${requestScope.lastHotelImages}" var="hotelImage">
+                            <c:if test="${hotelImage.key == lastview.hotel_id}">
+                              <c:forEach items="${hotelImage.value}" var="imageDirectory">
+                                <div class="item text-center">
+                                  <div class="owl-search-item">
+                                    <img class="owl-lazy" data-src="/reservationmall/resources/images/${imageDirectory}"
+                                      alt="/reservationmall/resources/images/template/demo/image_main.jpg">
+                                  </div>
+                                </div>
+                              </c:forEach>
+                            </c:if>
+                          </c:forEach>
+                        </div>
+                        <div class="col-md-12" id="hotelHtml">
+                          <div class="col-md-1"></div>
+                          <div class="col-md-10 text-center">
+                            <c:forTokens items="${hotel.hotel_detail}" delims="<![CDATA[<]]>?!<![CDATA[>]]>" var="detail">
+                              <span><span class="label label-info">${detail}</span></span>
+                            </c:forTokens>
+                          </div>
+                          <div class="col-md-1"></div>
+                          <div class="col-md-12">
+                            <p>호텔 등급 : ${hotel.hotel_rate}</p>
+                            <p>호텔 전화번호 : ${hotel.hotel_phonenum}</p>
+                            <p>호텔 웹사이트 : ${hotel.hotel_website}</p>
+                            <p>호텔 주소 : ${hotel.hotel_address}</p>
+                            <p>소개글 : ${hotel.hotel_info}</p>
+                          </div>
+                          <div class="col-md-12">
+                          <form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm-lastview-${hotelnum.count}">
+                          <div>
+                            <input type="hidden" name="searchValueType" value="searchHotel"> 
+                            <input type="hidden" name="searchValue" value="${hotel.hotel_name}">
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>입실 날짜</label>
+                              <div class='input-group date datetimepicker1'>
+                                <input type='text' class="form-control " name="searchStartDay" /> 
+                                  <span class="input-group-addon">
+                                  <span class="fa fa-calendar"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>퇴실 날짜</label>
+                              <div class='input-group date datetimepicker2'>
+                                <input type='text' class="form-control " name="searchEndDay" /> 
+                                  <span class="input-group-addon">
+                                  <span class="fa fa-calendar"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>일정</label>
+                              <div class='input-group date'>
+                                <div class="betweenDay" style="margin-bottom: 12px;">
+                                  <strong>1박 2일</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>객실 수</label> 
+                              <select class="form-control " id="roomNumber2-lastview-${hotelnum.count}" name="searchRoomNumber">
+                                <option selected>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                              </select> 
+                              <input type="hidden" id="roomNumberHidden-lastview-${hotelnum.count}">
+                            </div>
+                          </div>
+                          <div class="col-md-12" id="roomNumberAnchor-lastview-${hotelnum.count}">
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>어른 수</label> <select class="form-control" name="searchAdultNumber">
@@ -677,7 +962,7 @@ System.out.println("끝");
                             </div>
                           </div>
                           <div class="col-md-6">
-                            <input type="submit" value="검색" class="form-control btn-success" id="searchHotelButton">
+                            <input type="submit" value="검색" class="form-control btn-success" id="searchHotelButton-lastview-${hotelnum.count}">
                           </div>
                           <div class="col-md-6">
                             <input type="button" value="close" class="form-control btn btn-warning" data-dismiss="modal">
@@ -695,7 +980,9 @@ System.out.println("끝");
         </c:when>
       </c:choose>
     </c:forEach>
+    
   </c:forEach>
+  <!-- 최근본호텔 상세조회 모달 끝 -->
     
         <!--  개인정보 수정 결과 모달  -->
         <jsp:include page="/WEB-INF/view/individual/edit-confirm-Modal.jsp"></jsp:include>
@@ -720,6 +1007,9 @@ System.out.println("끝");
      
         <!--  예약취소 확인 모달  -->
         <jsp:include page="/WEB-INF/view/individual/cancellation-confirm-Modal.jsp"></jsp:include>
+        
+        <!--  위시리스트 제거 확인 모달  -->
+        <jsp:include page="/WEB-INF/view/individual/deleteWishlist-confirm-Modal.jsp"></jsp:include>
         
 
 		<!-- Bootstrap core JavaScript

@@ -24,13 +24,14 @@
     
   %>
 <c:set var="userId" value="<%=loginId%>" />
+
 <form name="sendNotes" id="sendNotes" action="/reservationmall/note/controller.mall" method="post">
 
-   <%
-              if(loginId == null){
-                //로그인이 되어있지 않을 경우
-          %>
-    <div class="row">
+  <%
+  	if (loginId == null) {
+  		//로그인이 되어있지 않을 경우
+  %>
+  <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="아이디 입력 *"
@@ -63,12 +64,13 @@
     <div class="row">
     <div class="col-lg-12 text-center">
       <div id="success"></div>
-      <input type="submit" class="btn" id="sendnote" value="Send Message" disabled="disabled">
+      <button type="button" class="btn" id="sendnote" value="Send Message" disabled="disabled"></button>
     </div>
   </div>
   
   
   <%}else{
+    //로그인 화면의 경우
    %>
      <div class="row">
     <div class="col-md-6">
@@ -88,6 +90,7 @@
       </div>
     </div>
   </div>
+  
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -103,14 +106,11 @@
   <div class="row">
     <div class="col-lg-12 text-center">
       <div id="success"></div>
-      <input type="submit" class="btn" id="sendnote" value="Send Message">
+      <button type="button" class="btn" id="sendnote_ck" >Send Message</button>
     </div>
   </div>
   
 <%
   }
 %>  
-  
-
-  
 </form>

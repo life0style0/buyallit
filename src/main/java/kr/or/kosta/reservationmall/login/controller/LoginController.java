@@ -60,12 +60,16 @@ public class LoginController implements Controller {
 				cookie.setMaxAge(-1);
 				response.addCookie(cookie);
 				
-				mav.addObject("loginCheck", "success");
-				
+				Cookie cookieLoginSuc = new Cookie("loginCheck", "success");
+				cookieLoginSuc.setPath("/");
+				cookieLoginSuc.setMaxAge(-1);
+				response.addCookie(cookieLoginSuc);
 			}else {
-				mav.addObject("loginCheck", "fail");
+				Cookie cookieLoginFail = new Cookie("loginCheck", "fail");
+				cookieLoginFail.setPath("/");
+				cookieLoginFail.setMaxAge(-1);
+				response.addCookie(cookieLoginFail);
 			}
-				
 				mav.setView("redirect:/reservationmall/index.jsp");
 			    return mav;
 		case "hotelSearch":
@@ -106,7 +110,6 @@ public class LoginController implements Controller {
 		default:
 				return null;
 		}
-
 	}
 	
 	

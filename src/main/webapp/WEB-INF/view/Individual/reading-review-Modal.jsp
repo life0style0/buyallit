@@ -18,79 +18,85 @@
                   <form id="readReviewForm">
                     <div>
                       <div class="col-md-12">
-                      <div class="col-md-6">
-                        <span>가격</span> 
-                        <span name="star-rating"> 
-                          <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
-                          <input type="hidden" name="review_price_rate" value=""/>
-                        </span>
-                      </div>
-                      <div class="col-md-6"> 
-                        <span>서비스</span> 
-                        <span name="star-rating"> 
-                          <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
-                          <input type="hidden" name="review_service_rate" value=""/>
-                        </span>
-                      </div>
-                      </div>
-                      
-                      <div class="col-md-12">
-                      <div class="col-md-6"> 
-                        <span>음식</span> 
-                        <span name="star-rating"> 
-                          <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
-                          <input type="hidden" name="review_food_rate" value=""/>
-                        </span>
-                      </div>
-                      <div class="col-md-6"> 
-                        <span>청결</span> 
-                        <span name="star-rating"> 
-                          <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
-                          <input type="hidden" name="review_clean_rate" value=""/>
-                        </span>
-                      </div>
+                        <div class="col-md-6">
+                          <span>가격</span> 
+                          <span name="star-rating"> 
+                            <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
+                            <input type="hidden" name="review_price_rate" value=""/>
+                          </span>
+                        </div>
+                        <div class="col-md-6"> 
+                          <span>서비스</span> 
+                          <span name="star-rating"> 
+                            <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
+                            <input type="hidden" name="review_service_rate" value=""/>
+                          </span>
+                        </div>
                       </div>
                       
                       <div class="col-md-12">
-                      <div class="col-md-12"> 
-                        <span>위치</span> 
-                        <span name="star-rating"> 
-                          <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
-                          <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
-                          <input type="hidden" name="review_location_rate" value=""/>
-                        </span>
-                      </div>
+                        <div class="col-md-6"> 
+                          <span>음식</span> 
+                          <span name="star-rating"> 
+                            <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
+                            <input type="hidden" name="review_food_rate" value=""/>
+                          </span>
+                        </div>
+                        <div class="col-md-6"> 
+                          <span>청결</span> 
+                          <span name="star-rating"> 
+                            <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
+                            <input type="hidden" name="review_clean_rate" value=""/>
+                          </span>
+                        </div>
                       </div>
                       
+                      <div class="col-md-12">
+                        <div class="col-md-12"> 
+                          <span>위치</span> 
+                          <span name="star-rating"> 
+                            <span name="star-rating-1" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-2" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-3" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-4" class="fa fa-star unchecked-star"></span>
+                            <span name="star-rating-5" class="fa fa-star unchecked-star"></span>
+                            <input type="hidden" name="review_location_rate" value=""/>
+                          </span>
+                        </div>
+                      </div>
+
                     </div>
+                    <div>
+                      <div class="col-md-12">
+                        <div class="col-md-12"> 
+                          <span>좋아요 </span> 
+                          <span name="review_helpful_count"></span>
+                          <span> 개</span>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <input type="hidden" id="read-review_res_id" name="read-review_res_id" value=""/>
                     
-                    <div class="col-md-12">
+                    <div class="col-md-12 bg-info">
                       <p  id="read-review-text" name="review_content"></p>
                     </div> 
-                    <!--  
-                    <textarea id="read-review-text" class="form-control" rows="10"
-                    name="review_content" readonly="readonly"></textarea>
-                    -->
                   </form>
                 </div> 
               <div class="modal-footer">

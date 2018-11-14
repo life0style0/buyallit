@@ -18,7 +18,7 @@
 	</insert>
 
 	
-	<!-- 위시리스트 존재 확인 -->
+		<!-- 위시리스트 존재 확인 -->
 	<select id="existWishCheck" parameterType="Wishlist" resultType="Wishlist">
 		SELECT wishlist_id "wishlist_id", 
 		       hotel_id "hotel_id", 
@@ -33,5 +33,12 @@
 		FROM   wishlists
 		WHERE user_id=#{value}
 	</select>
+	
+	<!-- 위시리스트에서 삭제 -->
+	<delete id="deleteMyWishlist" parameterType="Wishlist" >
+		DELETE FROM wishlists 
+		WHERE  user_id = #{user_id} 
+		       AND hotel_id = #{hotel_id} 
+	</delete>
 	
 </mapper>

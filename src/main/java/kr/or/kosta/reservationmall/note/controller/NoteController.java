@@ -1,6 +1,8 @@
 package kr.or.kosta.reservationmall.note.controller;
 
 
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,7 @@ import kr.or.kosta.reservationmall.note.service.NoteService;
 import kr.or.kosta.reservationmall.note.service.NoteServiceImpl;
 
 /**
- * 노트 등록 처리 
+ * 노트(쪽지) 등록 처리 
  * note 추가를 위한 요청 컨트롤러 설정 
  * @author 이혜림
  *
@@ -33,42 +35,44 @@ public class NoteController implements Controller {
 		XMLObjectFactory factory = (XMLObjectFactory)request.getServletContext().getAttribute("objectFactory");
 		noteService = (NoteService)factory.getBean(NoteServiceImpl.class);
 
-		System.out.println("################## 노트 컨트롤러 서비스 스타트 ##################");
+		System.out.println("################## !! 노트 컨트롤러 서비스 스타트 !! ##################");
 
-		String user_id = request.getParameter("user_id");
-		String note_email = request.getParameter("note_email");
-		String note_question = request.getParameter("note_question");
+		logger.debug("NoteController start");
+		
+		String user_id = (String) request.getParameter("user_id"); 
+		String note_email = (String) request.getParameter("note_email");
+		String note_question = (String) request.getParameter("note_question");
+		
+		logger.debug("유저 아이디 (컨트롤러)" + user_id);
+		logger.debug("유저 이메일 (컨트롤러)" + note_email);
+		logger.debug("유저 질문내용 (컨트롤러)" + note_question);
 		
 		Notes note = new Notes();
 		note.setUser_id(user_id);
 		note.setNote_email(note_email);
 		note.setNote_question(note_question);
 		
-		System.out.println(user_id);
-		System.out.println(note_email);
-		System.out.println(note_question);
+		
+		response.setContentType("text/plain; charset=utf-8");
+		PrintWriter out = null;
 
+		String result = "";
 		try {
-			System.out.println(note);
-			
+			//결과 전달 
+			out = response.getWriter();
+			//create  
 			noteService.create_hr(note);
-			
-			mav.addObject("addResult", "success");
-			System.out.println("쪽지 등록 중 : " + note);
-			
-			System.out.println("모델 & 뷰 내용 확인" + mav);
+			System.out.println(note);
+			result = "success";
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			
-			mav.addObject("addResult", "fail");
+			result = "fail";
 		}
 		
-		// 쪽지 등록 확인 페이지로 이동
-		mav.setView("redirect:/reservationmall/index.jsp");
-		return mav;
-		
+		out.println(result);
+		return null;
 	}
 	
 

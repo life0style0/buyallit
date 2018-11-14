@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 
 import kr.or.kosta.reservationmall.individual.dto.ReservationInfo;
-import kr.or.kosta.reservationmall.login.dto.User;
+
 
 
 

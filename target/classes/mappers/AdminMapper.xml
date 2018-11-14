@@ -39,11 +39,11 @@
 	
 	<select id="getGraphPriceReserve" resultType="GraphPriceReserve" >
 				select (case when(total_price>=100000 and 200000>total_price) then '100000~200000'
-    			when (total_price>=200000 and 300000>total_price) then '200000~30000'
-   				when (total_price>=300000 and 400000>total_price) then '300000~40000' else '400000이상' end) "pay_divde",
+    			when (total_price>=200000 and 300000>total_price) then '200000~300000'
+   				when (total_price>=300000 and 400000>total_price) then '300000~400000' else '400000이상' end) "pay_divde",
         		count(payment_id) "pay_count"
         from 	payments
-        group by (case when(total_price>=100000 and 200000>total_price) then '100000~200000' when (total_price>=200000 and 300000>total_price) then '200000~30000' when (total_price>=300000 and 400000>total_price) then '300000~40000' else '400000이상' end)
+        group by (case when(total_price>=100000 and 200000>total_price) then '100000~200000' when (total_price>=200000 and 300000>total_price) then '200000~300000' when (total_price>=300000 and 400000>total_price) then '300000~400000' else '400000이상' end)
 	</select>
 	
 	<select id="getGraphHotelUse" resultType="GraphHotelUse" >

@@ -1,12 +1,4 @@
-window.onload = function () {
-	/*
-	if(document.getElementById("logoutBtn")!=null){
-		document.getElementById("logoutBtn").onclick = function(){
-			setCookie('loginId', '');
-			location.replace('index.jsp');
-		}
-	}
-	*/
+$(function(){ 
 
 	init();
 
@@ -65,23 +57,25 @@ window.onload = function () {
 		}
 	}
 
-}
+})
 
 function init() {
 	registReady = true;
 
-	document.getElementById('regist_idAlert').style.display = 'none';
-	document.getElementById('regist_idValidAlert').style.display = 'none';
-	document.getElementById('regist_idSuccess').style.display = 'none';
-
-	document.getElementById('regist_pwAlert').style.display = 'none';
-	document.getElementById('regist_pwAlertSec').style.display = 'none';
-	document.getElementById('regist_pwChckAlert').style.display = 'none';
-
-	document.getElementById('regist_nameAlert').style.display = 'none';
-	document.getElementById('regist_ageAlert').style.display = 'none';
-	document.getElementById('regist_phonnumAlert').style.display = 'none';
-	document.getElementById('regist_emailAlert').style.display = 'none';
+	if (document.getElementById('registForm') != null) { //가입화면인 경우
+		document.getElementById('regist_idAlert').style.display = 'none';
+		document.getElementById('regist_idValidAlert').style.display = 'none';
+		document.getElementById('regist_idSuccess').style.display = 'none';
+	
+		document.getElementById('regist_pwAlert').style.display = 'none';
+		document.getElementById('regist_pwAlertSec').style.display = 'none';
+		document.getElementById('regist_pwChckAlert').style.display = 'none';
+	
+		document.getElementById('regist_nameAlert').style.display = 'none';
+		document.getElementById('regist_ageAlert').style.display = 'none';
+		document.getElementById('regist_phonnumAlert').style.display = 'none';
+		document.getElementById('regist_emailAlert').style.display = 'none';
+	}
 }
 
 //아이디 검사

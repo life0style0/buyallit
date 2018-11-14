@@ -33,12 +33,17 @@
 		<!-- 2018-11-12 추가 -->
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelRateAvg" alias="HotelRateAvg"/>
 		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelRoomAvg" alias="HotelRoomAvg"/>
+		<!-- 2018-11-13 추가 -->
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelPayment" alias="HotelPayment"/>
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelReserve" alias="HotelReserve"/>
+		<typeAlias type="kr.or.kosta.reservationmall.hotel.dto.HotelReserveCheck" alias="HotelReserveCheck"/>
 		<!-- 재혁 추가 -->
 		
 		
 		<!-- 주현 추가 -->
 		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.ReservationInfo" alias="ReservationInfo"/>
 		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.Review" alias="Review"/>
+		<typeAlias type="kr.or.kosta.reservationmall.individual.dto.Lastview" alias="LastviewSJH"/>
 		<!-- 주현 추가 -->
 	</typeAliases>
 	
@@ -81,8 +86,9 @@
 		<mapper resource="mappers/AdminMapper.xml"  />
 		<mapper resource="mappers/MyWishlistMapper.xml"  />
 		<mapper resource="mappers/StatisMapper.xml"  /><!-- 2018-11 12추가 -->
+		<mapper resource="mappers/ReserveMapper.xml"  /><!-- 2018-11 13추가 -->
 		
-		<!-- 혜림 -->
+				<!-- 혜림 -->
 		<mapper resource="mappers/ArticleMapper.xml"  />
 		<mapper resource="mappers/NoteMapper.xml"  />
 				
@@ -90,6 +96,7 @@
 		<mapper resource="mappers/IndividualMapper.xml"  />
 		<mapper resource="mappers/MyReservationMapper.xml"  /> <!-- 1108추가 -->
 		<mapper resource="mappers/MyReviewMapper.xml"  /> <!-- 1109추가 -->
+		<mapper resource="mappers/MyLastviewMapper.xml"  /> <!-- 1113추가 -->
 		
 		<!-- 지원 -->
 		<mapper resource="mappers/HotelSearchMapper.xml"  />

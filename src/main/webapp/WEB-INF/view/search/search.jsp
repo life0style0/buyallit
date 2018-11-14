@@ -34,7 +34,8 @@
 	<!-- JJW css file List -->
 	<link rel="stylesheet" href="/reservationmall/resources/css/jjw/common.css">
 	<!-- JJW css file List -->
-
+	<script type="text/javascript" src="/reservationmall/resources/js/hjh/payment.js"></script>
+	
 </head>
 
 <body>
@@ -50,7 +51,7 @@
 			hidden value for layout
 		</div>
 	</header>
-	<section id="search" class="dark-bg">
+<section id="search" class="dark-bg">
 		<div class="container">
 			<div class="row">
 				<form action="/reservationmall/hotel/searchhotel.mall" method="POST" id="searchForm">
@@ -343,6 +344,10 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 										<h4 class="modal-title" id="Modal-label-${hotelInfo.hotelId}">${hotel.hotel_name}</h4>
+																				<!-- 위시리스트 추가 -->
+										<i class="far fa-heart" onclick="javascript:addWishList(${hotelInfo.hotelId})"></i>위시리스트 등록
+										<div id="hotelMapInfo${hotelInfo.hotelId}" style="color:blue;"></div>
+										<!-- 끝 -->
 									</div>
 									<div class="modal-body">
 										<div role="tabpanel">
@@ -580,7 +585,7 @@
 																var barChartData = null;
 
 																// todo: data setting
-																data1 = [(roomAvg / roomSize)];
+																data1 = [(roomAvg / roomSize)+'0'];
 																data2 = [("${hotelRoomAvg.room_avg}")];
 
 																barChartData = {
@@ -705,19 +710,19 @@
 																				<input type="hidden" name="reviewId" value="${review.reviewId}">
 																				<c:choose>
 																					<c:when test="${review.isLiked == true}">
-																						<button class="btn btn-link review-like"><i class="fas fa-heart"></i></button>
+																						<button class="btn btn-link review-like"><i class="fas fa-heart" title="좋아요!"></i></button>
 																					</c:when>
 																					<c:otherwise>
-																						<button class="btn btn-link review-like"><i class="far fa-heart"></i></button>
+																						<button class="btn btn-link review-like"><i class="far fa-heart" title="좋아요!"></i></button>
 																					</c:otherwise>
 																				</c:choose>
 																				<hr>
 																				<c:choose>
 																					<c:when test="${review.isHated}">
-																						<button class="btn btn-link review-hate"><i class="fas fa-trash-alt"></i></button>
+																						<button class="btn btn-link review-hate"><i class="fas fa-trash-alt" title="신고하기"></i></button>
 																					</c:when>
 																					<c:otherwise>
-																						<button class="btn btn-link review-hate"><i class="far fa-trash-alt"></i></button>
+																						<button class="btn btn-link review-hate"><i class="far fa-trash-alt" title="신고하기"></i></button>
 																					</c:otherwise>
 																				</c:choose>
 																			</div>
@@ -791,7 +796,6 @@
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
-	<script src="/reservationmall/resources/js/jjw/validator.js"></script>
 	<script src="/reservationmall/resources/js/jjw/common.js"></script>
 	<script src="/reservationmall/resources/js/jjw/review.js"></script>
 	<!--======== JJW javascript file List =========-->

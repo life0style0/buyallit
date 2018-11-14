@@ -6,7 +6,7 @@
      <form name="editForm" id="editForm" action="/reservationmall/individual/editUser.mall" method="post">
         
           <div class="form-group">
-            <label for="exampleInputEmail1">아이디 (변경 불가)</label> 
+            <label for="exampleInputEmail1">아이디 (변경 불가)</label>
              <input type="text" readonly="readonly"
             class="form-control" id="regist_id" name="user_id"
             value="${user.user_id}">

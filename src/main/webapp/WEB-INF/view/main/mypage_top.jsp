@@ -25,7 +25,6 @@ if(cookies != null) {
 loginCheck = request.getParameter("loginCheck");
 %>
 
-<script type="text/javascript" src="resources/js/hjh/main_top.js"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -45,7 +44,7 @@ loginCheck = request.getParameter("loginCheck");
 					<a href="#page-top"></a>
 				</li>
 				<li>
-					<a class="page-scroll" href="#page-top">메인</a>
+					<a class="page-scroll" href="/reservationmall/">메인</a>
 				</li>
 				<li>
 					<a class="page-scroll" href="#my-info">개인정보</a>
@@ -56,6 +55,9 @@ loginCheck = request.getParameter("loginCheck");
 				<li>
 					<a class="page-scroll" href="#wishlist">위시리스트</a>
 				</li>
+                <li>
+                  <a class="page-scroll" href="#lastviews">최근 본 호텔</a>
+                </li>
 				
 				 <%
 		          if(loginId == null){
@@ -76,7 +78,7 @@ loginCheck = request.getParameter("loginCheck");
 		          	}else{
 		          	%>
 		           <li>
-					<a class="page-scroll" id="myPage">MyPage</a>
+					<a class="page-scroll" id="myPage" href="/reservationmall/individual/mypage.mall">MyPage</a>
 					</li>
 					<%
 		          	}
@@ -110,7 +112,7 @@ loginCheck = request.getParameter("loginCheck");
 				<div class="modal-body">
 						<div class="form-group">
 							<label for="message-text" class="control-label">아이디 :</label>
-							<input type="text" class="form-control" name="user_id" id="login_id" required
+							<input type="text" class="form-control" name="user_id" id="login_id"
 							<%
 							if(rememId != null){
 							%>
@@ -123,7 +125,7 @@ loginCheck = request.getParameter("loginCheck");
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">비밀번호 :</label>
-							<input type="password" class="form-control" name="user_pw" id="login_pw" required>
+							<input type="password" class="form-control" name="user_pw" id="login_pw">
 							<span class="hiddenAlert" id='pwAlert' style="display:none; color:red"><u>비밀번호를 확인해주세요!</u></span>
 						</div>
 				</div>

@@ -25,7 +25,7 @@
 	<!-- 내용들~~~-->
 	<!-- ex) 허재혁 끝-->
 	
-		<!-- 송주현 시작 -->
+			<!-- 송주현 시작 -->
 	<bean type="dao" name="userDao" class="kr.or.kosta.reservationmall.individual.dao.MybatisUserDao">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
@@ -48,15 +48,20 @@
 	<bean type="service" name="reviewService" class="kr.or.kosta.reservationmall.individual.service.ReviewServiceImpl">
 		<property name="reviewDao" ref="reviewDao"/>
 	</bean>
-	
-	<!-- 1112 추가 -->
-	<bean type="dao" name="getWishlistDao" class="kr.or.kosta.reservationmall.individual.dao.MybatisGetWishlistDao">
+	<!-- 1113 변경 -->
+	<bean type="dao" name="myWishlistDao" class="kr.or.kosta.reservationmall.individual.dao.MybatisMyWishlistDao">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
-	<bean type="service" name="getWishlistService" class="kr.or.kosta.reservationmall.individual.service.GetWishlistServiceImpl">
-		<property name="getWishlistDao" ref="getWishlistDao"/>
+	<bean type="service" name="myWishlistService" class="kr.or.kosta.reservationmall.individual.service.MyWishlistServiceImpl">
+		<property name="myWishlistDao" ref="myWishlistDao"/>
 	</bean>
-	
+	<!-- 1113 추가 -->
+	<bean type="dao" name="lastviewDao" class="kr.or.kosta.reservationmall.individual.dao.MybatisLastviewDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean type="service" name="lastviewService" class="kr.or.kosta.reservationmall.individual.service.LastviewServiceImpl">
+		<property name="lastviewDao" ref="lastviewDao"/>
+	</bean>
 	<!-- 송주현 끝 -->
 	
 	<!-- 정지원 시작 -->
@@ -133,6 +138,17 @@
 	</bean>
 	
 	<!-- 허재혁 2018-11-12 추가 -->
+	
+	<!-- 허재혁 2018-11-13 추가 -->
+	<bean type="dao" name="hotelPaymentDao" class="kr.or.kosta.reservationmall.hotel.dao.MybatisHotelPaymentDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean type="service" name="hotelPaymentService" class="kr.or.kosta.reservationmall.hotel.service.HotelPaymentServiceImpl">
+		<property name="hotelPaymentDao" ref="hotelPaymentDao"/>
+	</bean>
+	
+	<!-- 허재혁 2018-11-13 추가 -->
 	
 	<!-- 허재혁 끝 -->
 	

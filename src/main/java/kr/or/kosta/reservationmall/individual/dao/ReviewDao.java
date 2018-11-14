@@ -1,9 +1,10 @@
 package kr.or.kosta.reservationmall.individual.dao;
 
 import java.util.List;
-import java.util.Map;
 
+import kr.or.kosta.reservationmall.individual.dto.ReservationInfo;
 import kr.or.kosta.reservationmall.individual.dto.Review;
+import kr.or.kosta.reservationmall.login.dto.User;
 
 
 
@@ -27,6 +28,7 @@ public interface ReviewDao {
 	//리뷰 삭제
 	public void deleteReview(int review_id) throws Exception;
 	
+	//1113 정지원 추가
 	public List<kr.or.kosta.reservationmall.hotel.dto.Review> getReviewsByHotelId(String hotelId) throws Exception;
 	
 	public List<String> isReviewLiked(String reviewIds, String userId) throws Exception;

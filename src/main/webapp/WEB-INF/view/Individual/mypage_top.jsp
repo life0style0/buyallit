@@ -35,7 +35,7 @@ loginCheck = request.getParameter("loginCheck");
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand page-scroll" href="#page-top"><img src="/reservationmall/resources/images/template/logo.png" alt="Sanza theme logo"></a>
+			<a class="navbar-brand page-scroll" href="/reservationmall/"><img src="/reservationmall/resources/images/template/logo.png" alt="Sanza theme logo"></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

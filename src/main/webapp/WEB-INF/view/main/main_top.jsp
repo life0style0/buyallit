@@ -20,9 +20,12 @@ if(cookies != null) {
 		if(cookieName.equals("rememId")){
 			rememId = cookie.getValue();
 		}
+		if(cookieName.equals("loginCheck")){
+			loginCheck = cookie.getValue();
+		}
 	}
 }
-loginCheck = request.getParameter("loginCheck");
+
 %>
 
 <!-- css for Hyerim -->
@@ -39,7 +42,7 @@ loginCheck = request.getParameter("loginCheck");
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand page-scroll" href="#page-top"><img src="/reservationmall/resources/images/template/logo.png" alt="Sanza theme logo"></a>
+			<a class="navbar-brand page-scroll" href="/reservationmall/#page-top"><img src="/reservationmall/resources/images/template/logo.png" alt="Sanza theme logo" href="/reservationmall/#page-top"></a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,17 +51,17 @@ loginCheck = request.getParameter("loginCheck");
 					<a href="#page-top"></a>
 				</li>
 				<li>
-					<a class="page-scroll" href="/reservationmall/index.jsp">메인</a>
+					<a class="page-scroll" href="/reservationmall/#page-top">메인</a>
 				</li>
 				<li>
-					<a class="page-scroll" href="#search">호텔검색</a>
+					<a class="page-scroll" href="/reservationmall/#search">호텔검색</a>
 				</li>
                
 				<li>
-					<a class="page-scroll" href="#statisInfo">통계정보</a>
+					<a class="page-scroll" href="/reservationmall/#statisInfo">통계정보</a>
 				</li>
 				<li>
-					<a class="page-scroll" href="#contact">Contact</a>
+					<a class="page-scroll" href="/reservationmall/#contact">Contact</a>
 				</li>
 				<li>
                 	<a class="page-scroll" data-toggle="modal" data-target="#notice" id="board">공지사항</a>
@@ -105,7 +108,7 @@ loginCheck = request.getParameter("loginCheck");
 </nav>
 
 
-<!-- 혜림 모달 -->
+<!-- 혜림 공지사항 모달 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <div class="modal fade" id="notice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -130,7 +133,7 @@ loginCheck = request.getParameter("loginCheck");
             </tr>
           </thead>
           <tbody id="abcd">
-            <!-- ajox통신을 통해 데이터 추가 -->
+            <!-- ajax통신을 통해 데이터 추가 -->
           </tbody>
         </table>
         <div class="modal-footer" style="padding: 4px;">
@@ -144,8 +147,9 @@ loginCheck = request.getParameter("loginCheck");
 </div>
 <!-- 모달 for 공지사항 혜림 수정 끝  -->
 
+
  <!-- Modal -->
-	<div class="modal fade ${sessionScope.loginCheck == 'fail' ? 'in' : ''}" id="loginModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -196,7 +200,8 @@ loginCheck = request.getParameter("loginCheck");
 			</div>
 		</div>
 	</div>
-	<%
+<%
+	System.out.println(loginCheck);
 	if(loginCheck!=null && loginCheck.equals("fail")){
 %>
 <script
@@ -210,7 +215,7 @@ $('#loginModal').modal({
 	backdrop:false
 });
 document.getElementById("loginAlert").setAttribute("style", "display:block;");
-
+setCookie("loginCheck", "");
 </script>
 <%
 }

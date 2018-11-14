@@ -15,6 +15,7 @@
        			note_email		AS "note_email",
        			note_checked 	AS "note_checked"
 	FROM   		notes
+	
 	</select>
 	
 	<!-- 등록하기 -->

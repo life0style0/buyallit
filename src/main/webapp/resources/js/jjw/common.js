@@ -266,6 +266,8 @@ function addHotmlRoomInfo(button) {
 
         const hotelName = $(`#Modal-label-${hotelId}`).html();
 
+        const betweenDay = $('#betweenDay2').text().split('박')[0];
+        totalPrice = totalPrice * betweenDay;
         $('#collapseHotelAnchor').html(`선택 호텔 정보 (${hotelName})`);
         $('#collapseRoomAnchor').html(`선택 방 정보 (${roomNames.slice(2)})`);
         $('#headinghotel').after(htmlHotel);

@@ -124,7 +124,6 @@ $(function () {
         };
 
         var reset = function reset() {
-            console.log($(this).scrollTop())
             if ($(this).scrollTop() > 90) {
                 $(this).off("scroll");
                 fx()

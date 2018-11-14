@@ -30,7 +30,34 @@
     <script type="text/javascript" src="/reservationmall/resources/js/sjh/ajax.js"></script>
     
     <!--  송주현 스크립트 추가 -->
-    
+    <c:choose>
+    <c:when test="${requestScope.registResult eq 'success'}">
+    <%--가입완료 보여주기 --%> 
+    <script type="text/javascript">
+      $(function(){ 
+       // alert('success');
+          $('#regist-result').html('회원가입에 성공했습니다');
+          $('#regist-confirm-Modal').css('z-index', '1050'); //모달 위로 띄우기
+          $('#regist-confirm-Modal').on('hide.bs.modal', function (e) {
+          	location.href='/reservationmall/';
+          });
+          $('#regist-confirm-Modal').modal('show');
+        })
+    </script>
+    </c:when>
+    <c:when test="${requestScope.registResult eq 'fail'}">
+     <script type="text/javascript">
+      $(function(){ 
+          $('#regist-result').html('회원가입에 실패했습니다');
+          $('#regist-confirm-Modal').css('z-index', '1050'); //모달 위로 띄우기
+          $('#regist-confirm-Modal').on('hidden.bs.modal', function (e) {
+          	location.href='/reservationmall/';
+          }); 
+          $('#regist-confirm-Modal').modal('show');
+        })
+    </script>  
+    </c:when>
+  </c:choose>
 </head>
 <body>
     <!-- top 네비게이션 -->
@@ -48,49 +75,42 @@
 	</header>
    <div style="height:50px"></div>
    <div id="ww">
-      <div class="container">
+    <div class="container">
   
-      <h2>${requestScope.registResult}</h2>
-      
-  <c:choose>
-    <c:when test="${requestScope.registResult eq 'trying'}">
-     <%--가입폼 보여주기 --%> 
-     <jsp:include page="/WEB-INF/view/login/regist_form.jsp"></jsp:include>
-    </c:when>
-    
-    <c:when test="${requestScope.registResult eq 'success'}">
-    <%--가입완료 보여주기 --%> 
-     <div class="row">
-      <h2> 가입 완료 </h2>  
-      <a class="btn btn-success" href='/reservationmall'>메인으로</a>
-     </div>
-    </c:when>
-    
-    <c:when test="${requestScope.registResult eq 'fail'}">
-      <%--가입실패 보여주기 --%> 
-      <div class="row">
-       <h2> 가입 실패 </h2> 
-       <button type="button" class="btn btn-success"> 재도전 </button>
-      </div>
-    </c:when>
-    
-    <c:otherwise>
-      <%--가입폼 보여주기 --%> 
       <jsp:include page="/WEB-INF/view/login/regist_form.jsp"></jsp:include>
-    </c:otherwise>
-    
-  </c:choose>
-  
-  
+      
     </div>
     <!-- /container -->
-    </div>
-    <!-- /ww -->  
+   </div>
+   <!-- /ww -->  
    
 	<div style="height:50px"></div>
 	<!-- bottom네비게이션 -->
 	<jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
 	
+    <%-- <jsp:include page="/WEB-INF/view/login/regist-confirm-Modal.jsp"></jsp:include> --%>
+          
+       <!--  회원가입 결과확인 모달  -->
+         <div class="modal fade" id="regist-confirm-Modal" role="dialog" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"> 회원가입 결과 </h4>
+              </div>
+              <div class="modal-body">
+                <p id="regist-result">   </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+                data-dismiss="modal" id="edit-confirm-Modal-close">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  회원가입 결과확인 모달  -->
+        
+  
 		<!-- Bootstrap core JavaScript
 		================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
