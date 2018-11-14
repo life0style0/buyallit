@@ -32,6 +32,7 @@
   <!-- hjh 존 -->
   <script type="text/javascript" src="/reservationmall/resources/js/hjh/main_top.js"></script>
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=aba8nx_n3O9CvAauIsql&amp;submodules=panorama,geocoder,drawing,visualization"></script>
+  <script type="text/javascript" src="/reservationmall/resources/js/common/Chart.js"></script>
   <!-- hjh 존 -->
 </head>
 
@@ -334,7 +335,7 @@
     </div>
   </section>
 
-  <section id="recommendation" class="light-bg">
+  <section id="statisInfo" class="light-bg">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -349,11 +350,11 @@
         <div class="col-md-4 col-0-gutter">
           <div class="ot-portfolio-item">
             <figure class="effect-bubba">
-              <img src="/reservationmall/resources/images/template/demo/portfolio-1.jpg" alt="img02" class="img-responsive" />
+              <img src="/reservationmall/resources/images/statis/calendar.png" alt="img02" class="img-responsive" />
               <figcaption>
-                <h2>메이필드호텔</h2>
-                <p>Branding, Design</p>
-                <a href="#" data-toggle="modal" data-target="#Modal-1">View more</a>
+                <h2>월별 예약 현황</h2>
+                <p>통계정보, Bar Chart</p>
+                <a href="#" data-toggle="modal" data-target="#graphMonth">View more</a>
               </figcaption>
             </figure>
           </div>
@@ -363,11 +364,11 @@
         <div class="col-md-4 col-0-gutter">
           <div class="ot-portfolio-item">
             <figure class="effect-bubba">
-              <img src="/reservationmall/resources/images/template/demo/portfolio-2.jpg" alt="img02" class="img-responsive" />
+              <img src="/reservationmall/resources/images/statis/hotel.jpeg" alt="img02" class="img-responsive" />
               <figcaption>
-                <h2>Startup Framework</h2>
-                <p>Branding, Web Design</p>
-                <a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                <h2>호텔별 이용고객 현황</h2>
+                <p>통계정보, Donut Chart</p>
+                <a href="#" data-toggle="modal" data-target="#graphHotel">View more</a>
               </figcaption>
             </figure>
           </div>
@@ -377,65 +378,21 @@
         <div class="col-md-4 col-0-gutter">
           <div class="ot-portfolio-item">
             <figure class="effect-bubba">
-              <img src="/reservationmall/resources/images/template/demo/portfolio-3.jpg" alt="img02" class="img-responsive" />
+              <img src="/reservationmall/resources/images/statis/price.jpg" alt="img02" class="img-responsive" />
               <figcaption>
-                <h2>Lamp & Velvet</h2>
-                <p>Branding, Web Design</p>
-                <a href="#" data-toggle="modal" data-target="#Modal-3">View more</a>
+                <h2>예약 금액 별 현황</h2>
+                <p>통계정보, Line Chart</p>
+                <a href="#" data-toggle="modal" data-target="#graphPriceReserve">View more</a>
               </figcaption>
             </figure>
           </div>
         </div>
-        <!-- end portfolio item -->
-      </div>
-      <div class="row row-0-gutter">
-        <!-- start portfolio item -->
-        <div class="col-md-4 col-0-gutter">
-          <div class="ot-portfolio-item">
-            <figure class="effect-bubba">
-              <img src="resources/images/template/demo/portfolio-4.jpg" alt="img02" class="img-responsive" />
-              <figcaption>
-                <h2>Smart Name</h2>
-                <p>Branding, Design</p>
-                <a href="#" data-toggle="modal" data-target="#Modal-4">View more</a>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-        <!-- end portfolio item -->
-        <!-- start portfolio item -->
-        <div class="col-md-4 col-0-gutter">
-          <div class="ot-portfolio-item">
-            <figure class="effect-bubba">
-              <img src="resources/images/template/demo/portfolio-5.jpg" alt="img02" class="img-responsive" />
-              <figcaption>
-                <h2>Fast People</h2>
-                <p>Branding, Web Design</p>
-                <a href="#" data-toggle="modal" data-target="#Modal-5">View more</a>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-        <!-- end portfolio item -->
-        <!-- start portfolio item -->
-        <div class="col-md-4 col-0-gutter">
-          <div class="ot-portfolio-item">
-            <figure class="effect-bubba">
-              <img src="resources/images/template/demo/portfolio-6.jpg" alt="img02" class="img-responsive" />
-              <figcaption>
-                <h2>Kites & Stars</h2>
-                <p>Branding, Web Design</p>
-                <a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-        <!-- end portfolio item -->
+
       </div>
     </div><!-- end container -->
   </section>
 
-  <!-- 자주하는 질문 혜림 수정 -->
+
   <section id="faq" class="dark-bg short-section stats-bar">
     <div class="container text-center">
       <div class="row">
@@ -447,26 +404,27 @@
         </div>
         <div class="col-md-3 mb-sm-30">
           <div class="counter-item">
-            <h2 class="stat-number" data-n="167">0</h2>
+            <h2 class="stat-number" data-n="${statisticsInfo.total_user}">0</h2>
             <h6>등록 고객 수</h6>
           </div>
         </div>
         <div class="col-md-3 mb-sm-30">
           <div class="counter-item">
-            <h2 class="stat-number" data-n="6">0</h2>
+            <h2 class="stat-number" data-n="${statisticsInfo.total_review}">0</h2>
             <h6>등록 후기 수</h6>
           </div>
         </div>
         <div class="col-md-3 mb-sm-30">
           <div class="counter-item">
-            <h2 class="stat-number" data-n="34">0</h2>
-            <h6>총 이용금액</h6>
+            <h2 class="stat-number" data-n="${statisticsInfo.total_reservation }">0</h2>
+            <h6>예약 건수</h6>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- 혜림수정끝  -->
+
+
 
   <!-- 혜림 Q&A 쪽지보내기 폼 수정 시작 -->
   <section id="contact" class="dark-bg">
@@ -546,90 +504,212 @@
   <jsp:include page="/WEB-INF/view/main/main_bottom.jsp"></jsp:include>
 
   <!-- Modal for portfolio item 1 -->
-  <div class="modal fade bs-example-modal-lg" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <!-- hotel infomation  -->
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="Modal-label-1">호텔정보</h4>
-        </div>
-        <div class="modal-body">
-          <div class="owl-portfolio owl-carousel">
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_1.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_2.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
+  <div class="modal fade bs-example-modal-lg" id="graphMonth" tabindex="-1" role="dialog" aria-labelledby="graphMonth-label-2">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">월별 예약 현황</h4>
           </div>
-          <img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img01" class="img-responsive" />
-          <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-          <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+          <div class="modal-body">
+            
+          <div id="container" style="border: solid 1px black; width: 100%; 
+        height: 300px; margin-bottom: 10px;">
+                <canvas id="canvasGraphInfo" style="margin-left: 5px;"></canvas>
+      </div>
+      <script>
+      var month_raw = [];
+      var month_column = [];
+      var color_list_month = []
+      var color = Chart.helpers.color;
+      <c:set var="graphInfo" value="${graphInfo}"/>
+       <c:forEach items='${graphInfo.month_use}' var='month'>
+         month_raw.push("${month.reserve_month}");
+         month_column.push("${month.reserve_count}");
+         color_list_month.push(color('rgb(' +Math.ceil(Math.random( )*255) + ',' +Math.ceil(Math.random( )*255) + ','+ Math.ceil(Math.random( )*255) + ')').alpha(0.5).rgbString());
+       </c:forEach>
+       
+      var targetGraphInfo = document.getElementById('canvasGraphInfo').getContext('2d');
+      var ChartHelper = {
+                chartColors: {
+                    red: 'rgb(255, 99, 132)'
+                    , orange: 'rgb(255, 159, 64)'
+                    , yellow: 'rgb(255, 205, 86)'
+                    , green: 'rgb(75, 192, 192)'
+                    , blue: 'rgb(54, 162, 235)'
+                    , purple: 'rgb(153, 102, 255)'
+                    , grey: 'rgb(201, 203, 207)'
+                }
+            };
+      
+        
+            var data1 = null;
+            var data2 = null;
+            var barChartData = null;
+      
+      window.BarChart = new Chart(targetGraphInfo, {
+          type: 'bar',
+          data: {
+              labels: month_raw,
+              datasets: [
+                    {
+                        label: "월별이용 고객"
+                        , backgroundColor: color_list_month
+                        , borderColor: ChartHelper.chartColors.blue
+                        , borderWidth: 1
+                        , data: month_column
+                    }]
+          },
+          option : Chart.defaults.bar
+      });
+      
+      </script>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+  
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-        <!-- hotel information end  -->
-
-        <!-- room info  -->
-        <!-- <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="Modal-label-1">Dean & Letter</h4>
-            </div>
-            <div class="modal-body">
-              <img src="resources/images/template/demo/portfolio-1.jpg" alt="img01" class="img-responsive" />
-              <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-              <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div> -->
-        <!-- room info end  -->
       </div>
     </div>
-  </div>
-
-  <div class="modal fade bs-example-modal-lg" id="Modal-2" tabindex="-1" role="dialog" aria-labelledby="Modal-label-2">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <!-- hotel infomation  -->
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="Modal-label-1">호텔정보</h4>
-        </div>
-        <div class="modal-body">
-          <div class="owl-portfolio owl-carousel">
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_1.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_2.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
-            <div class="item">
-              <div class="owl-portfolio-item"><img src="/reservationmall/resources/images/hotels/hotel_3.jpg" class="img-responsive"
-                  alt="portfolio"></div>
-            </div>
+    </div>
+    
+    <div class="modal fade bs-example-modal-lg" id="graphHotel" tabindex="-1" role="dialog" aria-labelledby="graphHotel-label-2">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">구별 예약 현황</h4>
           </div>
-          <img src="/reservationmall/resources/images/hotels/hotel_1.jpg" alt="img01" class="img-responsive" />
-          <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-          <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+          <div class="modal-body">
+            
+          <div id="container" style="border: solid 1px black; width: 100%; 
+        height: 300px; margin-bottom: 10px;">
+                <canvas id="canvasGraphHotel" style="margin-left: 5px;"></canvas>
+      </div>
+      <script>
+      var hotel_raw = [];
+      var hotel_column = [];
+      var color_list = []
+      var color = Chart.helpers.color;
+      <c:set var="graphInfo" value="${graphInfo}"/>
+       <c:forEach items='${graphInfo.hotel_use}' var='hotel'>
+         hotel_raw.push("${hotel.hotel_name}");
+         hotel_column.push("${hotel.hotel_count}");
+         color_list.push(color('rgb(' +Math.ceil(Math.random( )*255) + ',' +Math.ceil(Math.random( )*255) + ','+ Math.ceil(Math.random( )*255) + ')').alpha(0.5).rgbString());
+       </c:forEach>
+       
+       
+      var targetGraphHotel = document.getElementById('canvasGraphHotel').getContext('2d');
+      var ChartHelper = {
+                chartColors: {
+                    red: 'rgb(255, 99, 132)'
+                    , orange: 'rgb(255, 159, 64)'
+                    , yellow: 'rgb(255, 205, 86)'
+                    , green: 'rgb(75, 192, 192)'
+                    , blue: 'rgb(54, 162, 235)'
+                    , purple: 'rgb(153, 102, 255)'
+                    , grey: 'rgb(201, 203, 207)'
+                }
+            };
+      var color = Chart.helpers.color;
+          var data1 = null;
+          var data2 = null;
+          var barChartData = null;
+      
+      window.PieChart = new Chart(targetGraphHotel, {
+          type: 'pie',
+          data: {
+              labels: hotel_raw,
+              datasets: [
+                    {
+                        label: hotel_raw,
+                        backgroundColor:
+                        color_list
+                       , borderColor: ChartHelper.chartColors.red
+                        , borderWidth: 1
+                        , data: hotel_column
+                    }]
+          },
+          option : Chart.defaults.pie
+      });
+      
+      </script>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+  
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-
       </div>
     </div>
-  </div>
+    </div>
+    
+    <div class="modal fade bs-example-modal-lg" id="graphPriceReserve" tabindex="-1" role="dialog" aria-labelledby="graphHotel-label-2">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">총 예약금액 구간별 고객수</h4>
+          </div>
+          <div class="modal-body">
+            
+          <div id="container" style="border: solid 1px black; width: 100%; 
+        height: 300px; margin-bottom: 10px;">
+                <canvas id="canvasGraphPriceReserve" style="margin-left: 5px;"></canvas>
+      </div>
+      <script>
+      var price_raw = [];
+      var price_column = [];
+      var color = Chart.helpers.color;
+      <c:set var="graphInfo" value="${graphInfo}"/>
+       <c:forEach items='${graphInfo.price_reserve}' var='price'>
+         price_raw.push("${price.pay_divde}");
+         price_column.push("${price.pay_count}");
+       </c:forEach>
+       
+       
+      var targetGraphPriceReserve = document.getElementById('canvasGraphPriceReserve').getContext('2d');
+      var ChartHelper = {
+                chartColors: {
+                    red: 'rgb(255, 99, 132)'
+                    , orange: 'rgb(255, 159, 64)'
+                    , yellow: 'rgb(255, 205, 86)'
+                    , green: 'rgb(75, 192, 192)'
+                    , blue: 'rgb(54, 162, 235)'
+                    , purple: 'rgb(153, 102, 255)'
+                    , grey: 'rgb(201, 203, 207)'
+                }
+            };
+      var color = Chart.helpers.color;
+          var data1 = null;
+          var data2 = null;
+          var barChartData = null;
+      
+      window.LineChart = new Chart(targetGraphPriceReserve, {
+          type: 'line',
+          data: {
+              labels: price_raw,
+              datasets: [
+                    {
+                        label: '총 예약금액 구간별 고객수',
+                        backgroundColor:
+                        color(ChartHelper.chartColors.blue).alpha(0.5).rgbString()
+                       , borderColor: ChartHelper.chartColors.red
+                        , borderWidth: 1
+                        , data: price_column
+                    }]
+          },
+          option : Chart.defaults.line
+      });
+      
+      </script>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+    </div>
 
   <!-- Bootstrap core JavaScript
 			================================================== -->

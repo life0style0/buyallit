@@ -120,7 +120,7 @@ GROUP  BY review_id, rr.user_id,
           review_clean_rate, 
           review_location_rate, 
           review_price_rate
-ORDER BY Count(review_count_id) desc
+ORDER BY Count(review_count_id) desc, (review_service_rate + review_food_rate + review_clean_rate + review_location_rate + review_price_rate) desc
 	</select>
 
 	<select id="isReviewLiked" parameterType="map" resultType="string">

@@ -110,7 +110,7 @@ loginCheck = request.getParameter("loginCheck");
 				<div class="modal-body">
 						<div class="form-group">
 							<label for="message-text" class="control-label">아이디 :</label>
-							<input type="text" class="form-control" name="user_id" id="login_id"
+							<input type="text" class="form-control" name="user_id" id="login_id" required
 							<%
 							if(rememId != null){
 							%>
@@ -123,7 +123,7 @@ loginCheck = request.getParameter("loginCheck");
 						</div>
 						<div class="form-group">
 							<label for="message-text" class="control-label">비밀번호 :</label>
-							<input type="password" class="form-control" name="user_pw" id="login_pw">
+							<input type="password" class="form-control" name="user_pw" id="login_pw" required>
 							<span class="hiddenAlert" id='pwAlert' style="display:none; color:red"><u>비밀번호를 확인해주세요!</u></span>
 						</div>
 				</div>

@@ -113,6 +113,8 @@ function changeRoomNumber2Jjw(element) {
 
 // 장소 검색 객체를 생성합니다
 var ps = new daum.maps.services.Places();
+var searchBoolean = false;
+
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
     const searchValueInput = $('#searchValueInput');
@@ -135,20 +137,22 @@ function placesSearchCB(data, status, pagination) {
         const address = data[0].address_name.split(' ');
         if (address[0] === '서울') {
             $('#searchValueInputHidden').val(address[1]);
+            searchBoolean = true;
         } else {
             // 서울이 아닐때
-            alert('서울이 아닌데?');
+            alert('서울 내의 지역을 입력해주세요.');
+            searchBoolean = false;
             return;
         }
 
     } else if (status === daum.maps.services.Status.ZERO_RESULT) {
-
+        searchBoolean = false;
         alert('검색 결과가 존재하지 않습니다.');
         return;
 
     } else if (status === daum.maps.services.Status.ERROR) {
-
-        alert('검색 결과 중 오류가 발생했습니다.');
+        searchBoolean = false;
+        alert('검색 중 서버 오류가 발생했습니다.');
         return;
 
     }
@@ -289,16 +293,19 @@ function searchHotelEvent() {
         $('#searchForm').before(`<div class="col-md-12 alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>검색 내용</strong>을 입력해주세요.</div>`)
     } else if (!searchHotelRate.val() && !checkValidFloat(searchHotelRate)) {
         return;
-    } else if (!searchHotelRate.val() && !checkValidFloat(searchMinPrice)) {
+    } else if (!searchMinPrice.val() && !checkValidFloat(searchMinPrice)) {
         return;
-    } else if (!searchHotelRate.val() && !checkValidFloat(searchMaxPrice)) {
+    } else if (!searchMaxPrice.val() && !checkValidFloat(searchMaxPrice)) {
         return;
     } else {
         if ($('#searchValueType').val() === 'searchLocation') {
             searchPlaces();
             setTimeout(() => {
-                $('#searchForm').submit();
-            }, 500);
+                if (searchBoolean) {
+                    $('#searchForm').submit();
+                    searchBoolean = false;
+                }
+            }, 300);
         } else {
             $('#searchValueInputHidden').val(searchValueInput.val());
             $('#searchForm').submit();
@@ -353,7 +360,7 @@ function eventRegist() {
 
     $('#searchValueInput').on('change', function () {
         if ($('#searchValueType').val() === 'searchLocation') {
-            searchPlaces();
+            // searchPlaces();
         } else {
             $('#searchValueInputHidden').val($('#searchValueInput').val());
         }
@@ -372,7 +379,7 @@ function eventRegist() {
     $('.modal').on('show.bs.modal', function () {
         // window.dispatchEvent(new Event('resize'));
     });
-    
+
     $('.modal').on('shown.bs.modal', function () {
         window.dispatchEvent(new Event('resize'));
         $(this).find('.owl-carousel').trigger('prev.owl.carousel');
@@ -405,6 +412,20 @@ function eventRegist() {
 
     $('#loginBtn').on('click', function () {
         if (window.location.pathname === '/reservationmall/hotel/searchhotel.mall') {
+            if (!$('#login_id').val()) {
+                $('#idAlert').css('display', 'block');
+                setTimeout(() => {
+                    $('#idAlert').css('display', 'none');
+                }, 3000);
+                return false;
+            }
+            if (!$('#login_pw').val()) {
+                $('#pwAlert').css('display', 'block');
+                setTimeout(() => {
+                    $('#pwAlert').css('display', 'none');
+                }, 3000);
+                return false;
+            }
             $('#loginIdHidden').val($('#login_id').val());
             $('#loginPwHidden').val($('#login_pw').val());
             $('#searchForm').attr('action', '/reservationmall/login/controller.mall');

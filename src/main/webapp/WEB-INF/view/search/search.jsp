@@ -17,7 +17,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="icon" href="favicon.ico">
-	<title>관리자 모드</title>
+	<title>호텔 검색</title>
 	<!-- Bootstrap core CSS -->
 
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
@@ -34,71 +34,6 @@
 	<!-- JJW css file List -->
 	<link rel="stylesheet" href="/reservationmall/resources/css/jjw/common.css">
 	<!-- JJW css file List -->
-
-	<script type="text/javascript">
-		function paymentProgress() {
-			$('#paymentModal').modal('show');
-			$('#paymentModal').modal('backdrop');
-			var i = 0;
-			var userId = document.getElementById("userId").value;
-			var hotelId = document.getElementById("hotelId").value;
-			var roomName = document.getElementById("roomName").value;
-			var totalPrice2 = document.getElementById("totalPrice2").value;
-			var reservationStartDay = document.getElementById("reservationStartDay").value;
-			var reservationEndDay = document.getElementById("reservationEndDay").value;
-
-			var proInterval = setInterval(function () {
-				i = i + 1
-				document.getElementById("proBar").setAttribute("style", "width:" + i + "%;");
-				$('#proBar').text(i + "%");
-				/* /reservationmall/hotel/payment_proc 
-								
-				
-				*/
-				if (i == 50) {
-					console.log(reservationStartDay);
-					console.log(hotelId);
-					console.log(roomName);
-					/* $.ajax({
-						type : "post",
-						url : '/reservationmall/hotelPaymentCheck.mall',
-						data : {
-							hotel_id : hotel_id,
-							user_id : userId,
-							roomName : roomName,
-						},
-						dataType : "text",
-						success : function(resultType) {
-							if(resultType.trim()=='success'){
-								$("#hotelMapInfo"+hotel_id).text("위시리스트에 등록되었습니다.");
-								setTimeout(function(){
-									$("#hotelMapInfo"+hotel_id).text("");
-								},3000);
-							}else if(resultType.trim()=="exist"){
-								$("#hotelMapInfo"+hotel_id).text("이미 등록된 호텔입니다.");
-								setTimeout(function(){
-									$("#hotelMapInfo"+hotel_id).text("");
-								},3000);
-							}else{
-								$("#hotelMapInfo"+hotel_id).text("등록 실패");
-								setTimeout(function(){
-									$("#hotelMapInfo"+hotel_id).text("");
-								},3000);
-							}
-	
-						},
-						error : function() {
-							console.log('실패');
-						}
-					}); */
-				}
-
-				if (i == 100) {
-					clearInterval(proInterval);
-				}
-			}, 50);
-		}
-	</script>
 
 </head>
 
@@ -856,6 +791,7 @@
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
+	<script src="/reservationmall/resources/js/jjw/validator.js"></script>
 	<script src="/reservationmall/resources/js/jjw/common.js"></script>
 	<script src="/reservationmall/resources/js/jjw/review.js"></script>
 	<!--======== JJW javascript file List =========-->
