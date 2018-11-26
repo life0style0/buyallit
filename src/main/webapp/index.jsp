@@ -705,6 +705,7 @@
   <script type='text/javascript' src="/reservationmall/resources/js/jjw/moment-with-locales.min.js"></script>
   <script type='text/javascript' src="/reservationmall/resources/js/jjw/bootstrap-datetimepicker.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=380ae52ddded1dcd6fc9df096287f781&libraries=services"></script>
+  <script src="/reservationmall/resources/js/jjw/validator.js"></script>
   <script src="/reservationmall/resources/js/jjw/common.js"></script>
   <!--======== JJW javascript file List =========-->
 
